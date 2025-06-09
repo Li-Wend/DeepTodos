@@ -1,0 +1,17 @@
+{
+    "todos_title": "To Do List",
+    "todos_day_view": "Day View",
+    "todos_week_view": "Week View",
+    "todos_last_week": "Last Week",
+    "todos_next_week": "Next Week",
+    "todos_last_day": "Last Day",
+    "todos_next_day": "Next Day",
+    "todos_return_current_date": "Return to Current Date",
+    "todos_add": "Add",
+    "todos_task_statistics": "Task Statistics",
+    "todos_generate_report": "Generate Report",
+    "todos_delete": "Delete",
+    "todos_new_task_placeholder": "Enter New Task...",
+    "todos_all_unfinished_tasks_view": "All Unfinished Tasks View",
+    "todos_all_unfinished_tasks": "All Unfinished Tasks"
+  }

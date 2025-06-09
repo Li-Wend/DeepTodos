@@ -1,0 +1,17 @@
+{
+    "todos_title": "待办事项列表",
+    "todos_day_view": "日视图",
+    "todos_week_view": "周视图",
+    "todos_last_week": "上一周",
+    "todos_next_week": "下一周",
+    "todos_last_day": "前一天",
+    "todos_next_day": "后一天",
+    "todos_return_current_date": "返回当天",
+    "todos_add": "添加",
+    "todos_task_statistics": "任务统计",
+    "todos_generate_report": "生成报告",
+    "todos_delete": "删除",
+    "todos_new_task_placeholder": "输入新任务...",
+    "todos_all_unfinished_tasks_view": "全部未完成任务视图",
+    "todos_all_unfinished_tasks": "全部未完成任务"
+  }
