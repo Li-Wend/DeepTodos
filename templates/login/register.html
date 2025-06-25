@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<head>
+    <meta charset="UTF-8">
+    <title>deeptodo register user</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
+</head>
+
+
+<body>
+    <div class="login-container">
+        <h2>注册用户</h2>
+        <form id="registerForm">
+            <div class="input-group">
+                <label for="username">新建用户名:</label>
+                <input type="text" id="username" required>
+            </div>
+            <div class="input-group">
+                <label for="password">输入密码:</label>
+                <input type="password" id="password" required>
+            </div>
+            <div class="input-group">
+                <label for="password">再次输入密码:</label>
+                <input type="password" id="repassword" required>
+            </div>
+            <button type="submit">注册</button>
+            <!-- 临时按钮用于跳转到 tasks 界面维护 tasks -->
+            <button onclick="window.location.href='tasks'" type="button">临时按钮 - 跳转到tasks界面</button>
+        </form>
+        <div id="message"></div>
+    </div>
+    <script src="static/js/register.js"></script>
+</body>
