@@ -1,7 +1,7 @@
 import sqlite3
 
 def initialize_table_tasks():
-    conn = sqlite3.connect('tasks.db')
+    conn = sqlite3.connect('deeptodo.db')
     c = conn.cursor()
     
     # 创建表

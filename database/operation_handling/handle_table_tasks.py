@@ -9,7 +9,7 @@ handle_tasks_api = Blueprint('handle_tasks_api', __name__)
 @handle_tasks_api.route('/api/tasks', methods=['GET'])
 def get_tasks():
     date = request.args.get('date')
-    conn = sqlite3.connect('tasks.db')
+    conn = sqlite3.connect('deeptodo.db')
     c = conn.cursor()
     c.execute('''
         SELECT id, task, is_completed
@@ -26,7 +26,7 @@ def get_tasks():
 def get_week_tasks():
     week_start = request.args.get('start')
     week_end = request.args.get('end')
-    conn = sqlite3.connect('tasks.db')
+    conn = sqlite3.connect('deeptodo.db')
     c = conn.cursor()
     c.execute('''
         SELECT
@@ -44,7 +44,7 @@ def get_week_tasks():
 # 获取全部未完成任务
 @handle_tasks_api.route('/api/allUnfinishedTasks', methods=['GET'])
 def get_all_unfinished_tasks():
-    conn = sqlite3.connect('tasks.db')
+    conn = sqlite3.connect('deeptodo.db')
     c = conn.cursor()
     c.execute('''
         SELECT id, task, is_completed 
@@ -71,7 +71,7 @@ def get_date_range_stats():
     except ValueError:
         return jsonify({"error": "日期格式错误，请使用 YYYY-MM-DD"}), 400
     
-    conn = sqlite3.connect('tasks.db')
+    conn = sqlite3.connect('deeptodo.db')
     c = conn.cursor()
     
     # 执行统计查询
@@ -97,7 +97,7 @@ def get_date_range_stats():
 @handle_tasks_api.route('/api/tasks', methods=['POST'])
 def add_task():
     data = request.get_json()
-    conn = sqlite3.connect('tasks.db')
+    conn = sqlite3.connect('deeptodo.db')
     c = conn.cursor()
     c.execute("INSERT INTO tasks (task, task_date) VALUES (?, ?)",
              (data['task'], data['date']))
@@ -110,7 +110,7 @@ def add_task():
 @handle_tasks_api.route('/api/tasks/<int:task_id>', methods=['PUT'])
 def update_task(task_id):
     data = request.get_json()
-    conn = sqlite3.connect('tasks.db')
+    conn = sqlite3.connect('deeptodo.db')
     c = conn.cursor()
     c.execute("UPDATE tasks SET is_completed = ? WHERE id = ?", (data['completed'], task_id))
     conn.commit()
@@ -120,7 +120,7 @@ def update_task(task_id):
 # 删除任务
 @handle_tasks_api.route('/api/tasks/<int:task_id>', methods=['DELETE'])
 def delete_task(task_id):
-    conn = sqlite3.connect('tasks.db')
+    conn = sqlite3.connect('deeptodo.db')
     c = conn.cursor()
     c.execute("DELETE FROM tasks WHERE id = ?", (task_id,))
     conn.commit()
