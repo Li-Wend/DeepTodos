@@ -32,11 +32,25 @@ def get_user():
         WHERE user = ?
     ''', (user,))
     result = c.fetchone()
+    if result is None:
+        user_value = 0
+        password_hash_value = 0
+        created_at_value = 0
+        changed_on_value = 0
+    else:
+        user_value = result[0]
+        password_hash_value = result[1]
+        created_at_value = result[2]
+        changed_on_value = result[3]
     users = { 
-        "user": result[0], 
-        "password_hash": result[1],
-        "created_at": result[2], 
-        "changed_on": result[3]
+        "user": user_value, 
+        "password_hash": password_hash_value,
+        "created_at": created_at_value, 
+        "changed_on": changed_on_value
     }
     conn.close()
     return jsonify(users)
+  
+    
+    
+    

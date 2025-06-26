@@ -23,14 +23,17 @@ document.getElementById('registerForm').addEventListener('submit', function (eve
 
     // 检查用户名是否存在
     getUserInfo(username).then(userJson => {
-        if (userJson.user === username) {
-            showMessage("用户名已存在！");
-            return;
-        } else {
-            // 保存到数据库
-            addUserToDatabase(username, password);
+        if (userJson !== undefined) {
+            if (userJson.user == username) {
+                showMessage("用户名已存在！");
+                return;
+            }
         }
+
+        // 保存到数据库-
+        addUserToDatabase(username, password);
     });
+
 
 
 
@@ -43,17 +46,19 @@ function showMessage(message) {
 }
 
 async function getUserInfo(username) {
+    try {
+        let response = await fetch(`/api/user?user=${username}`);
+        if (!response.ok) {
+            return;
+        }
 
-    let response = await fetch(`/api/user?user=${username}`);
-    if (!response.ok) {
-        return;
-    }
-    
-    let userJson = response.then(response => response.json()).then(userJson => {
+        let userJson = await response.json();
+
         return userJson;
-    });
-
-    return userJson;
+    } catch (error) {
+        console.error("处理请求时出错：", error);
+        return null;
+    }
 }
 
 function addUserToDatabase(username, password) {
@@ -64,7 +69,7 @@ function addUserToDatabase(username, password) {
             user: username,
             password_hash: password
         })
-    }).then(response => response.status) === 200) {
+    }).then(response => response.ok)) {
         showMessage("注册成功");
     } else {
         showMessage("注册失败");

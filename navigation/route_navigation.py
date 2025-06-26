@@ -6,7 +6,7 @@ route_navigation = Blueprint('route_navigation', __name__)
 @route_navigation.route('/')
 def index():
     # return render_template('login/login.html')
-    return render_template('login/register.html')
+    return render_template('login/login.html')
 
 # 注册用户页面
 @route_navigation.route('/register')
