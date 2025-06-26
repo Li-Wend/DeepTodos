@@ -27,6 +27,8 @@ body {
 }
 
 .page-title {
+    text-align: center;
+    /* 居中显示 */    
     margin: 0;
     /* 清除h1默认外边距 */
     font-size: 24px;
