@@ -9,7 +9,7 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
     getUserInfo(username).then(userJson => {
         if(userJson.password_hash == password) {
             showMessage("登录成功！");
-            return;
+            window.location.href='tasks';
         } else {
             showMessage("用户名密码不正确！");
             return;

@@ -33,6 +33,22 @@ function renderTaskList(tasks) {
 }
 
 
+// ---------- 获取当前日期是星期几 ----------
+function getDayofWeek() {
+    let today = new Date();
+
+    // 使用getDay()方法获取星期几
+    let dayIndex = today.getDay();
+
+    // 定义一个数组来存储星期的名称
+    let weekdays = ["TODAY 周日", "TODAY 周一", "TODAY 周二", "TODAY 周三", "TODAY 周四", "TODAY 周五", "TODAY 周六"];
+
+    // 获取当前星期的名称
+    let currentDay = weekdays[dayIndex];
+
+    document.getElementById("displayDayofWeek").innerHTML = currentDay;
+}
+
 // ---------- 日视图逻辑 ----------
 function loadTasks() {
     currentDate = document.getElementById('datePicker').value;

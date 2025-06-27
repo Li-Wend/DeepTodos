@@ -5,13 +5,13 @@
 <head>
     <meta charset="UTF-8">
     <title>deeptodos</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='tasks.css') }}">
 </head>
 
-<body>
+<body onload="getDayofWeek()">
     <div class="container">
         <div class="header-container">
-            <h1 data-i18n="todos_title" class="page-title">待办事项列表</h1>
+            <h1 class="page-title" id="displayDayofWeek"></h1>
             <div class="language-switcher">
               <button onclick="switchLanguage('zh')">中文</button>
               <button onclick="switchLanguage('en')">English</button>

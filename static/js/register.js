@@ -71,6 +71,7 @@ function addUserToDatabase(username, password) {
         })
     }).then(response => response.ok)) {
         showMessage("注册成功");
+        window.location.href='tasks';
     } else {
         showMessage("注册失败");
     }
