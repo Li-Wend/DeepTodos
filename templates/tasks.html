@@ -21,18 +21,6 @@
         <!-- 视图切换 -->
         <div class="view-switch">
             <button onclick="switchView('day')" data-i18n="todos_day_view">日视图</button>
-            <button onclick="switchView('week')" data-i18n="todos_week_view">周视图</button>
-            <button onclick="switchView('allUnfinishedTasks')" data-i18n="todos_all_unfinished_tasks_view">全部未完成任务视图</button>
-        </div>
-
-        <!-- 周视图 -->
-        <div id="weekView" class="week-view" style="display: none;">
-            <div class="week-nav">
-                <button onclick="changeWeek(-1)" data-i18n="todos_last_week">← 上一周</button>
-                <span id="weekRange"></span>
-                <button onclick="changeWeek(1)" data-i18n="todos_next_week">下一周 →</button>
-            </div>
-            <div class="week-grid"></div>
         </div>
 
         <!-- 日视图 -->
@@ -42,6 +30,7 @@
                 <input type="date" id="datePicker" onchange="loadTasks()">
                 <button onclick="changeDate(1)" data-i18n="todos_next_day">后一天 →</button>
                 <button onclick="returnCurrentDateTasks()" data-i18n="todos_return_current_date">返回当天</button>
+                <button onclick="switchView('allUnfinishedTasks')" data-i18n="todos_all_unfinished_tasks_view">全部未完成任务</button>
             </div>
             <div class="input-group">
                 <input type="text" id="taskInput" placeholder="输入新任务..." data-i18n-placeholder="todos_new_task_placeholder">
@@ -52,22 +41,7 @@
 
         <!-- 全部未完成任务视图 -->
         <div id="allUnfinishedTasksView">
-            <button onclick="loadAllUnfinishedTasks()" data-i18n="todos_all_unfinished_tasks">全部未完成任务</button>
             <ul id="allUnfinishedTaskList"></ul>
-        </div>
-
-        <!-- 任务统计&生成报告 -->
-        <div class="stats-section">
-            <h2 data-i18n="todos_task_statistics">📊 任务统计</h2>
-            <div class="date-range-picker">
-                <input type="date" id="startDate" class="date-input">
-                <span>至</span>
-                <input type="date" id="endDate" class="date-input">
-                <button onclick="loadStats()" data-i18n="todos_generate_report">生成报告</button>
-            </div>
-            <div id="statsResult" class="stats-result">
-                <!-- 动态加载统计内容 -->
-            </div>
         </div>
     </div>
 
