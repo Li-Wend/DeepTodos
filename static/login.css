@@ -38,7 +38,13 @@ button:hover {
     background-color: #45a049;
 }
 
-#message {
-    margin-top: 15px;
-    color: red;
+/* 错误消息 - 红色 */
+.text-error {
+    color: #dc3545; /* 红色 */
+    font-weight: bold;
+}
+
+/* 正确消息 - 绿色 */
+.text-success {
+    color: #28a745; /* 绿色 */
 }

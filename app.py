@@ -1,4 +1,7 @@
 from flask import Flask
+from datetime import timedelta
+
+from session.handle_login_session import handle_login_session_api
 
 from database.initialization import initialize_table_users
 from database.initialization import initialize_table_tasks
@@ -11,11 +14,17 @@ from navigation.route_navigation import route_navigation
 
 app = Flask(__name__)
 
+app.config['SECRET_KEY'] = 'deeptodo_login_secret_key'
+app.permanent_session_lifetime = timedelta(minutes=60) # 设置 session 时效为 60 分钟
+
 # 初始化数据库
 def init_db():
     initialize_table_users.initialize_table_users()
     initialize_table_tasks.initialize_table_tasks()
     initialize_table_task_notes.initialize_table_task_notes()
+
+# route - session - 登录相关 cookie 操作
+app.register_blueprint(handle_login_session_api)
 
 # route - 数据库操作 - 登录注册相关
 app.register_blueprint(handle_users_api)

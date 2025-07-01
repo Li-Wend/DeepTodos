@@ -1,6 +1,6 @@
 import re
 import bcrypt
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, session
 import sqlite3
 
 handle_users_api = Blueprint('handle_users_api', __name__)
@@ -48,42 +48,29 @@ def userExist():
         return jsonify(error="用户不存在！"), 400
     return jsonify(success=True)
 
-
-# 获取用户
-@handle_users_api.route('/api/user', methods=['GET'])
-def get_user():
+# 验证密码
+@handle_users_api.route('/api/verify_password', methods=['GET'])
+def verifyPassword():
     user = request.args.get('user')
+    input_password = request.args.get('password')
     conn = sqlite3.connect('deeptodo.db')
     c = conn.cursor()
     c.execute('''
-        SELECT
-            user,
-            password_hash,
-            created_at,
-            changed_on
+        SELECT password_hash
         FROM users
         WHERE user = ?
     ''', (user,))
     result = c.fetchone()
-    if result is None:
-        user_value = 0
-        password_hash_value = 0
-        created_at_value = 0
-        changed_on_value = 0
-    else:
-        user_value = result[0]
-        password_hash_value = result[1]
-        created_at_value = result[2]
-        changed_on_value = result[3]
-    users = { 
-        "user": user_value, 
-        "password_hash": password_hash_value,
-        "created_at": created_at_value, 
-        "changed_on": changed_on_value
-    }
     conn.close()
-    return jsonify(users)
-  
-    
-    
-    
+    if result is None:
+        return jsonify(error="用户不存在！"), 400
+    else:
+        stored_password_hash_value = result[0]
+    # 验证密码
+    is_vaild = bcrypt.checkpw(input_password.encode('utf-8'), stored_password_hash_value)
+    if not is_vaild:
+        return jsonify(error="密码不正确！"), 401
+    session['username'] = user
+    session['logged_in'] = True
+    session.permanent = True
+    return jsonify(is_vaild)
