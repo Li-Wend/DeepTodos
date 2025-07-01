@@ -1,6 +1,5 @@
 from flask import Blueprint, request, jsonify
 import sqlite3
-from datetime import datetime
 
 handle_tasks_api = Blueprint('handle_tasks_api', __name__)
 
@@ -69,3 +68,4 @@ def get_all_unfinished_tasks():
     allUnfinishedTasks = [{"id": row[0], "task": row[1], "completed": bool(row[2])} for row in c.fetchall()]
     conn.close()
     return jsonify(allUnfinishedTasks)
+

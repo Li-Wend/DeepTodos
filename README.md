@@ -3,13 +3,14 @@
 ## 开发前准备
 #### 1.1 安装 python 官网：https://www.python.org/
 #### 1.2 设置 python 环境变量 (安装时默认勾选自动设置环境变量)
-#### 2.1 安装 Git 官网：https://github.com/
-#### 3.1 安装 VSCode 开发工具 官网：https://code.visualstudio.com/
-#### 3.2 安装 VSCode extensions - python、git 等
-#### 4.1 下载 git repository 到电脑指定文件目录
-#### 5.1 安装依赖 
-#####   pip install flask
-#####   pip install bcrypt
+#### 2.1 安装 Node.js
+#### 3.1 安装 Git 官网：https://github.com/
+#### 4.1 安装 VSCode 开发工具 官网：https://code.visualstudio.com/
+#### 4.2 安装 VSCode extensions - python、git 等
+#### 5.1 下载 git repository 到电脑指定文件目录
+#### 6.1 安装依赖 
+##### - pip install flask
+##### - pip install bcrypt
 
 ## 运行
 

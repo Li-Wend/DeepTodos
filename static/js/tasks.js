@@ -181,3 +181,12 @@ function switchLanguage(lang) {
     currentLang = lang;
     loadLanguage(lang);
 }
+
+// 注销登陆 (删除 session) 并重定向到 login 页面
+async function logout(){
+    const response = await fetch(`/api/logout`);
+    if(response.ok) {
+        // 跳转到 login 页面
+        window.location.href='login';
+    }
+}

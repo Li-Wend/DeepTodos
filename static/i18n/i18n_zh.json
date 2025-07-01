@@ -7,5 +7,6 @@
     "todos_delete": "删除",
     "todos_new_task_placeholder": "输入新任务...",
     "todos_all_unfinished_tasks_view": "全部未完成任务",
-    "todos_all_unfinished_tasks": "全部未完成任务"
+    "todos_all_unfinished_tasks": "全部未完成任务",
+    "todos_logout": "注销"
   }
