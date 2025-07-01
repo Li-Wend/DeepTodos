@@ -34,7 +34,8 @@ document.getElementById('registerForm').addEventListener('submit', async functio
         return;
     } else {
         showMessage("用户注册成功！");
-        return;
+        // 跳转到 tasks 页面
+        window.location.href='tasks';
     }
 
 });

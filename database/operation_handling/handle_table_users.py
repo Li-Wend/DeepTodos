@@ -13,6 +13,7 @@ passwordRegex = re.compile(r'^(?!.*\s)(?=.*[A-Z])(?=.*[\W_]).{8,}$')
 @handle_users_api.route('/api/user', methods=['POST'])
 def add_user():
     data = request.get_json()
+    user = data.get('user')
     password = data.get('password')
     # 1. 密码验证规则
     if not password or not passwordRegex.match(password):
@@ -29,6 +30,9 @@ def add_user():
              (data['user'], password_hash))
     conn.commit()
     conn.close()
+    session["username"] = user
+    session["logged_in"] = True
+    session.permanent = True
     return jsonify(success=True)
 
 # 获取用户是否存在
