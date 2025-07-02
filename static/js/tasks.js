@@ -13,8 +13,8 @@ let currentLang = 'zh'; // 默认语言
 document.getElementById('datePicker').value = currentDate;
 
 // ---------- 通用函数 ----------
-function renderTaskList(tasks) {
-    const taskList = document.getElementById('taskList');
+function renderTaskList(tasks, elementId) {
+    const taskList = document.getElementById(elementId);
     taskList.innerHTML = '';
     tasks.forEach(task => {
         const li = document.createElement('li');
@@ -34,7 +34,7 @@ function renderTaskList(tasks) {
 
 
 // ---------- 获取当前日期是星期几 ----------
-function getDayofWeek() {
+async function getDayofWeek() {
     let today = new Date();
 
     // 使用getDay()方法获取星期几
@@ -45,8 +45,16 @@ function getDayofWeek() {
 
     // 获取当前星期的名称
     let currentDay = "TODAY " + weekdays[dayIndex];
-
     document.getElementById("displayDayofWeek").innerHTML = currentDay;
+
+    // 从 session 中获取用户登录信息
+    const response = await fetch(`/api/get_session?session_item=username`);
+    if(!response.ok) {
+        alert("获取用户登录信息失败！");
+        window.location.href='login';
+    }
+    const username = await response.json();
+    document.getElementById("username").innerHTML = username;
 }
 
 // ---------- 日视图逻辑 ----------
@@ -54,7 +62,7 @@ function loadTasks() {
     currentDate = document.getElementById('datePicker').value;
     fetch(`/api/tasks?date=${currentDate}`)
         .then(response => response.json())
-        .then(renderTaskList);
+        .then(tasks => renderTaskList(tasks, 'taskList'));
 }
 
 function changeDate(offset) {
@@ -70,7 +78,7 @@ function returnCurrentDateTasks() {
     document.getElementById('datePicker').value = currentDate;
     fetch(`/api/tasks?date=${currentDate}`)
         .then(response => response.json())
-        .then(renderTaskList);
+        .then(tasks => renderTaskList(tasks, 'taskList'));
 }
 
 // ---------- 全部未完成任务视图逻辑 ------------
@@ -78,29 +86,10 @@ function initAllUnfinishedTasksView() {
     loadAllUnfinishedTasks();
 }
 
-function renderAllUnfinishedTaskList(allUnfinishedTasks) {
-    const allUnfinishedTaskList = document.getElementById('allUnfinishedTaskList');
-    allUnfinishedTaskList.innerHTML = '';
-    allUnfinishedTasks.forEach(task => {
-        const li = document.createElement('li');
-        li.className = task.completed ? 'completed' : '';
-        li.innerHTML = `
-                    <div class="task-content">
-                        <input type="checkbox" ${task.completed ? 'checked' : ''}
-                               onchange="toggleTask(${task.id}, this.checked)">
-                        <span>${task.task}</span>
-                    </div>
-                    <button class="comment-btn" onclick="addTaskNotes(${task.id})">备注</button>
-                    <button class="delete-btn" onclick="deleteTask(${task.id})">删除</button> 
-                `;
-        allUnfinishedTaskList.appendChild(li);
-    });
-}
-
 function loadAllUnfinishedTasks() {
     fetch(`/api/allUnfinishedTasks`)
         .then(response => response.json())
-        .then(renderAllUnfinishedTaskList);
+        .then(tasks => renderTaskList(tasks, 'allUnfinishedTaskList'));
 }
 
 
