@@ -9,21 +9,30 @@ def index():
         return redirect(url_for("route_navigation.tasks"))
     return redirect(url_for("route_navigation.login"))
 
+# 用户登录页面 login
 @route_navigation.route('/login')
 def login():
     return render_template('login/login.html')
 
-# 注册用户页面
+# 注册用户页面 register
 @route_navigation.route('/register')
 def register():
     return render_template('login/register.html')
 
-# 待办事项页面 - 登录后才可以加载
+# 待办事项页面 tasks - 登录后才可以加载
 @route_navigation.route('/tasks')
 def tasks():
     # 如果没有登陆重定向到登录界面
     if not session.get('logged_in'):
         return redirect(url_for("route_navigation.login"))
     return render_template('tasks.html')
+
+# 修改用户密码页面 changePassword
+@route_navigation.route('/changePassword')
+def changePassword():
+    # 如果没有登陆重定向到登录界面
+    if not session.get('logged_in'):
+        return redirect(url_for("route_navigation.login"))
+    return render_template('login/changePassword.html')
 
 

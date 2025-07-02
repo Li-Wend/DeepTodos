@@ -78,3 +78,32 @@ def verifyPassword():
     session['logged_in'] = True
     session.permanent = True
     return jsonify(is_vaild)
+
+# 修改密码
+@handle_users_api.route('/api/change_password', methods=['PUT'])
+def changePassword():
+    data = request.get_json()
+    user = data.get('user')
+    password = data.get('password')
+
+    print(user)
+    print(password)
+
+    # 1. 密码验证规则
+    if not password or not passwordRegex.match(password):
+        return jsonify(error="密码需含大写字母、特殊字符且长度≥8"), 400
+    # 2. 使用 bcrypt 哈希（自动加盐）
+    # 生成盐值
+    salt = bcrypt.gensalt(rounds=12) # 调整计算成本
+    # 哈希密码
+    password_hash = bcrypt.hashpw(password.encode('utf-8'), salt)
+    # 3. 更改用户新密码到数据库
+
+    print(password_hash)
+
+    conn = sqlite3.connect('deeptodo.db')
+    c = conn.cursor()
+    c.execute("UPDATE users SET password_hash = ? WHERE user = ?", (password_hash, user))
+    conn.commit()
+    conn.close()
+    return jsonify({"success": True})

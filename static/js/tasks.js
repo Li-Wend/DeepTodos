@@ -171,6 +171,12 @@ function switchLanguage(lang) {
     loadLanguage(lang);
 }
 
+// 修改密码
+async function changePassword() {
+    // 跳转到 changePassword 页面
+    window.location.href='changePassword';
+}
+
 // 注销登陆 (删除 session) 并重定向到 login 页面
 async function logout(){
     const response = await fetch(`/api/logout`);
