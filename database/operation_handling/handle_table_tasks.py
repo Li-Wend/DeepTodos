@@ -35,11 +35,22 @@ def add_task():
 
 # 更新任务状态
 @handle_tasks_api.route('/api/tasks/<int:task_id>', methods=['PUT'])
-def update_task(task_id):
+def update_task_is_completed(task_id):
     data = request.get_json()
     conn = sqlite3.connect('deeptodo.db')
     c = conn.cursor()
     c.execute("UPDATE tasks SET is_completed = ? WHERE id = ?", (data['completed'], task_id))
+    conn.commit()
+    conn.close()
+    return jsonify({"success": True})
+
+# 更新任务内容
+@handle_tasks_api.route('/api/tasks/<int:task_id>', methods=['PUT'])
+def update_task_content(task_id):
+    data = request.get_json()
+    conn = sqlite3.connect('deeptodo.db')
+    c.execute("UPDATE tasks SET task = ? WHERE id = ?", (data['task'], task_id))
+    c = conn.cursor()
     conn.commit()
     conn.close()
     return jsonify({"success": True})
@@ -65,7 +76,7 @@ def get_all_unfinished_tasks():
         WHERE is_completed = 0
         ORDER BY created_at DESC
     ''')
-    allUnfinishedTasks = [{"id": row[0], "task": row[1], "completed": bool(row[2])} for row in c.fetchall()]
+    tasks = [{"id": row[0], "task": row[1], "completed": bool(row[2])} for row in c.fetchall()]
     conn.close()
-    return jsonify(allUnfinishedTasks)
+    return jsonify(tasks)
 
