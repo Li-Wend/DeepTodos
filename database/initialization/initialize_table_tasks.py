@@ -7,7 +7,7 @@ def initialize_table_tasks():
     # 创建表
     c.execute('''
         CREATE TABLE IF NOT EXISTS tasks (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            task_uuid TEXT(36) PRIMARY KEY NOT NULL,
             task TEXT NOT NULL,
             task_date DATE NOT NULL,
             is_completed BOOLEAN DEFAULT 0,
@@ -15,9 +15,29 @@ def initialize_table_tasks():
             changed_on TIMESTAMP
         )
     ''')
-    
 
-#    # 检查旧表结构升级
+    # # 设置触发器 update_tasks_changed_on - 该语句创建表时执行一次再不需要执行
+    # # 当表内容变更时自动填充当前日期作为字段 changed_on 值      
+    # c.execute('''
+    #     CREATE TRIGGER update_tasks_changed_on
+    #     BEFORE UPDATE ON tasks
+    #     FOR EACH ROW
+    #     BEGIN
+    #         -- 直接修改即将更新的 NEW 值
+    #         SELECT CASE 
+    #             -- 检查是否有实际字段更新（排除 changed_on 自身变化）
+    #             WHEN (
+    #                 OLD.task IS NOT NEW.task OR
+    #                 OLD.is_completed IS NOT NEW.is_completed OR
+    #                 -- 添加其他需要监听的字段...
+    #             ) 
+    #             THEN NEW.changed_on = CURRENT_TIMESTAMP 
+    #         END;
+    #     END;
+    # ''')
+
+
+#    # -------- 新增字段 changed_on --------
 #    c.execute("PRAGMA table_info(tasks)")
 #    columns = [col[1] for col in c.fetchall()]
 #    
@@ -42,6 +62,10 @@ def initialize_table_tasks():
 #                    WHERE id = OLD.id;
 #                END;
 #            ''')
-        
+
+
+# -------- 新增字段 user_uuid --------
+
+
     conn.commit()
     conn.close()

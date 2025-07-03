@@ -1,4 +1,5 @@
 import re
+import uuid
 import bcrypt
 from flask import Blueprint, jsonify, request, session
 import sqlite3
@@ -12,6 +13,8 @@ passwordRegex = re.compile(r'^(?!.*\s)(?=.*[A-Z])(?=.*[\W_]).{8,}$')
 # 添加用户
 @handle_users_api.route('/api/user', methods=['POST'])
 def add_user():
+    # 生成标准格式UUID（带连字符的36字符版本）
+    user_uuid = str(uuid.uuid4())    
     data = request.get_json()
     user = data.get('user')
     password = data.get('password')
@@ -26,8 +29,8 @@ def add_user():
     # 3. 添加用户到数据库
     conn = sqlite3.connect('deeptodo.db')
     c = conn.cursor()
-    c.execute("INSERT INTO users (user, password_hash) VALUES (?, ?)",
-             (data['user'], password_hash))
+    c.execute("INSERT INTO users (user_uuid, user, password_hash) VALUES (?, ?, ?)",
+             (user_uuid, data['user'], password_hash))
     conn.commit()
     conn.close()
     session["username"] = user
