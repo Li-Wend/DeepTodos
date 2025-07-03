@@ -22,11 +22,11 @@ function renderTaskList(tasks, elementId) {
         li.innerHTML = `
                     <div class="task-content">
                         <input type="checkbox" ${task.completed ? 'checked' : ''}
-                               onchange="toggleTask(${task.id}, this.checked)">
+                               onchange="toggleTask('${task.task_uuid}', this.checked)">
                         <span>${task.task}</span>
                     </div>
-                    <button class="comment-btn" onclick="addTaskNotes(${task.id})">备注</button>
-                    <button class="delete-btn" onclick="deleteTask(${task.id})">删除</button>
+                    <button class="comment-btn" onclick="addTaskNotes('${task.task_uuid}')">备注</button>
+                    <button class="delete-btn" onclick="deleteTask('${task.task_uuid}')">删除</button>
                 `;
         taskList.appendChild(li);
     });
@@ -120,23 +120,31 @@ function addTask() {
     });
 }
 
-function toggleTask(taskId, completed) {
-    fetch(`/api/tasks/${taskId}`, {
+function toggleTask(task_uuid, completed) {
+    fetch(`/api/tasks`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ completed: completed })
+        body: JSON.stringify({
+            task_uuid: task_uuid,
+            completed: completed
+        })
     }).then(() => {
         if (currentView === 'day') loadTasks();
         if (currentView === 'allUnfinishedTasks') loadAllUnfinishedTasks();
     });
 }
 
-function deleteTask(taskId) {
-    fetch(`/api/tasks/${taskId}`, { method: 'DELETE' })
-        .then(() => {
-            if (currentView === 'day') loadTasks();
-            if (currentView === 'allUnfinishedTasks') loadAllUnfinishedTasks();
-        });
+function deleteTask(task_uuid) {
+    fetch(`/api/tasks`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            task_uuid: task_uuid
+        })
+    }).then(() => {
+        if (currentView === 'day') loadTasks();
+        if (currentView === 'allUnfinishedTasks') loadAllUnfinishedTasks();
+    });
 }
 
 // 初始化任务列表

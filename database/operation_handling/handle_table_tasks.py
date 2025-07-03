@@ -1,3 +1,4 @@
+import uuid
 from flask import Blueprint, request, jsonify
 import sqlite3
 
@@ -11,56 +12,61 @@ def get_tasks():
     conn = sqlite3.connect('deeptodo.db')
     c = conn.cursor()
     c.execute('''
-        SELECT id, task, is_completed
+        SELECT task_uuid, task, is_completed
         FROM tasks
         WHERE task_date = ?
         ORDER BY created_at DESC
     ''', (date,))
-    tasks = [{"id": row[0], "task": row[1], "completed": bool(row[2])} for row in c.fetchall()]
+    tasks = [{"task_uuid": row[0], "task": row[1], "completed": bool(row[2])} for row in c.fetchall()]
     conn.close()
     return jsonify(tasks)
 
 # 添加任务
 @handle_tasks_api.route('/api/tasks', methods=['POST'])
 def add_task():
+    # 生成标准格式UUID（带连字符的36字符版本）
+    task_uuid = str(uuid.uuid4())
     data = request.get_json()
     conn = sqlite3.connect('deeptodo.db')
     c = conn.cursor()
-    c.execute("INSERT INTO tasks (task, task_date) VALUES (?, ?)",
-             (data['task'], data['date']))
+    c.execute("INSERT INTO tasks (task_uuid, task, task_date) VALUES (?, ?, ?)",
+             (task_uuid, data['task'], data['date']))
     conn.commit()
-    task_id = c.lastrowid
     conn.close()
-    return jsonify({"id": task_id, "task": data['task'], "completed": False}), 201
+    return jsonify({"task_uuid": task_uuid, "task": data['task'], "completed": False}), 201
 
 # 更新任务状态
-@handle_tasks_api.route('/api/tasks/<int:task_id>', methods=['PUT'])
-def update_task_is_completed(task_id):
+@handle_tasks_api.route('/api/tasks', methods=['PUT'])
+def update_task_is_completed():
     data = request.get_json()
     conn = sqlite3.connect('deeptodo.db')
     c = conn.cursor()
-    c.execute("UPDATE tasks SET is_completed = ? WHERE id = ?", (data['completed'], task_id))
+    task_uuid = data.get('task_uuid')
+    c.execute("UPDATE tasks SET is_completed = ? WHERE task_uuid = ?", (data['completed'], task_uuid))
     conn.commit()
     conn.close()
     return jsonify({"success": True})
 
 # 更新任务内容
-@handle_tasks_api.route('/api/tasks/<int:task_id>', methods=['PUT'])
-def update_task_content(task_id):
+@handle_tasks_api.route('/api/tasks', methods=['PUT'])
+def update_task_content():
     data = request.get_json()
+    task_uuid = data.get('task_uuid')
     conn = sqlite3.connect('deeptodo.db')
-    c.execute("UPDATE tasks SET task = ? WHERE id = ?", (data['task'], task_id))
+    c.execute("UPDATE tasks SET task = ? WHERE task_uuid = ?", (data['task'], task_uuid))
     c = conn.cursor()
     conn.commit()
     conn.close()
     return jsonify({"success": True})
 
 # 删除任务
-@handle_tasks_api.route('/api/tasks/<int:task_id>', methods=['DELETE'])
-def delete_task(task_id):
+@handle_tasks_api.route('/api/tasks', methods=['DELETE'])
+def delete_task():
+    data = request.get_json()
+    task_uuid = data.get('task_uuid')
     conn = sqlite3.connect('deeptodo.db')
     c = conn.cursor()
-    c.execute("DELETE FROM tasks WHERE id = ?", (task_id,))
+    c.execute("DELETE FROM tasks WHERE task_uuid = ?", (task_uuid,))
     conn.commit()
     conn.close()
     return jsonify({"success": True})
@@ -71,12 +77,12 @@ def get_all_unfinished_tasks():
     conn = sqlite3.connect('deeptodo.db')
     c = conn.cursor()
     c.execute('''
-        SELECT id, task, is_completed 
+        SELECT task_uuid, task, is_completed 
         FROM tasks 
         WHERE is_completed = 0
         ORDER BY created_at DESC
     ''')
-    tasks = [{"id": row[0], "task": row[1], "completed": bool(row[2])} for row in c.fetchall()]
+    tasks = [{"task_uuid": row[0], "task": row[1], "completed": bool(row[2])} for row in c.fetchall()]
     conn.close()
     return jsonify(tasks)
 
