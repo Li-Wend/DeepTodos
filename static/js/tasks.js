@@ -92,14 +92,27 @@ function loadAllUnfinishedTasks() {
         .then(tasks => renderTaskList(tasks, 'allUnfinishedTaskList'));
 }
 
+// ---------- 获取全部任务视图逻辑 ----------
+function initAllTasksView(){
+    loadAllTasks();
+}
+
+function loadAllTasks() {
+    fetch(`/api/allTasks`)
+        .then(response => response.json())
+        .then(tasks => renderTaskList(tasks, 'allTaskList'));
+}
+
 
 // ---------- 通用操作 ----------
 function switchView(view) {
     currentView = view;
     document.getElementById('dayView').style.display = view === 'day' ? 'block' : 'none';
     document.getElementById('allUnfinishedTasksView').style.display = view === 'allUnfinishedTasks' ? 'block' : 'none';
+    document.getElementById('allTasksView').style.display = view === 'allTasks' ? 'block' : 'none';
     if (view === 'day') loadTasks();
     if (view === 'allUnfinishedTasks') initAllUnfinishedTasksView();
+    if (view === 'allTasks') initAllTasksView();
 }
 
 function addTask() {

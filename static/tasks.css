@@ -195,6 +195,35 @@ button:hover {
     opacity: 0.7;
 }
 
+#allTaskList {
+    list-style: none;
+    padding: 0;
+}
+
+#allTaskList li {
+    padding: 12px;
+    margin: 8px 0;
+    background: #f8f8f8;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#allTaskList li.completed {
+    background: #e8f5e9;
+}
+
+#allTaskList input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+}
+
+#allTaskList li.completed span {
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+
 /* static/style.css */
 .stats-section {
     margin: 30px 0;

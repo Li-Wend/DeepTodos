@@ -33,6 +33,7 @@ def add_user():
              (user_uuid, data['user'], password_hash))
     conn.commit()
     conn.close()
+    session["user_uuid"] = user_uuid
     session["username"] = user
     session["logged_in"] = True
     session.permanent = True
@@ -63,7 +64,7 @@ def verifyPassword():
     conn = sqlite3.connect('deeptodo.db')
     c = conn.cursor()
     c.execute('''
-        SELECT password_hash
+        SELECT user_uuid, password_hash
         FROM users
         WHERE user = ?
     ''', (user,))
@@ -72,11 +73,13 @@ def verifyPassword():
     if result is None:
         return jsonify(error="用户不存在！"), 400
     else:
-        stored_password_hash_value = result[0]
+        stored_user_uuid_value = result[0]
+        stored_password_hash_value = result[1]
     # 验证密码
     is_vaild = bcrypt.checkpw(input_password.encode('utf-8'), stored_password_hash_value)
     if not is_vaild:
         return jsonify(error="密码不正确！"), 401
+    session['user_uuid'] = stored_user_uuid_value
     session['username'] = user
     session['logged_in'] = True
     session.permanent = True
@@ -88,10 +91,6 @@ def changePassword():
     data = request.get_json()
     user = data.get('user')
     password = data.get('password')
-
-    print(user)
-    print(password)
-
     # 1. 密码验证规则
     if not password or not passwordRegex.match(password):
         return jsonify(error="密码需含大写字母、特殊字符且长度≥8"), 400
@@ -101,9 +100,6 @@ def changePassword():
     # 哈希密码
     password_hash = bcrypt.hashpw(password.encode('utf-8'), salt)
     # 3. 更改用户新密码到数据库
-
-    print(password_hash)
-
     conn = sqlite3.connect('deeptodo.db')
     c = conn.cursor()
     c.execute("UPDATE users SET password_hash = ? WHERE user = ?", (password_hash, user))

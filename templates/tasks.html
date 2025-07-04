@@ -37,6 +37,7 @@
           <button onclick="changeDate(1)" data-i18n="todos_next_day">后一天 →</button>
           <button onclick="returnCurrentDateTasks()" data-i18n="todos_return_current_date">返回当天</button>
           <button onclick="switchView('allUnfinishedTasks')" data-i18n="todos_all_unfinished_tasks_view">全部未完成任务</button>
+          <button onclick="switchView('allTasks')" data-i18n="todos_all_tasks_view">全部任务</button>
         </div>
         <div class="input-group">
           <input type="text" id="taskInput" placeholder="输入新任务..." data-i18n-placeholder="todos_new_task_placeholder" />
@@ -49,6 +50,11 @@
       <div id="allUnfinishedTasksView">
         <ul id="allUnfinishedTaskList"></ul>
       </div>
+
+      <!-- 全部任务视图 -->
+      <div id="allTasksView">
+        <ul id="allTaskList"></ul>
+      </div>      
     </div>
 
     <script src="static/js/tasks.js"></script>
