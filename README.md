@@ -8,7 +8,7 @@
 #### 4.1 安装 VSCode 开发工具 官网：https://code.visualstudio.com/
 #### 4.2 安装 VSCode extensions - python、git 等
 #### 5.1 下载 git repository 到电脑指定文件目录
-#### 6.1 安装依赖 
+#### 6.1 安装依赖 (使用 requirements.txt)
 ##### - pip install flask
 ##### - pip install bcrypt
 
