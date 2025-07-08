@@ -94,6 +94,23 @@ def get_all_unfinished_tasks():
     conn.close()
     return jsonify(tasks)
 
+# 获取全部已完成任务
+@handle_tasks_api.route('/api/allFinishedTasks', methods=['GET'])
+def get_all_finished_tasks():
+    user_uuid = session.get('user_uuid')
+    conn = sqlite3.connect('deeptodo.db')
+    c = conn.cursor()
+    c.execute('''
+        SELECT task_uuid, task, is_completed 
+        FROM tasks 
+        WHERE user_uuid = ?
+          AND is_completed = 1
+        ORDER BY created_at DESC
+    ''', (user_uuid,))
+    tasks = [{"task_uuid": row[0], "task": row[1], "completed": bool(row[2])} for row in c.fetchall()]
+    conn.close()
+    return jsonify(tasks)
+
 # 获取全部任务
 @handle_tasks_api.route('/api/allTasks', methods=['GET'])
 def get_all_tasks():

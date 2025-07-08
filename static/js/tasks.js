@@ -25,7 +25,6 @@ function renderTaskList(tasks, elementId) {
                                onchange="toggleTask('${task.task_uuid}', this.checked)">
                         <span>${task.task}</span>
                     </div>
-                    <button class="comment-btn" onclick="addTaskNotes('${task.task_uuid}')">备注</button>
                     <button class="delete-btn" onclick="deleteTask('${task.task_uuid}')">删除</button>
                 `;
         taskList.appendChild(li);
@@ -81,38 +80,32 @@ function returnCurrentDateTasks() {
         .then(tasks => renderTaskList(tasks, 'taskList'));
 }
 
-// ---------- 全部未完成任务视图逻辑 ------------
-function initAllUnfinishedTasksView() {
+function initMyTasksView() {
     loadAllUnfinishedTasks();
+    loadAllFinishedTasks();
 }
 
+// ---------- 获取全部未完成任务 ------------
 function loadAllUnfinishedTasks() {
     fetch(`/api/allUnfinishedTasks`)
         .then(response => response.json())
-        .then(tasks => renderTaskList(tasks, 'allUnfinishedTaskList'));
+        .then(tasks => renderTaskList(tasks, 'myTasksView'));
 }
 
-// ---------- 获取全部任务视图逻辑 ----------
-function initAllTasksView(){
-    loadAllTasks();
-}
-
-function loadAllTasks() {
-    fetch(`/api/allTasks`)
+// ---------- 获取全部已完成任务 ------------
+function loadAllFinishedTasks() {
+    fetch(`/api/allFinishedTasks`)
         .then(response => response.json())
-        .then(tasks => renderTaskList(tasks, 'allTaskList'));
+        .then(tasks => renderTaskList(tasks, 'myTasksView'));
 }
-
 
 // ---------- 通用操作 ----------
 function switchView(view) {
     currentView = view;
     document.getElementById('dayView').style.display = view === 'day' ? 'block' : 'none';
-    document.getElementById('allUnfinishedTasksView').style.display = view === 'allUnfinishedTasks' ? 'block' : 'none';
-    document.getElementById('allTasksView').style.display = view === 'allTasks' ? 'block' : 'none';
+    document.getElementById('myTasksView').style.display = view === 'myTasks' ? 'block' : 'none';
     if (view === 'day') loadTasks();
-    if (view === 'allUnfinishedTasks') initAllUnfinishedTasksView();
-    if (view === 'allTasks') initAllTasksView();
+    if (view === 'myTasks') initMyTasksView();
 }
 
 function addTask() {

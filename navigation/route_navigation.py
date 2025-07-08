@@ -5,9 +5,8 @@ route_navigation = Blueprint('route_navigation', __name__)
 # 初始页面 login
 @route_navigation.route('/')
 def index():
-    # if session.get('logged_in'):
-    #     return redirect(url_for("route_navigation.tasks"))
-    # return redirect(url_for("route_navigation.login"))
+    if session.get('logged_in'):
+        return render_template('tasks/tasks.html')
     return render_template('login/login.html')
 
 # 用户登录页面 login
@@ -26,7 +25,7 @@ def tasks():
     # 如果没有登陆重定向到登录界面
     if not session.get('logged_in'):
         return redirect(url_for("route_navigation.login"))
-    return render_template('tasks.html')
+    return render_template('tasks/tasks.html')
 
 # 修改用户密码页面 changePassword
 @route_navigation.route('/changePassword')

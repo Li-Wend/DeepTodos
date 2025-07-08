@@ -6,7 +6,6 @@
     "todos_add": "添加",
     "todos_delete": "删除",
     "todos_new_task_placeholder": "输入新任务...",
-    "todos_all_unfinished_tasks_view": "全部未完成任务",
-    "todos_all_tasks_view": "全部任务",
+    "todos_my_tasks_view": "我的任务",
     "todos_logout": "注销"
   }

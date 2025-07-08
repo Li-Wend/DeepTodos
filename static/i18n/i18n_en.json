@@ -6,7 +6,6 @@
     "todos_add": "Add",
     "todos_delete": "Delete",
     "todos_new_task_placeholder": "Enter New Task...",
-    "todos_all_unfinished_tasks_view": "All Unfinished Tasks",
-    "todos_all_tasks_view": "All Tasks",
+    "todos_my_tasks_view": "My Tasks",
     "todos_logout": "Logout"
   }
