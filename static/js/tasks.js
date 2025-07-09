@@ -12,7 +12,82 @@ let currentLang = 'zh'; // 默认语言
 // 初始化日视图
 document.getElementById('datePicker').value = currentDate;
 
-// ---------- 通用函数 ----------
+// ---------- 获取当前日期是星期几 ----------
+async function getDayofWeek() {
+    let today = new Date();
+
+    // 使用getDay()方法获取星期几
+    let dayIndex = today.getDay();
+
+    // 定义一个数组来存储星期的名称
+    let weekdays = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
+
+    // 获取当前星期的名称
+    let currentDay = "TODAY " + weekdays[dayIndex];
+    document.getElementById("displayDayofWeek").innerHTML = currentDay;
+
+    // 从 session 中获取用户登录信息
+    const response = await fetch(`/api/get_session?session_item=username`);
+    if (!response.ok) {
+        alert("获取用户登录信息失败！");
+        window.location.href = 'login';
+    }
+    const username = await response.json();
+    document.getElementById("username").innerHTML = username;
+}
+
+// ---------- 日视图逻辑 ----------
+function loadCurrentDayTasks() {
+    currentDate = document.getElementById('datePicker').value;
+    fetch(`/api/tasks?date=${currentDate}`)
+        .then(response => response.json())
+        .then(tasks => renderTaskList(tasks, 'currentDayTaskList'));
+}
+
+// 变更日期
+function changeDate(offset) {
+    const date = new Date(currentDate);
+    date.setDate(date.getDate() + offset);
+    currentDate = date.toISOString().split('T')[0];
+    document.getElementById('datePicker').value = currentDate;
+    loadCurrentDayTasks();
+}
+
+// 返回当前日期任务清单
+function returnCurrentDateTasks() {
+    currentDate = new Date().toISOString().split('T')[0];
+    document.getElementById('datePicker').value = currentDate;
+    fetch(`/api/tasks?date=${currentDate}`)
+        .then(response => response.json())
+        .then(tasks => renderTaskList(tasks, 'currentDayTaskList'));
+}
+
+// 初始化我的任务视图
+function initMyTasksView() {
+    const lable = document.createElement('lable');
+    lable.innerHTML = `
+                        <lable>全部未完成任务</lable>
+                    `;
+    
+    loadAllUnfinishedTasks();
+    loadAllFinishedTasks();
+}
+
+// 获取全部未完成任务
+function loadAllUnfinishedTasks() {
+    fetch(`/api/allUnfinishedTasks`)
+        .then(response => response.json())
+        .then(tasks => renderTaskList(tasks, 'allUnfinishedTaskList'));
+}
+
+// 获取全部已完成任务
+function loadAllFinishedTasks() {
+    fetch(`/api/allFinishedTasks`)
+        .then(response => response.json())
+        .then(tasks => renderTaskList(tasks, 'allFinishedTaskList'));
+}
+
+// 构建任务清单
 function renderTaskList(tasks, elementId) {
     const taskList = document.getElementById(elementId);
     taskList.innerHTML = '';
@@ -31,83 +106,16 @@ function renderTaskList(tasks, elementId) {
     });
 }
 
-
-// ---------- 获取当前日期是星期几 ----------
-async function getDayofWeek() {
-    let today = new Date();
-
-    // 使用getDay()方法获取星期几
-    let dayIndex = today.getDay();
-
-    // 定义一个数组来存储星期的名称
-    let weekdays = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
-
-    // 获取当前星期的名称
-    let currentDay = "TODAY " + weekdays[dayIndex];
-    document.getElementById("displayDayofWeek").innerHTML = currentDay;
-
-    // 从 session 中获取用户登录信息
-    const response = await fetch(`/api/get_session?session_item=username`);
-    if(!response.ok) {
-        alert("获取用户登录信息失败！");
-        window.location.href='login';
-    }
-    const username = await response.json();
-    document.getElementById("username").innerHTML = username;
-}
-
-// ---------- 日视图逻辑 ----------
-function loadTasks() {
-    currentDate = document.getElementById('datePicker').value;
-    fetch(`/api/tasks?date=${currentDate}`)
-        .then(response => response.json())
-        .then(tasks => renderTaskList(tasks, 'taskList'));
-}
-
-function changeDate(offset) {
-    const date = new Date(currentDate);
-    date.setDate(date.getDate() + offset);
-    currentDate = date.toISOString().split('T')[0];
-    document.getElementById('datePicker').value = currentDate;
-    loadTasks();
-}
-
-function returnCurrentDateTasks() {
-    currentDate = new Date().toISOString().split('T')[0];
-    document.getElementById('datePicker').value = currentDate;
-    fetch(`/api/tasks?date=${currentDate}`)
-        .then(response => response.json())
-        .then(tasks => renderTaskList(tasks, 'taskList'));
-}
-
-function initMyTasksView() {
-    loadAllUnfinishedTasks();
-    loadAllFinishedTasks();
-}
-
-// ---------- 获取全部未完成任务 ------------
-function loadAllUnfinishedTasks() {
-    fetch(`/api/allUnfinishedTasks`)
-        .then(response => response.json())
-        .then(tasks => renderTaskList(tasks, 'myTasksView'));
-}
-
-// ---------- 获取全部已完成任务 ------------
-function loadAllFinishedTasks() {
-    fetch(`/api/allFinishedTasks`)
-        .then(response => response.json())
-        .then(tasks => renderTaskList(tasks, 'myTasksView'));
-}
-
-// ---------- 通用操作 ----------
+// 切换视图 
 function switchView(view) {
     currentView = view;
     document.getElementById('dayView').style.display = view === 'day' ? 'block' : 'none';
     document.getElementById('myTasksView').style.display = view === 'myTasks' ? 'block' : 'none';
-    if (view === 'day') loadTasks();
+    if (view === 'day') loadCurrentDayTasks();
     if (view === 'myTasks') initMyTasksView();
 }
 
+// 添加任务
 function addTask() {
     const input = document.getElementById('taskInput');
     const taskText = input.value.trim();
@@ -122,10 +130,11 @@ function addTask() {
         })
     }).then(() => {
         input.value = '';
-        if (currentView === 'day') loadTasks();
+        if (currentView === 'day') loadCurrentDayTasks();
     });
 }
 
+// 任务切换
 function toggleTask(task_uuid, completed) {
     fetch(`/api/tasks`, {
         method: 'PUT',
@@ -135,11 +144,12 @@ function toggleTask(task_uuid, completed) {
             completed: completed
         })
     }).then(() => {
-        if (currentView === 'day') loadTasks();
-        if (currentView === 'allUnfinishedTasks') loadAllUnfinishedTasks();
+        if (currentView === 'day') loadCurrentDayTasks();
+        if (currentView === 'myTasks') initMyTasksView();
     });
 }
 
+// 删除任务
 function deleteTask(task_uuid) {
     fetch(`/api/tasks`, {
         method: 'DELETE',
@@ -148,13 +158,13 @@ function deleteTask(task_uuid) {
             task_uuid: task_uuid
         })
     }).then(() => {
-        if (currentView === 'day') loadTasks();
-        if (currentView === 'allUnfinishedTasks') loadAllUnfinishedTasks();
+        if (currentView === 'day') loadCurrentDayTasks();
+        if (currentView === 'myTasks') initMyTasksView();
     });
 }
 
 // 初始化任务列表
-document.addEventListener('DOMContentLoaded', loadTasks);
+document.addEventListener('DOMContentLoaded', loadCurrentDayTasks);
 
 // 语言加载函数
 async function loadLanguage(lang) {
@@ -188,14 +198,14 @@ function switchLanguage(lang) {
 // 修改密码
 async function changePassword() {
     // 跳转到 changePassword 页面
-    window.location.href='changePassword';
+    window.location.href = 'changePassword';
 }
 
 // 注销登陆 (删除 session) 并重定向到 login 页面
-async function logout(){
+async function logout() {
     const response = await fetch(`/api/logout`);
-    if(response.ok) {
+    if (response.ok) {
         // 跳转到 login 页面
-        window.location.href='login';
+        window.location.href = 'login';
     }
 }

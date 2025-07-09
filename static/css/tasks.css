@@ -137,12 +137,12 @@ button:hover {
     margin: 10px 0;
 }
 
-#taskList {
+#currentDayTaskList {
     list-style: none;
     padding: 0;
 }
 
-#taskList li {
+#currentDayTaskList li {
     padding: 12px;
     margin: 8px 0;
     background: #f8f8f8;
@@ -152,16 +152,16 @@ button:hover {
     gap: 10px;
 }
 
-#taskList li.completed {
+#currentDayTaskList li.completed {
     background: #e8f5e9;
 }
 
-#taskList input[type="checkbox"] {
+#currentDayTaskList input[type="checkbox"] {
     width: 18px;
     height: 18px;
 }
 
-#taskList li.completed span {
+#currentDayTaskList li.completed span {
     text-decoration: line-through;
     opacity: 0.7;
 }
@@ -195,12 +195,12 @@ button:hover {
     opacity: 0.7;
 }
 
-#allTaskList {
+#allFinishedTaskList {
     list-style: none;
     padding: 0;
 }
 
-#allTaskList li {
+#allFinishedTaskList li {
     padding: 12px;
     margin: 8px 0;
     background: #f8f8f8;
@@ -210,16 +210,16 @@ button:hover {
     gap: 10px;
 }
 
-#allTaskList li.completed {
+#allFinishedTaskList li.completed {
     background: #e8f5e9;
 }
 
-#allTaskList input[type="checkbox"] {
+#allFinishedTaskList input[type="checkbox"] {
     width: 18px;
     height: 18px;
 }
 
-#allTaskList li.completed span {
+#allFinishedTaskList li.completed span {
     text-decoration: line-through;
     opacity: 0.7;
 }

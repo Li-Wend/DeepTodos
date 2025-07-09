@@ -42,18 +42,15 @@
           <input type="text" id="taskInput" placeholder="输入新任务..." data-i18n-placeholder="todos_new_task_placeholder" />
           <button onclick="addTask()" data-i18n="todos_add">添加</button>
         </div>
-        <ul id="taskList"></ul>
+        <ul id="currentDayTaskList"></ul>
       </div>
 
       <!-- 全部未完成任务视图 -->
-      <div id="allUnfinishedTasksView">
+      <div id="myTasksView">
         <ul id="allUnfinishedTaskList"></ul>
+        <ul id="allFinishedTaskList"></ul>
       </div>
-
-      <!-- 全部任务视图 -->
-      <div id="allTasksView">
-        <ul id="allTaskList"></ul>
-      </div>      
+     
     </div>
 
     <script src="static/js/tasks.js"></script>
