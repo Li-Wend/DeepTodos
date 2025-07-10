@@ -64,12 +64,20 @@ function returnCurrentDateTasks() {
 
 // 初始化我的任务视图
 function initMyTasksView() {
-    const lable = document.createElement('lable');
-    lable.innerHTML = `
-                        <lable>全部未完成任务</lable>
-                    `;
-    
+    const allUnfinishedTasks = document.getElementById('allUnfinishedTasks');
+    allUnfinishedTasks.innerHTML = `
+                                    <div>
+                                        <button class="hide-btn">> 全部未完成任务</button>
+                                    </div>                                   
+                                    `;
     loadAllUnfinishedTasks();
+
+    const allFinishedTasks = document.getElementById('allFinishedTasks');
+    allFinishedTasks.innerHTML = `
+                                    <div>
+                                        <button class="hide-btn">> 全部已完成任务</button>
+                                    </div>                                   
+                                `;
     loadAllFinishedTasks();
 }
 
@@ -77,14 +85,14 @@ function initMyTasksView() {
 function loadAllUnfinishedTasks() {
     fetch(`/api/allUnfinishedTasks`)
         .then(response => response.json())
-        .then(tasks => renderTaskList(tasks, 'allUnfinishedTaskList'));
+        .then(tasks => renderTaskList(tasks, 'allUnfinishedTasksList'));
 }
 
 // 获取全部已完成任务
 function loadAllFinishedTasks() {
     fetch(`/api/allFinishedTasks`)
         .then(response => response.json())
-        .then(tasks => renderTaskList(tasks, 'allFinishedTaskList'));
+        .then(tasks => renderTaskList(tasks, 'allFinishedTasksList'));
 }
 
 // 构建任务清单

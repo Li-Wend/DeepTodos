@@ -9,8 +9,8 @@
   </head>
 
   <body onload="getDayofWeek()">
-    <div class="container" >
-      <div class="header-container" >
+    <div class="container">
+      <div class="header-container">
         <h1 class="page-title" id="displayDayofWeek"></h1>
 
         <div class="dropdown">
@@ -47,10 +47,11 @@
 
       <!-- 全部未完成任务视图 -->
       <div id="myTasksView">
-        <ul id="allUnfinishedTaskList"></ul>
-        <ul id="allFinishedTaskList"></ul>
+        <div id="allUnfinishedTasks"></div>
+        <ul id="allUnfinishedTasksList"></ul>
+        <div id="allFinishedTasks"></div>
+        <ul id="allFinishedTasksList"></ul>
       </div>
-     
     </div>
 
     <script src="static/js/tasks.js"></script>
