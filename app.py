@@ -40,3 +40,4 @@ app.register_blueprint(route_navigation)
 if __name__ == '__main__':
     init_db()
     app.run(debug=True)
+    app.config['TEMPLATES_AUTO_RELOAD'] = True  # 强制模板自动重载
