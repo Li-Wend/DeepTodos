@@ -6,11 +6,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DeepTodo 登录</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome/fontawesome-free-6.4.0-web/css/all.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='css/font-awesome/fontawesome-free-6.4.0-web/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
 </head>
 
 <body>
+    <!-- 背景动画 -->
+    <ul class="bg-bubbles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+
     <div class="login-container">
         <div class="logo">
             <i class="fas fa-tasks"></i>
@@ -39,11 +52,11 @@
                 <button type="button" class="register-btn" onclick="window.location.href='register'">注册新用户</button>
             </div>
         </form>
-        
+
         <div class="divider">
             <span>或使用其他方式登录</span>
         </div>
-        
+
         <div class="social-login">
             <div class="social-btn google">
                 <i class="fab fa-google"></i>
@@ -55,7 +68,7 @@
                 <i class="fab fa-github"></i>
             </div>
         </div>
-        
+
         <div id="message"></div>
     </div>
     <script src="static/js/login.js"></script>
