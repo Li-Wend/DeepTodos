@@ -4,30 +4,76 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>deeptodo register user</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeepTodos - 注册新用户</title>
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='css/font-awesome/fontawesome-free-6.4.0-web/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
 </head>
 
-
 <body>
-    <div class="login-container">
-        <h2>注册用户</h2>
+    <!-- 背景动画 -->
+    <ul class="bg-bubbles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+
+    <div class="register-container">
+        <div class="logo">
+            <i class="fas fa-user-plus"></i>
+        </div>
+        <h2>创建 DeepTodo 账户</h2>
         <form id="registerForm">
             <div class="input-group">
-                <label for="username">新建用户名:</label>
-                <input type="text" id="username" required>
+                <label for="username">用户名</label>
+                <input type="text" id="username" placeholder="设置您的用户名" required>
+                <i class="fas fa-user"></i>
             </div>
+
             <div class="input-group">
-                <label for="password">输入密码:</label>
-                <input type="password" id="password" required>
+                <label for="password">设置密码</label>
+                <input type="password" id="password" placeholder="创建安全密码" required>
+                <i class="fas fa-lock"></i>
+
+                <div class="password-strength">
+                    <div class="strength-meter" id="strengthMeter"></div>
+                </div>
+                <div class="strength-text" id="strengthText">密码强度: 弱</div>
+
+                <div class="password-requirements">
+                    <h4>密码要求:</h4>
+                    <ul>
+                        <li>至少8个字符</li>
+                        <li>包含大写和小写字母</li>
+                        <li>包含至少一个数字</li>
+                        <li>包含至少一个特殊字符</li>
+                    </ul>
+                </div>
             </div>
+
             <div class="input-group">
-                <label for="password">再次输入密码:</label>
-                <input type="password" id="repassword" required>
+                <label for="repassword">确认密码</label>
+                <input type="password" id="repassword" placeholder="再次输入密码" required>
+                <i class="fas fa-check-circle"></i>
             </div>
-            <button type="submit">注册</button>
+
+            <div class="btn-group">
+                <button type="submit">创建账户</button>
+            </div>
         </form>
+
+        <div class="login-link">
+            已有账户? <a href="login">立即登录</a>
+        </div>
+
         <div id="message"></div>
     </div>
+
     <script src="static/js/register.js"></script>
 </body>

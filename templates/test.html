@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>响应式待办任务列表</title>
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='css/font-awesome/fontawesome-free-6.4.0-web/css/all.min.css') }}">
+    <style>
+        :root {
+            --primary: #5e72e4;
+            --primary-dark: #324cdd;
+            --secondary: #11cdef;
+            --success: #2dce89;
+            --warning: #fb6340;
+            --danger: #f5365c;
+            --dark: #222;
+            --light: #f8f9fe;
+            --gray: #6c757d;
+            --gray-light: #e9ecef;
+            --border-radius: 12px;
+            --shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        .dark-mode {
+            --dark: #f8f9fe;
+            --light: #1e1e2d;
+            --gray: #a0aec0;
+            --gray-light: #2d3748;
+            --shadow: 0 7px 14px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            transition: var(--transition);
+        }
+
+        body.dark-mode {
+            background: linear-gradient(135deg, #1e1e2d 0%, #2d3748 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 20px 0;
+        }
+
+        h1 {
+            color: var(--dark);
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .dark-mode h1 {
+            color: var(--light);
+        }
+
+        .theme-toggle {
+            background: var(--light);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            color: var(--dark);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.05);
+        }
+
+        .app-container {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .task-form-container {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .dark-mode .task-form-container {
+            background: var(--light);
+        }
+
+        .task-form-container h2 {
+            margin-bottom: 20px;
+            color: var(--dark);
+            font-size: 1.8rem;
+        }
+
+        .dark-mode .task-form-container h2 {
+            color: var(--light);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--gray);
+            font-weight: 500;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid var(--gray-light);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: var(--light);
+            color: var(--dark);
+        }
+
+        .dark-mode input, 
+        .dark-mode textarea, 
+        .dark-mode select {
+            border-color: var(--gray);
+            background: var(--gray-light);
+            color: var(--light);
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(94, 114, 228, 0.2);
+        }
+
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 14px 20px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-block {
+            width: 100%;
+        }
+
+        .tasks-container {
+            flex: 2;
+            min-width: 300px;
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .dark-mode .tasks-container {
+            background: var(--light);
+        }
+
+        .tasks-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .tasks-header h2 {
+            color: var(--dark);
+            font-size: 1.8rem;
+        }
+
+        .dark-mode .tasks-header h2 {
+            color: var(--light);
+        }
+
+        .filters {
+            display: flex;
+            gap: 10px;
+        }
+
+        .filter-btn {
+            background: var(--gray-light);
+            color: var(--gray);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .task-list {
+            list-style: none;
+        }
+
+        .task-item {
+            background: var(--light);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            border-left: 4px solid var(--primary);
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .dark-mode .task-item {
+            background: var(--gray-light);
+        }
+
+        .task-item.completed {
+            border-left-color: var(--success);
+            opacity: 0.8;
+        }
+
+        .task-item.completed .task-content h3 {
+            text-decoration: line-through;
+            color: var(--success);
+        }
+
+        .task-checkbox {
+            margin-right: 15px;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            accent-color: var(--success);
+        }
+
+        .task-content {
+            flex: 1;
+        }
+
+        .task-content h3 {
+            font-size: 1.2rem;
+            color: var(--dark);
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .dark-mode .task-content h3 {
+            color: var(--light);
+        }
+
+        .task-content p {
+            color: var(--gray);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .task-meta {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        .task-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .task-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .task-actions button {
+            width: 36px;
+            height: 36px;
+            padding: 0;
+            border-radius: 50%;
+        }
+
+        .delete-btn {
+            background: var(--danger);
+        }
+
+        .delete-btn:hover {
+            background: #c51136;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--gray-light);
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .dark-mode .stats {
+            border-color: var(--gray);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--gray);
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: var(--gray-light);
+        }
+
+        .dark-mode .empty-state i {
+            color: var(--gray);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .app-container {
+                flex-direction: column;
+            }
+            
+            header {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .filters {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .task-actions {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .task-form-container, 
+            .tasks-container {
+                padding: 20px;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 10px;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-tasks"></i> 我的待办任务</h1>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </header>
+        
+        <div class="app-container">
+            <div class="task-form-container">
+                <h2>添加新任务</h2>
+                <form id="taskForm">
+                    <div class="form-group">
+                        <label for="taskTitle">任务标题 *</label>
+                        <input type="text" id="taskTitle" placeholder="例如：完成项目报告" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="taskDescription">任务描述</label>
+                        <textarea id="taskDescription" rows="3" placeholder="添加任务详情..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="taskCategory">任务类别</label>
+                        <select id="taskCategory">
+                            <option value="work">工作</option>
+                            <option value="personal">个人</option>
+                            <option value="shopping">购物</option>
+                            <option value="health">健康</option>
+                            <option value="education">学习</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="taskPriority">优先级</label>
+                        <select id="taskPriority">
+                            <option value="low">低</option>
+                            <option value="medium" selected>中</option>
+                            <option value="high">高</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn-block">
+                        <i class="fas fa-plus"></i> 添加任务
+                    </button>
+                </form>
+            </div>
+            
+            <div class="tasks-container">
+                <div class="tasks-header">
+                    <h2>任务列表</h2>
+                    <div class="filters">
+                        <button class="filter-btn active" data-filter="all">全部</button>
+                        <button class="filter-btn" data-filter="active">进行中</button>
+                        <button class="filter-btn" data-filter="completed">已完成</button>
+                    </div>
+                </div>
+                
+                <ul class="task-list" id="taskList">
+                    <!-- 任务将通过JavaScript动态添加 -->
+                    <li class="empty-state">
+                        <i class="fas fa-clipboard-list"></i>
+                        <h3>暂无任务</h3>
+                        <p>添加你的第一个任务以开始</p>
+                    </li>
+                </ul>
+                
+                <div class="stats">
+                    <span id="totalTasks">总任务: 0</span>
+                    <span id="completedTasks">已完成: 0</span>
+                    <span id="pendingTasks">待完成: 0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM元素
+            const themeToggle = document.getElementById('themeToggle');
+            const taskForm = document.getElementById('taskForm');
+            const taskList = document.getElementById('taskList');
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const totalTasksEl = document.getElementById('totalTasks');
+            const completedTasksEl = document.getElementById('completedTasks');
+            const pendingTasksEl = document.getElementById('pendingTasks');
+            
+            // 任务数组
+            let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            let currentFilter = 'all';
+            
+            // 初始化
+            updateStats();
+            renderTasks();
+            
+            // 主题切换
+            themeToggle.addEventListener('click', function() {
+                document.body.classList.toggle('dark-mode');
+                const icon = themeToggle.querySelector('i');
+                
+                if (document.body.classList.contains('dark-mode')) {
+                    icon.classList.remove('fa-moon');
+                    icon.classList.add('fa-sun');
+                } else {
+                    icon.classList.remove('fa-sun');
+                    icon.classList.add('fa-moon');
+                }
+                
+                saveToLocalStorage();
+            });
+            
+            // 添加新任务
+            taskForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const titleInput = document.getElementById('taskTitle');
+                const descriptionInput = document.getElementById('taskDescription');
+                const categoryInput = document.getElementById('taskCategory');
+                const priorityInput = document.getElementById('taskPriority');
+                
+                const newTask = {
+                    id: Date.now(),
+                    title: titleInput.value,
+                    description: descriptionInput.value,
+                    category: categoryInput.value,
+                    priority: priorityInput.value,
+                    completed: false,
+                    createdAt: new Date().toISOString()
+                };
+                
+                tasks.push(newTask);
+                saveToLocalStorage();
+                renderTasks();
+                updateStats();
+                
+                // 重置表单
+                taskForm.reset();
+                
+                // 显示添加成功动画
+                const submitBtn = taskForm.querySelector('button');
+                submitBtn.innerHTML = '<i class="fas fa-check"></i> 已添加';
+                submitBtn.style.backgroundColor = 'var(--success)';
+                
+                setTimeout(() => {
+                    submitBtn.innerHTML = '<i class="fas fa-plus"></i> 添加任务';
+                    submitBtn.style.backgroundColor = '';
+                }, 2000);
+            });
+            
+            // 过滤任务
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    currentFilter = this.dataset.filter;
+                    renderTasks();
+                });
+            });
+            
+            // 渲染任务列表
+            function renderTasks() {
+                // 过滤任务
+                let filteredTasks = tasks;
+                
+                if (currentFilter === 'active') {
+                    filteredTasks = tasks.filter(task => !task.completed);
+                } else if (currentFilter === 'completed') {
+                    filteredTasks = tasks.filter(task => task.completed);
+                }
+                
+                // 清空列表
+                taskList.innerHTML = '';
+                
+                // 如果没有任务
+                if (filteredTasks.length === 0) {
+                    const emptyState = document.createElement('li');
+                    emptyState.className = 'empty-state';
+                    emptyState.innerHTML = `
+                        <i class="fas fa-clipboard-list"></i>
+                        <h3>${currentFilter === 'completed' ? '没有已完成的任务' : '暂无任务'}</h3>
+                        <p>${currentFilter === 'completed' ? '开始完成任务吧！' : '添加你的第一个任务以开始'}</p>
+                    `;
+                    taskList.appendChild(emptyState);
+                    return;
+                }
+                
+                // 渲染任务
+                filteredTasks.forEach(task => {
+                    const taskItem = document.createElement('li');
+                    taskItem.className = 'task-item';
+                    if (task.completed) taskItem.classList.add('completed');
+                    
+                    // 优先级颜色
+                    let priorityColor = 'var(--primary)';
+                    let priorityText = '中';
+                    
+                    if (task.priority === 'low') {
+                        priorityColor = 'var(--success)';
+                        priorityText = '低';
+                    } else if (task.priority === 'high') {
+                        priorityColor = 'var(--danger)';
+                        priorityText = '高';
+                    }
+                    
+                    // 类别图标
+                    let categoryIcon = 'fas fa-briefcase';
+                    let categoryText = '工作';
+                    
+                    if (task.category === 'personal') {
+                        categoryIcon = 'fas fa-user';
+                        categoryText = '个人';
+                    } else if (task.category === 'shopping') {
+                        categoryIcon = 'fas fa-shopping-cart';
+                        categoryText = '购物';
+                    } else if (task.category === 'health') {
+                        categoryIcon = 'fas fa-heartbeat';
+                        categoryText = '健康';
+                    } else if (task.category === 'education') {
+                        categoryIcon = 'fas fa-graduation-cap';
+                        categoryText = '学习';
+                    }
+                    
+                    taskItem.innerHTML = `
+                        <input type="checkbox" class="task-checkbox" ${task.completed ? 'checked' : ''} data-id="${task.id}">
+                        <div class="task-content">
+                            <h3>${task.title}</h3>
+                            <p>${task.description || '没有描述'}</p>
+                            <div class="task-meta">
+                                <span style="color: ${priorityColor}"><i class="fas fa-flag"></i> ${priorityText}</span>
+                                <span><i class="${categoryIcon}"></i> ${categoryText}</span>
+                                <span><i class="far fa-calendar"></i> ${formatDate(task.createdAt)}</span>
+                            </div>
+                        </div>
+                        <div class="task-actions">
+                            <button class="delete-btn" data-id="${task.id}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    `;
+                    
+                    taskList.appendChild(taskItem);
+                });
+                
+                // 添加事件监听器
+                document.querySelectorAll('.task-checkbox').forEach(checkbox => {
+                    checkbox.addEventListener('change', function() {
+                        const taskId = parseInt(this.dataset.id);
+                        toggleTaskStatus(taskId);
+                    });
+                });
+                
+                document.querySelectorAll('.delete-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const taskId = parseInt(this.dataset.id);
+                        deleteTask(taskId);
+                    });
+                });
+            }
+            
+            // 切换任务状态
+            function toggleTaskStatus(taskId) {
+                tasks = tasks.map(task => {
+                    if (task.id === taskId) {
+                        return { ...task, completed: !task.completed };
+                    }
+                    return task;
+                });
+                
+                saveToLocalStorage();
+                updateStats();
+                renderTasks();
+            }
+            
+            // 删除任务
+            function deleteTask(taskId) {
+                tasks = tasks.filter(task => task.id !== taskId);
+                saveToLocalStorage();
+                updateStats();
+                renderTasks();
+            }
+            
+            // 更新统计信息
+            function updateStats() {
+                const total = tasks.length;
+                const completed = tasks.filter(task => task.completed).length;
+                const pending = total - completed;
+                
+                totalTasksEl.textContent = `总任务: ${total}`;
+                completedTasksEl.textContent = `已完成: ${completed}`;
+                pendingTasksEl.textContent = `待完成: ${pending}`;
+            }
+            
+            // 保存到本地存储
+            function saveToLocalStorage() {
+                localStorage.setItem('tasks', JSON.stringify(tasks));
+            }
+            
+            // 格式化日期
+            function formatDate(dateString) {
+                const date = new Date(dateString);
+                return date.toLocaleDateString('zh-CN', {
+                    month: 'short',
+                    day: 'numeric'
+                });
+            }
+        });
+    </script>
+</body>
+</html>
