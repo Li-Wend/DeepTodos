@@ -75,12 +75,6 @@ def verifyPassword():
     else:
         stored_user_uuid_value = result[0]
         stored_password_hash_value = result[1]
-
-    print('verify')
-    print(input_password)
-    print(stored_password_hash_value)
-
-
     # 验证密码
     is_vaild = bcrypt.checkpw(input_password.encode('utf-8'), stored_password_hash_value)
     if not is_vaild:
@@ -105,12 +99,6 @@ def changePassword():
     salt = bcrypt.gensalt(rounds=12) # 调整计算成本
     # 哈希密码
     password_hash = bcrypt.hashpw(password.encode('utf-8'), salt)
-
-    print("change")
-    print(password)
-    print(password_hash)
-
-
     # 3. 更改用户新密码到数据库
     conn = sqlite3.connect('deeptodo.db')
     c = conn.cursor()
