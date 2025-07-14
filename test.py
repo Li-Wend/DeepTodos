@@ -40,23 +40,22 @@ c = conn.cursor()
 #         END;
 # ''')
 
-# 删除表 tasks 所有数据
-c.execute('''
-    DELETE FROM users where user = 'test';
-''')
+# # 删除表 tasks 所有数据
+# c.execute('''
+#     DELETE FROM users where user = 'test';
+# ''')
 
 # # 复制表 table1 内容到另外一个表 table2 中 (仅复制指定字段)
 # c.execute('''
-#     INSERT INTO tasks (task_uuid, user_uuid, task, task_date, is_completed, created_at, changed_on)
+#     INSERT INTO tasks_priority (task_uuid, task_priority, created_at, created_by, changed_on, changed_by)
 #     SELECT 
 #         task_uuid,
-#         'dc4cac7f-51b1-4765-bf29-d3b5a42e1fb5',
-#         task, 
-#         task_date,
-#         is_completed,
+#         'medium',
 #         created_at,
-#         changed_on
-#     FROM tasks_copy;     
+#         'jarod_father',
+#         '2025-07-14 00:00:00',
+#         'jarod_father'
+#     FROM tasks;     
 # ''')
 
 conn.commit()

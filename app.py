@@ -5,6 +5,7 @@ from session.handle_login_session import handle_login_session_api
 
 from database.initialization import initialize_table_users
 from database.initialization import initialize_table_tasks
+from database.initialization import initialize_table_tasks_priority
 
 from database.operation_handling.handle_table_users import handle_users_api
 from database.operation_handling.handle_table_tasks import handle_tasks_api
@@ -20,7 +21,9 @@ app.permanent_session_lifetime = timedelta(minutes=60) # 设置 session 时效�
 # 初始化数据库
 def init_db():
     initialize_table_users.initialize_table_users()
+    
     initialize_table_tasks.initialize_table_tasks()
+    initialize_table_tasks_priority.initialize_table_tasks_priority()
 
 
 # route - session - 登录相关 cookie 操作
