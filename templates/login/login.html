@@ -1,78 +1,102 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DeepTodos 登录</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome/fontawesome-free-6.4.0-web/css/all.min.css') }}" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}" />
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DeepTodos 登录</title>
+  <link rel="stylesheet"
+    href="{{ url_for('static', filename='css/font-awesome/fontawesome-free-6.4.0-web/css/all.min.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}" />
+</head>
 
-  <body>
-    <!-- 背景动画 -->
-    <ul class="bg-bubbles">
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-    </ul>
+<body>
+  <!-- 背景动画 -->
+  <ul class="bg-bubbles">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
 
-    <div class="login-container">
-      <div class="logo">
-        <i class="fas fa-tasks"></i>
+  <div class="login-container">
+    <div class="logo">
+      <i class="fas fa-tasks"></i>
+    </div>
+    <h2>欢迎登录 DeepTodos</h2>
+    <form id="loginForm">
+      <div class="input-group">
+        <label for="username">用户名</label>
+        <i class="fas fa-user"></i>
+        <input type="text" id="username" placeholder="请输入用户名" required />
       </div>
-      <h2>欢迎登录 DeepTodos</h2>
-      <form id="loginForm">
-        <div class="input-group">
-          <label for="username">用户名</label>
-          <i class="fas fa-user"></i>
-          <input type="text" id="username" placeholder="请输入用户名" required />
-        </div>
-        <div class="input-group">
-          <label for="password">密码</label>
-          <i class="fas fa-lock"></i>
-          <input type="password" id="password" placeholder="请输入密码" required />
-        </div>
-        <div class="options">
-          <div class="remember-me">
-            <input type="checkbox" id="remember" />
-            <label for="remember">记住我</label>
-          </div>
-          <a href="#" class="forgot-password">忘记密码?</a>
-        </div>
-        <div class="btn-group">
-          <button type="submit">登录</button>
-          <button type="button" class="register-btn" onclick="window.location.href='register'">注册新用户</button>
-        </div>
-      </form>
-
-      <div class="divider">
-        <span>或使用其他方式登录</span>
+      <div class="input-group">
+        <label for="password">密码</label>
+        <i class="fas fa-lock"></i>
+        <input type="password" id="password" placeholder="请输入密码" required />
       </div>
-
-      <div class="social-login">
-        <div class="social-btn google">
-          <i class="fab fa-google"></i>
+      <div class="options">
+        <div class="remember-me">
+          <input type="checkbox" id="remember" />
+          <label for="remember">记住我</label>
         </div>
-        <div class="social-btn facebook">
-          <i class="fab fa-facebook-f"></i>
-        </div>
-        <div class="social-btn github">
-          <i class="fab fa-github"></i>
-        </div>
+        <a href="#" class="forgot-password">忘记密码?</a>
       </div>
+      <div class="btn-group">
+        <button type="submit">登录</button>
+        <button type="button" class="register-btn" onclick="window.location.href='register'">注册新用户</button>
+      </div>
+    </form>
 
-      <div id="message"></div>
-
-      <a class="icp" href="http://beian.miit.gov.cn/" target="_blank">黑ICP备2025041634号</a>
+    <div class="divider">
+      <span>或使用其他方式登录</span>
     </div>
 
-    <script src="static/js/login.js"></script>
-  </body>
+    <div class="social-login">
+      <div class="social-btn google">
+        <i class="fab fa-google"></i>
+      </div>
+      <div class="social-btn facebook">
+        <i class="fab fa-facebook-f"></i>
+      </div>
+      <div class="social-btn github">
+        <i class="fab fa-github"></i>
+      </div>
+    </div>
+
+    <div id="message"></div>
+
+    <div class="footer">
+      <div class="icp-container">
+        <a href="http://beian.miit.gov.cn/" target="_blank" class="icp-link">
+          <i class="fas fa-shield-alt"></i>
+          <span>黑ICP备2025041634号</span>
+        </a>
+        <div class="copyright">
+          © 2025 deeptodos.com 版权所有
+        </div>
+      </div>
+
+      <div class="security-badges">
+        <div class="badge">
+          <i class="fas fa-lock"></i>
+          <span>安全加密</span>
+        </div>
+        <div class="badge">
+          <i class="fas fa-user-shield"></i>
+          <span>隐私保护</span>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <script src="static/js/login.js"></script>
+</body>
+
 </html>
