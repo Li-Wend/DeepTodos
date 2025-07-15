@@ -11,7 +11,7 @@ from navigation.route_navigation import route_navigation
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'deeptodo_login_secret_key'
-app.permanent_session_lifetime = timedelta(minutes=60) # 设置 session 时效为 60 分钟
+app.permanent_session_lifetime = timedelta(minutes=360) # 设置 session 时效为 60 分钟
 
 # 初始化数据库
 def init_db():

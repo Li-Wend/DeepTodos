@@ -12,6 +12,10 @@ let currentLang = 'zh'; // 默认语言
 // 初始化日视图
 document.getElementById('datePicker').value = currentDate;
 
+function bodyOnload() {
+    getDayofWeek();
+}
+
 // ---------- 获取当前日期是星期几 ----------
 async function getDayofWeek() {
     let today = new Date();
