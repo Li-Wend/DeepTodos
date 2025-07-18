@@ -8,7 +8,8 @@ document.getElementById('loginForm').addEventListener('submit', async function (
     if (!username) return;
 
     // 验证用户是否存在以及密码是否正确
-    const response = await fetch(`/api/verify_password?user=${username}&password=${password}`);
+    const safePasswordValue = encodeURIComponent(password);
+    const response = await fetch(`/api/verify_password?user=${username}&password=${safePasswordValue}`);
     if (response.status === 400) {
         // 登录失败
         messageDiv.textContent = '用户' + username + '不存在！';

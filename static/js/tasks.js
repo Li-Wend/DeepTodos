@@ -100,10 +100,22 @@ function renderTaskList(tasks, elementId) {
     tasks.forEach(task => {
         const li = document.createElement('li');
         li.className = task.completed ? 'task-item fade-in completed' : 'task-item fade-in';
+        // 优先级颜色
+        let priorityColor = 'var(--primary)';
+        let priorityText = '中';
+        if (task.task_priority === 'low') {
+            priorityColor = 'var(--success)';
+            priorityText = '低';
+        } else if (task.task_priority === 'high') {
+            priorityColor = 'var(--danger)';
+            priorityText = '高'
+        }
+
         li.innerHTML = `
                         <input type="checkbox" ${task.completed ? 'checked' : ''}
                                onchange="toggleTask('${task.task_uuid}', this)">
                         <div class="task-text">${task.task}</div>
+                        <span style="color: ${priorityColor}"><i class="fas fa-flag"> ${priorityText}</i></span>
                         <div class="task-actions">
                             <button class="edit-btn" onclick="editTask('${task.task_uuid}')"><i class="fas fa-pencil"></i></button>
                             <button class="delete-btn" onclick="deleteTask('${task.task_uuid}')"><i class="fas fa-trash"></i></button>
@@ -163,8 +175,9 @@ function loadAllFinishedTasks() {
 
 // 添加任务
 function addTask() {
-    const input = document.getElementById('taskInput');
-    const taskText = input.value.trim();
+    const input_task = document.getElementById('taskInput');
+    const taskText = input_task.value.trim();
+    const input_task_priority = document.getElementById('taskPriority');
     if (!taskText) return;
 
     fetch('/api/tasks', {
@@ -172,10 +185,12 @@ function addTask() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
             task: taskText,
-            date: currentDate
+            date: currentDate,
+            task_priority: input_task_priority.value
         })
     }).then(() => {
-        input.value = '';
+        input_task.value = '';
+        //input_task_priority.value = 'medium';
         if (currentView === 'day') loadCurrentDayTasks();
         renderCharts();
 

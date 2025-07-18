@@ -13,13 +13,16 @@ def get_tasks():
     conn = sqlite3.connect('deeptodo.db')
     c = conn.cursor()
     c.execute('''
-        SELECT task_uuid, task, is_completed
+        SELECT tasks.task_uuid, tasks.task, tasks.is_completed, tasks_priority.task_priority
         FROM tasks
-        WHERE user_uuid = ?
-          AND task_date = ?
-        ORDER BY created_at DESC
+        INNER JOIN tasks_priority
+        ON tasks.task_uuid = tasks_priority.task_uuid
+        WHERE tasks.user_uuid = ?
+          AND tasks.task_date = ?
+        ORDER BY tasks.created_at DESC
     ''', (user_uuid, date))
-    tasks = [{"task_uuid": row[0], "task": row[1], "completed": bool(row[2])} for row in c.fetchall()]
+
+    tasks = [{"task_uuid": row[0], "task": row[1], "completed": bool(row[2]), "task_priority": row[3]} for row in c.fetchall()]
     conn.close()
     return jsonify(tasks)
 
@@ -29,14 +32,19 @@ def add_task():
     # 生成标准格式UUID（带连字符的36字符版本）
     task_uuid = str(uuid.uuid4())
     user_uuid = session.get('user_uuid')
+    username = session.get('username')
     data = request.get_json()
+    task_priority = data.get('task_priority')
     conn = sqlite3.connect('deeptodo.db')
     c = conn.cursor()
     c.execute("INSERT INTO tasks (task_uuid, user_uuid, task, task_date) VALUES (?, ?, ?, ?)",
              (task_uuid, user_uuid, data['task'], data['date']))
     conn.commit()
+    c.execute("INSERT INTO tasks_priority (task_uuid, task_priority, created_by) VALUES (?, ?, ?)",
+             (task_uuid, task_priority, username))
+    conn.commit()
     conn.close()
-    return jsonify({"task_uuid": task_uuid, "task": data['task'], "completed": False}), 201
+    return jsonify({"task_uuid": task_uuid, "task": data['task'], "completed": False, "task_priority": task_priority}), 201
 
 # 更新任务状态
 @handle_tasks_api.route('/api/tasks', methods=['PUT'])
