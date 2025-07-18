@@ -41,9 +41,9 @@ c = conn.cursor()
 # ''')
 
 # # 删除表 tasks 所有数据
-# c.execute('''
-#     DELETE FROM users where user = 'test';
-# ''')
+c.execute('''
+    DELETE FROM tasks_priority;
+''')
 
 # # 复制表 table1 内容到另外一个表 table2 中 (仅复制指定字段)
 # c.execute('''

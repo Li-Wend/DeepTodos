@@ -1,4 +1,5 @@
 import re
+from urllib.parse import unquote
 import uuid
 import bcrypt
 from flask import Blueprint, jsonify, request, session
@@ -60,7 +61,12 @@ def userExist():
 @handle_users_api.route('/api/verify_password', methods=['GET'])
 def verifyPassword():
     user = request.args.get('user')
-    input_password = request.args.get('password')
+    safePasswordValue = request.args.get('password')
+    input_password = unquote(safePasswordValue)
+
+    print('验证密码')
+    print(input_password)
+
     conn = sqlite3.connect('deeptodo.db')
     c = conn.cursor()
     c.execute('''
