@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeepTodos - 隐私政策</title>
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='css/font-awesome/fontawesome-free-6.4.0-web/css/all.min.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login/privacyPolicy.css') }}" />
+</head>
+<body>
+    <!-- 隐私政策按钮（固定在右下角） -->
+    <a href="#privacy-policy" class="privacy-btn">
+        <i class="fas fa-shield-alt"></i> 隐私政策
+    </a>
+
+    <header>
+        <h1>DeepTodos 隐私政策</h1>
+        <p>最后更新于：2025年7月20日</p>
+    </header>
+
+    <div class="container">
+        <section id="privacy-policy">
+            <h2>隐私政策</h2>
+            <p>本隐私政策说明我们如何收集、使用、存储和保护您在使用个人日程管理工具服务时的个人信息。</p>
+        </section>
+        
+        <section>
+            <h2>1. 我们收集的信息</h2>
+            <p>为提供日程管理服务，我们会收集以下必要信息：</p>
+            <ul>
+                <li><strong>账户信息</strong>：您的用户名、加密存储的密码</li>
+                <li><strong>日程数据</strong>：您创建的待办事项、提醒时间、任务分类等</li>
+                <li><strong>设备信息</strong>：设备类型、操作系统版本（用于兼容性优化）</li>
+                <li><strong>使用日志</strong>：功能使用频率、错误报告（匿名化处理）</li>
+            </ul>
+            <div class="highlight">
+                <i class="fas fa-info-circle"></i> 我们<strong>不会</strong>收集您的通讯录、位置信息、照片或其他与应用功能无关的个人信息。
+            </div>
+        </section>
+        
+        <section>
+            <h2>2. 信息使用方式</h2>
+            <p>您的信息仅用于以下目的：</p>
+            <ul>
+                <li>提供日程创建、管理和提醒服务</li>
+                <li>维护和改进应用功能</li>
+                <li>确保服务安全性，防止滥用</li>
+                <li>生成匿名统计数据以优化用户体验</li>
+            </ul>
+        </section>
+        
+        <section>
+            <h2>3. 数据存储与安全</h2>
+            <h3>3.1 存储方式</h3>
+            <p>所有用户数据均采用AES-256加密存储在服务器中，数据传输使用SSL/TLS加密协议。</p>
+            
+            <h3>3.2 数据所有权</h3>
+            <p>您保留对个人日程数据的完全所有权，可随时导出或删除账户。</p>
+            
+            <h3>3.3 安全措施</h3>
+            <ul>
+                <li>定期安全审计和漏洞扫描</li>
+                <li>访问权限分级控制</li>
+                <li>敏感操作二次验证</li>
+            </ul>
+        </section>
+        
+        <section>
+            <h2>4. 数据共享政策</h2>
+            <p>我们严格遵守以下原则：</p>
+            <ul>
+                <li>绝不向第三方出售或出租用户数据</li>
+                <li>仅在法律要求时配合监管部门</li>
+                <li>使用子处理服务时（如云存储），确保其符合GDPR同等标准</li>
+            </ul>
+        </section>
+        
+        <section>
+            <h2>5. 您的权利</h2>
+            <p>您对个人信息享有以下权利：</p>
+            <ul>
+                <li>随时访问和导出个人数据</li>
+                <li>更正不准确的信息</li>
+                <li>删除账户及所有相关数据</li>
+                <li>撤回已同意的数据处理</li>
+            </ul>
+            <p>行使权利请联系：jarod_father@163.com</p>
+        </section>
+        
+        <section>
+            <h2>6. 政策变更</h2>
+            <p>更新隐私政策时，我们将：</p>
+            <ul>
+                <li>在网站显著位置发布通知</li>
+                <li>通过应用内消息告知用户</li>
+                <li>更新本页面的"最后更新"日期</li>
+            </ul>
+        </section>
+        
+        <a href="{{url_for('route_navigation.login')}}" class="back-btn">
+            <i class="fas fa-arrow-left"></i> 返回首页
+        </a>
+    </div>
+
+    <footer>
+        <p>© 2025 DeepTodos.com - 所有数据均为用户私有内容</p>
+        <p>
+            公安备案号：黑公网备XXXXXXXXXXXXXXXX号 | 
+            <a href="https://beian.miit.gov.cn/" target="_blank">黑ICP备2025041634号</a>
+        </p>
+        <p>服务邮箱：jarod_father@163.com | 隐私问题反馈：jarod_father@163.com</p>
+    </footer>
+</body>
+</html>

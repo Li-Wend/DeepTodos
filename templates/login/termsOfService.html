@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>服务条款 - DeepTodos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login/termsOfService.css') }}" />
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="logo-text">日程助手</div>
+            </div>
+            <p class="tagline">DeepTodos - 安全、私密、高效</p>
+        </header>
+
+        <div class="content">
+            <h1>服务条款</h1>
+
+            <div class="section">
+                <h2>服务说明</h2>
+                <p>欢迎使用我们的DeepTodos（以下简称"本服务"）。本服务为用户提供在线创建和管理私有待办事项清单的功能，包括任务提醒、分类管理等基础服务。</p>
+                <div class="highlight-box">
+                    <p><i class="fas fa-lock"></i> <strong>重要声明：</strong> 所有用户数据均为私有内容，本服务不提供任何公开信息发布及社交交互功能。</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>数据隐私与安全</h2>
+                <h3>数据所有权</h3>
+                <p>您保留对通过本服务创建的所有内容（包括但不限于任务、日程等）的所有权。我们不会对您的内容主张任何所有权。</p>
+
+                <h3>数据存储</h3>
+                <p>您的数据存储在安全的服务器上，我们采取适当的技术措施保护您的个人信息免遭未经授权的访问、披露或破坏。</p>
+
+                <h3>数据访问</h3>
+                <p>除非法律要求或为提供服务所必需，否则我们不会访问或查看您的个人数据。在以下情况下，我们可能会访问您的数据：</p>
+                <ul>
+                    <li>响应技术支持请求</li>
+                    <li>检测、预防或解决技术问题</li>
+                    <li>遵守法律要求</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>用户责任</h2>
+                <p>您同意仅将本服务用于合法目的，并遵守所有适用的法律和法规。</p>
+                <p>您有责任维护账户凭据的保密性，并对在您账户下发生的所有活动负责。</p>
+                <p>使用本服务时，您不得：</p>
+                <ul>
+                    <li>侵犯他人的知识产权或其他权利</li>
+                    <li>上传或传播病毒、恶意软件</li>
+                    <li>干扰或破坏本服务的正常运行</li>
+                    <li>尝试未经授权访问本服务</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>免责声明</h2>
+                <p>本服务按"现状"提供，不提供任何形式的明示或暗示保证。我们不保证服务将不间断、及时、安全或无错误。</p>
+                <p>对于因使用或无法使用本服务而造成的任何损害，我们不承担任何责任。</p>
+            </div>
+
+            <div class="section">
+                <h2>服务变更与终止</h2>
+                <p>我们保留随时修改或终止本服务的权利，无论是否通知。对于服务的任何修改、暂停或终止，我们不承担任何责任。</p>
+            </div>
+
+            <div class="section">
+                <h2>条款修改</h2>
+                <p>我们可能会不时更新这些服务条款。更新后的条款将在本页面上发布后立即生效。继续使用本服务即表示您接受更新后的条款。</p>
+            </div>
+
+            <div class="section">
+                <h2>联系我们</h2>
+                <p>如果您对这些服务条款有任何疑问，请通过以下方式与我们联系：</p>
+                <p>电子邮箱：jarod_father@163.com</p>
+                <p>最后更新日期：2023年10月15日</p>
+            </div>
+        </div>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">网站信息</h3>
+                    <p>DeepTodos</p>
+                    <p>专注于提供私密、安全的日程管理服务</p>
+                </div>
+
+                <div class="footer-section">
+                    <h3 class="footer-title">法律条款</h3>
+                    <ul class="footer-links">
+                        <li><a href="{{url_for('route_navigation.termsOfService')}}">服务条款</a></li>
+                        <li><a href="{{url_for('route_navigation.privacyPolicy')}}">隐私政策</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3 class="footer-title">联系方式</h3>
+                    <div class="contact-info">
+                        <p>电子邮箱：jarod_father@163.com</p>
+                        <p>服务时间：工作日 9:00-18:00</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>Copyright &copy; 2025 DeepTodos.com 保留所有权利.</p>
+                <div class="beian">
+                    <a href="http://beian.miit.gov.cn" target="_blank">黑ICP备2025041634号</a> |
+                    <a href="https://www.beian.gov.cn" target="_blank">黑公网安备XXXXXXXXXXXXXX号</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>
