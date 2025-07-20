@@ -14,6 +14,26 @@ def index():
 def login():
     return render_template('login/login.html')
 
+# 数据隐私保护界面 DataPrivacyProtection
+@route_navigation.route('/DataPrivacyProtection')
+def DataPrivacyProtection():
+    return render_template('login/DataPrivacyProtection.html')
+
+# 隐私政策界面 privacyPolicy
+@route_navigation.route('/privacyPolicy')
+def privacyPolicy():
+    return render_template('login/privacyPolicy.html')
+
+# 服务条款页面 termsOfService
+@route_navigation.route('/termsOfService')
+def termsOfService():
+    return render_template('login/termsOfService.html')
+
+# 帮助中心页面 helpCenter
+@route_navigation.route('/helpCenter')
+def helpCenter():
+    return render_template('login/helpCenter.html')
+
 # 注册用户页面 register
 @route_navigation.route('/register')
 def register():

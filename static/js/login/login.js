@@ -1,3 +1,38 @@
+// 背景气泡动画生成
+function createBubbles() {
+    const bubblesContainer = document.querySelector('.bubbles');
+    const bubbleCount = 18;
+
+    for (let i = 0; i < bubbleCount; i++) {
+        const bubble = document.createElement('div');
+        bubble.classList.add('bubble');
+
+        // 随机大小
+        const size = Math.random() * 80 + 20;
+        bubble.style.width = `${size}px`;
+        bubble.style.height = `${size}px`;
+
+        // 随机位置
+        bubble.style.left = `${Math.random() * 100}%`;
+
+        // 随机动画延迟
+        bubble.style.animationDelay = `${Math.random() * 5}s`;
+
+        // 随机动画时长
+        const duration = Math.random() * 10 + 12;
+        bubble.style.animationDuration = `${duration}s`;
+
+        // 随机透明度
+        bubble.style.opacity = Math.random() * 0.4 + 0.3;
+
+        bubblesContainer.appendChild(bubble);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+            createBubbles();
+});
+
 document.getElementById('loginForm').addEventListener('submit', async function (event) {
     event.preventDefault(); // 阻止表单默认提交
 
