@@ -99,26 +99,37 @@ function renderTaskList(tasks, elementId) {
     taskList.innerHTML = '';
     tasks.forEach(task => {
         const li = document.createElement('li');
-        li.className = task.completed ? 'task-item fade-in completed' : 'task-item fade-in';
-        // 优先级颜色
-        let priorityColor = 'var(--primary)';
-        let priorityText = '中';
-        if (task.task_priority === 'low') {
-            priorityColor = 'var(--success)';
-            priorityText = '低';
-        } else if (task.task_priority === 'high') {
-            priorityColor = 'var(--danger)';
-            priorityText = '高'
-        }
+        li.className = task.completed ? `task-item priority-${task.task_priority} fade-in completed` : `task-item priority-${task.task_priority} fade-in`;
+
+        // 获取类别图标
+        const categoryIcons = {
+            work: 'briefcase',
+            personal: 'user',
+            shopping: 'shopping-cart',
+            health: 'heartbeat',
+            education: 'graduation-cap'
+        };
+
+        const categoryNames = {
+            work: '工作',
+            personal: '个人',
+            shopping: '购物',
+            health: '健康',
+            education: '学习'
+        };
 
         li.innerHTML = `
-                        <input type="checkbox" ${task.completed ? 'checked' : ''}
-                               onchange="toggleTask('${task.task_uuid}', this)">
-                        <div class="task-text">${task.task}</div>
-                        <span style="color: ${priorityColor}"><i class="fas fa-flag"> ${priorityText}</i></span>
+                        <input class="task-checkbox" type="checkbox" ${task.completed ? 'checked' : ''} onchange="toggleTask('${task.task_uuid}', this)"></div>
+                        <div class="task-content">
+                            <div class="task-title">${task.task}</div>
+                            <div class="task-meta">
+                                <span class="task-category"><i class="fas fa-${categoryIcons[task.task_category]}"></i> ${categoryNames[task.task_category]}</span>
+                                <span><i class="far fa-clock"></i> 00:00</span>
+                            </div>                        
+                        </div>
                         <div class="task-actions">
-                            <button class="edit-btn" onclick="editTask('${task.task_uuid}')"><i class="fas fa-pencil"></i></button>
-                            <button class="delete-btn" onclick="deleteTask('${task.task_uuid}')"><i class="fas fa-trash"></i></button>
+                            <button class="edit-btn" onclick="editTask('${task.task_uuid}')"><i class="fas fa-edit"></i></button>
+                            <button class="delete-btn" onclick="deleteTask('${task.task_uuid}')"><i class="fas fa-trash-alt"></i></button>
                         </div>
                     `;
         taskList.appendChild(li);
@@ -178,6 +189,8 @@ function addTask() {
     const input_task = document.getElementById('taskInput');
     const taskText = input_task.value.trim();
     const input_task_priority = document.getElementById('taskPriority');
+    const input_task_category = document.getElementById('taskCategory');
+
     if (!taskText) return;
 
     fetch('/api/tasks', {
@@ -185,20 +198,14 @@ function addTask() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
             task: taskText,
-            date: currentDate,
-            task_priority: input_task_priority.value
+            task_priority: input_task_priority.value,
+            task_category: input_task_category.value,
+            date: currentDate
         })
     }).then(() => {
         input_task.value = '';
-        //input_task_priority.value = 'medium';
         if (currentView === 'day') loadCurrentDayTasks();
         renderCharts();
-
-        // // 添加动画 taskItem missing
-        // setTimeout(() => {
-        //     taskItem.style.opacity = '1';
-        //     taskItem.style.transform = 'translateY(0)';
-        // }, 10);
     });
 }
 
@@ -206,7 +213,10 @@ function addTask() {
 function addGlobalTask() {
     const input = document.getElementById('globalTaskInput');
     const taskText = input.value.trim();
+    const input_task_priority = document.getElementById('taskPriority');
+    const input_task_category = document.getElementById('taskCategory');
     const currentDateGlobal = new Date().toISOString().split('T')[0];
+
     if (!taskText) return;
 
     fetch('/api/tasks', {
@@ -214,25 +224,21 @@ function addGlobalTask() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
             task: taskText,
+            task_priority: input_task_priority.value,
+            task_category: input_task_category.value,
             date: currentDateGlobal
         })
     }).then(() => {
         input.value = '';
         if (currentView === 'myTasks') initMyTasksView();
         renderCharts();
-
-        // // 添加动画 taskItem missing
-        // setTimeout(() => {
-        //     taskItem.style.opacity = '1';
-        //     taskItem.style.transform = 'translateY(0)';
-        // }, 10);
     });
 }
 
 // 任务切换
 function toggleTask(task_uuid, checkbox) {
     const taskItem = checkbox.closest('.task-item');
-    const taskText = taskItem.querySelector('.task-text');
+    const taskText = taskItem.querySelector('.task-title');
 
     if (checkbox.checked) {
         taskItem.classList.add('completed');
@@ -325,75 +331,39 @@ function renderCharts() {
         }
     });
 
-    // 总体视图图表
+    // 总体任务统计图表
     const overallCtx = document.getElementById('overallStatsChart').getContext('2d');
-    if (window.overallChart) window.overallChart.destroy();
-    window.overallChart = new Chart(overallCtx, {
+    new Chart(overallCtx, {
         type: 'bar',
         data: {
-            labels: ['任务统计'],
-            datasets: [
-                {
-                    label: '已完成',
-                    data: [completedTasks],
-                    backgroundColor: '#0be881',
-                    borderColor: 'rgba(255, 255, 255, 0.1)',
-                    borderWidth: 1
-                },
-                {
-                    label: '未完成',
-                    data: [allTasks.length - completedTasks],
-                    backgroundColor: '#4bcffa',
-                    borderColor: 'rgba(255, 255, 255, 0.1)',
-                    borderWidth: 1
-                }
-            ]
+            labels: ['工作', '学习', '健康', '购物', '个人'],
+            datasets: [{
+                label: '任务数量',
+                data: [12, 8, 5, 7, 9],
+                backgroundColor: '#4a6ee0',
+                borderRadius: 6,
+                borderSkipped: false
+            }]
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
             scales: {
-                x: {
-                    stacked: true,
-                    ticks: {
-                        color: '#fff'
-                    },
+                y: {
+                    beginAtZero: true,
                     grid: {
-                        color: 'rgba(255, 255, 255, 0.1)'
+                        drawBorder: false
                     }
                 },
-                y: {
-                    stacked: true,
-                    beginAtZero: true,
-                    ticks: {
-                        color: '#fff',
-                        stepSize: 1
-                    },
+                x: {
                     grid: {
-                        color: 'rgba(255, 255, 255, 0.1)'
+                        display: false
                     }
                 }
             },
             plugins: {
                 legend: {
-                    labels: {
-                        color: '#fff',
-                        font: {
-                            size: 14
-                        }
-                    }
-                },
-                tooltip: {
-                    backgroundColor: 'rgba(30, 50, 110, 0.9)',
-                    titleColor: '#fff',
-                    bodyColor: '#e0e0ff',
-                    titleFont: {
-                        size: 16
-                    },
-                    bodyFont: {
-                        size: 14
-                    },
-                    padding: 12
+                    display: false
                 }
             }
         }

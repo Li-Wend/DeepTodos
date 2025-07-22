@@ -3,7 +3,6 @@ from datetime import timedelta
 from session.handle_login_session import handle_login_session_api
 from database.initialization import initialize_table_users
 from database.initialization import initialize_table_tasks
-from database.initialization import initialize_table_tasks_priority
 from database.operation_handling.handle_table_users import handle_users_api
 from database.operation_handling.handle_table_tasks import handle_tasks_api
 from navigation.route_navigation import route_navigation
@@ -17,7 +16,6 @@ app.permanent_session_lifetime = timedelta(minutes=360) # 设置 session 时效�
 def init_db():
     initialize_table_users.initialize_table_users()
     initialize_table_tasks.initialize_table_tasks()
-    initialize_table_tasks_priority.initialize_table_tasks_priority()
 
 # route - session - 登录相关 cookie 操作
 app.register_blueprint(handle_login_session_api)

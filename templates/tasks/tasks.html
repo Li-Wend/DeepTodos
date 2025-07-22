@@ -66,7 +66,7 @@
                 <button onclick="changeDate(-1)" class="btn btn-dark">
                     <i class="fas fa-arrow-left"></i> 前一天
                 </button>
-                <input type="date" id="datePicker" onchange="loadCurrentDayTasks()"/>
+                <input type="date" id="datePicker" onchange="loadCurrentDayTasks()" />
                 <button onclick="changeDate(1)" class="btn btn-dark">
                     后一天 <i class="fas fa-arrow-right"></i>
                 </button>
@@ -76,12 +76,6 @@
             </div>
 
             <div class="input-group">
-                <input type="text" id="taskInput" placeholder="输入新任务..." />
-                <button onclick="addTask()" class="btn btn-primary">
-                    <i class="fas fa-plus"></i> 添加任务
-                </button>
-            </div>
-            <div class="input-group">
                 <label for="taskCategory">任务类别</label>
                 <select id="taskCategory">
                     <option value="work">工作</option>
@@ -90,16 +84,22 @@
                     <option value="health">健康</option>
                     <option value="education">学习</option>
                 </select>
-            </div>
 
-            <div class="input-group">
                 <label for="taskPriority">优先级</label>
                 <select id="taskPriority">
                     <option value="low">低</option>
-                    <option value="medium">中</option>
+                    <option value="medium" selected>中</option>
                     <option value="high">高</option>
                 </select>
             </div>
+
+            <div class="input-group">
+                <input type="text" id="taskInput" placeholder="输入新任务..." />
+                <button onclick="addTask()" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> 添加任务
+                </button>
+            </div>
+
 
             <ul id="currentDayTaskList"></ul>
 
@@ -116,11 +116,30 @@
         <!-- 我的任务视图 -->
         <div id="myTasksView" class="view-container">
             <div class="input-group">
+                <label for="taskCategory">任务类别</label>
+                <select id="taskCategory">
+                    <option value="work">工作</option>
+                    <option value="personal">个人</option>
+                    <option value="shopping">购物</option>
+                    <option value="health">健康</option>
+                    <option value="education">学习</option>
+                </select>
+
+                <label for="taskPriority">优先级</label>
+                <select id="taskPriority">
+                    <option value="low">低</option>
+                    <option value="medium" selected>中</option>
+                    <option value="high">高</option>
+                </select>
+            </div>
+
+            <div class="input-group">
                 <input type="text" id="globalTaskInput" placeholder="输入新任务..." />
                 <button onclick="addGlobalTask()" class="btn btn-primary">
                     <i class="fas fa-plus"></i> 添加任务
                 </button>
             </div>
+
 
             <div id="allUnfinishedTasks">
                 <div class="section-title">
@@ -145,7 +164,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="footer">
             <div class="icp-container">
                 <a href="http://beian.miit.gov.cn/" target="_blank" class="icp-link">
