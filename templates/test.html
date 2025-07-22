@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>手机号注册 - 安全便捷</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <style>
+      * {
+        margin: 0;
+      
+        padding: 0;
+      
+        box-sizing: border-box;
+      
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+      
+      body {
+        background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      
+        min-height: 100vh;
+      
+        display: flex;
+      
+        justify-content: center;
+      
+        align-items: center;
+      
+        padding: 20px;
+      }
+      
+      .container {
+        display: flex;
+      
+        max-width: 900px;
+      
+        width: 100%;
+      
+        background: white;
+      
+        border-radius: 20px;
+      
+        overflow: hidden;
+      
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+      }
+      
+      .left-panel {
+        flex: 1;
+      
+        background: linear-gradient(135deg, #4776e6 0%, #8e54e9 100%);
+      
+        color: white;
+      
+        padding: 50px 40px;
+      
+        display: flex;
+      
+        flex-direction: column;
+      
+        justify-content: center;
+      
+        align-items: flex-start;
+      }
+      
+      .right-panel {
+        flex: 1.2;
+      
+        padding: 50px 40px;
+      
+        display: flex;
+      
+        flex-direction: column;
+      
+        justify-content: center;
+      }
+      
+      .logo {
+        font-size: 28px;
+      
+        font-weight: 700;
+      
+        margin-bottom: 10px;
+      
+        display: flex;
+      
+        align-items: center;
+      }
+      
+      .logo i {
+        margin-right: 10px;
+      
+        font-size: 32px;
+      }
+      
+      .tagline {
+        font-size: 18px;
+      
+        margin-bottom: 30px;
+      
+        opacity: 0.9;
+      }
+      
+      .features {
+        list-style: none;
+      
+        margin-top: 30px;
+      }
+      
+      .features li {
+        margin-bottom: 20px;
+      
+        display: flex;
+      
+        align-items: flex-start;
+      }
+      
+      .features i {
+        font-size: 20px;
+      
+        margin-right: 15px;
+      
+        margin-top: 4px;
+      
+        color: #ffd43b;
+      }
+      
+      h1 {
+        color: #2d3748;
+      
+        margin-bottom: 10px;
+      
+        font-size: 32px;
+      }
+      
+      .subtitle {
+        color: #718096;
+      
+        margin-bottom: 30px;
+      
+        font-size: 16px;
+      }
+      
+      .form-group {
+        margin-bottom: 25px;
+      
+        position: relative;
+      }
+      
+      label {
+        display: block;
+      
+        margin-bottom: 8px;
+      
+        font-weight: 600;
+      
+        color: #4a5568;
+      }
+      
+      .input-with-icon {
+        position: relative;
+      }
+      
+      .input-with-icon i {
+        position: absolute;
+      
+        left: 15px;
+      
+        top: 50%;
+      
+        transform: translateY(-50%);
+      
+        color: #a0aec0;
+      
+        font-size: 18px;
+      }
+      
+      input {
+        width: 100%;
+      
+        padding: 16px 16px 16px 50px;
+      
+        border: 2px solid #e2e8f0;
+      
+        border-radius: 12px;
+      
+        font-size: 16px;
+      
+        transition: all 0.3s ease;
+      }
+      
+      input:focus {
+        border-color: #4299e1;
+      
+        outline: none;
+      
+        box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
+      }
+      
+      .verification-group {
+        display: flex;
+      
+        gap: 15px;
+      }
+      
+      .verification-input {
+        flex: 1;
+      }
+      
+      .send-code-btn {
+        background: #4299e1;
+      
+        color: white;
+      
+        border: none;
+      
+        border-radius: 12px;
+      
+        padding: 0 20px;
+      
+        font-weight: 600;
+      
+        cursor: pointer;
+      
+        transition: all 0.3s ease;
+      
+        white-space: nowrap;
+      
+        height: 54px;
+      }
+      
+      .send-code-btn:hover {
+        background: #3182ce;
+      }
+      
+      .send-code-btn:disabled {
+        background: #a0aec0;
+      
+        cursor: not-allowed;
+      }
+      
+      .terms {
+        display: flex;
+      
+        align-items: flex-start;
+      
+        margin-bottom: 30px;
+      }
+      
+      .terms input {
+        width: auto;
+      
+        margin-top: 5px;
+      
+        margin-right: 10px;
+      }
+      
+      .terms label {
+        font-weight: normal;
+      
+        color: #4a5568;
+      
+        line-height: 1.5;
+      }
+      
+      .terms a {
+        color: #4299e1;
+      
+        text-decoration: none;
+      }
+      
+      .terms a:hover {
+        text-decoration: underline;
+      }
+      
+      .register-btn {
+        background: linear-gradient(135deg, #4776e6 0%, #8e54e9 100%);
+      
+        color: white;
+      
+        border: none;
+      
+        border-radius: 12px;
+      
+        padding: 16px;
+      
+        font-size: 18px;
+      
+        font-weight: 600;
+      
+        cursor: pointer;
+      
+        transition: all 0.3s ease;
+      
+        width: 100%;
+      
+        box-shadow: 0 4px 15px rgba(135, 110, 230, 0.3);
+      }
+      
+      .register-btn:hover {
+        transform: translateY(-2px);
+      
+        box-shadow: 0 6px 20px rgba(135, 110, 230, 0.4);
+      }
+      
+      .login-link {
+        text-align: center;
+      
+        margin-top: 25px;
+      
+        color: #718096;
+      }
+      
+      .login-link a {
+        color: #4299e1;
+      
+        text-decoration: none;
+      
+        font-weight: 600;
+      }
+      
+      .login-link a:hover {
+        text-decoration: underline;
+      }
+      
+      .error-message {
+        color: #e53e3e;
+      
+        font-size: 14px;
+      
+        margin-top: 8px;
+      
+        display: none;
+      }
+      
+      /* 响应式设计 */
+      
+      @media (max-width: 768px) {
+        .container {
+          flex-direction: column;
+        }
+      
+        .left-panel {
+          padding: 30px 25px;
+        }
+      
+        .right-panel {
+          padding: 40px 25px;
+        }
+      }
+      
+      .countdown {
+        color: #718096;
+      
+        font-size: 14px;
+      
+        margin-top: 8px;
+      
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="left-panel">
+        <div class="logo">
+          <i class="fas fa-mobile-alt"></i>
+
+          <span>手机验证注册</span>
+        </div>
+
+        <p class="tagline">安全便捷，一键完成注册</p>
+
+        <ul class="features">
+          <li>
+            <i class="fas fa-shield-alt"></i>
+
+            <div>
+              <h3>安全可靠</h3>
+
+              <p>通过手机号验证确保账户安全</p>
+            </div>
+          </li>
+
+          <li>
+            <i class="fas fa-bolt"></i>
+
+            <div>
+              <h3>快速便捷</h3>
+
+              <p>60秒内完成注册流程</p>
+            </div>
+          </li>
+
+          <li>
+            <i class="fas fa-user-lock"></i>
+
+            <div>
+              <h3>隐私保护</h3>
+
+              <p>您的信息将受到严格保护</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="right-panel">
+        <h1>创建账户</h1>
+
+        <p class="subtitle">请使用您的手机号完成注册</p>
+
+        <form id="registerForm">
+          <div class="form-group">
+            <label for="phone">手机号码</label>
+
+            <div class="input-with-icon">
+              <i class="fas fa-phone"></i>
+
+              <input type="tel" id="phone" placeholder="请输入11位手机号码" />
+            </div>
+
+            <div id="phoneError" class="error-message">请输入有效的手机号码</div>
+          </div>
+
+          <div class="form-group">
+            <label for="verificationCode">验证码</label>
+
+            <div class="verification-group">
+              <div class="verification-input input-with-icon">
+                <i class="fas fa-sms"></i>
+
+                <input type="text" id="verificationCode" placeholder="请输入6位验证码" />
+              </div>
+
+              <button type="button" id="sendCodeBtn" class="send-code-btn">获取验证码</button>
+            </div>
+
+            <div id="codeError" class="error-message">验证码不正确</div>
+
+            <div id="countdown" class="countdown">60秒后可重新获取</div>
+          </div>
+
+          <div class="terms">
+            <input type="checkbox" id="terms" />
+
+            <label for="terms">我已阅读并同意 <a href="#">服务条款</a> 和 <a href="#">隐私政策</a></label>
+          </div>
+
+          <div id="termsError" class="error-message">请阅读并同意服务条款和隐私政策</div>
+
+          <button type="submit" class="register-btn">立即注册</button>
+        </form>
+
+        <p class="login-link">
+          已有账户？ <a href="#">立即登录</a>
+        </p>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const phoneInput = document.getElementById('phone')
+      
+        const codeInput = document.getElementById('verificationCode')
+      
+        const sendCodeBtn = document.getElementById('sendCodeBtn')
+      
+        const registerForm = document.getElementById('registerForm')
+      
+        const termsCheckbox = document.getElementById('terms')
+      
+        const phoneError = document.getElementById('phoneError')
+      
+        const codeError = document.getElementById('codeError')
+      
+        const termsError = document.getElementById('termsError')
+      
+        const countdown = document.getElementById('countdown')
+      
+        let countdownTimer
+      
+        let seconds = 60
+      
+        // 验证手机号格式
+      
+        function validatePhone(phone) {
+          const regex = /^1[3-9]\d{9}$/
+      
+          return regex.test(phone)
+        }
+      
+        // 发送验证码
+      
+        sendCodeBtn.addEventListener('click', function () {
+          const phone = phoneInput.value.trim()
+      
+          if (!validatePhone(phone)) {
+            phoneError.style.display = 'block'
+      
+            return
+          }
+      
+          phoneError.style.display = 'none'
+      
+          // 禁用按钮并开始倒计时
+      
+          sendCodeBtn.disabled = true
+      
+          sendCodeBtn.textContent = '重新发送(60)'
+      
+          countdown.style.display = 'block'
+      
+          // 模拟发送验证码
+      
+          console.log(`验证码已发送至: ${phone}`)
+      
+          // 开始倒计时
+      
+          countdownTimer = setInterval(function () {
+            seconds--
+      
+            sendCodeBtn.textContent = `重新发送(${seconds})`
+      
+            if (seconds <= 0) {
+              clearInterval(countdownTimer)
+      
+              sendCodeBtn.disabled = false
+      
+              sendCodeBtn.textContent = '获取验证码'
+      
+              countdown.style.display = 'none'
+      
+              seconds = 60
+            }
+          }, 1000)
+        })
+      
+        // 表单提交处理
+      
+        registerForm.addEventListener('submit', function (e) {
+          e.preventDefault()
+      
+          let isValid = true
+      
+          // 验证手机号
+      
+          if (!validatePhone(phoneInput.value.trim())) {
+            phoneError.style.display = 'block'
+      
+            isValid = false
+          } else {
+            phoneError.style.display = 'none'
+          }
+      
+          // 验证验证码
+      
+          if (codeInput.value.trim().length !== 6) {
+            codeError.style.display = 'block'
+      
+            isValid = false
+          } else {
+            codeError.style.display = 'none'
+          }
+      
+          // 验证条款
+      
+          if (!termsCheckbox.checked) {
+            termsError.style.display = 'block'
+      
+            isValid = false
+          } else {
+            termsError.style.display = 'none'
+          }
+      
+          // 如果验证通过
+      
+          if (isValid) {
+            // 模拟注册成功
+      
+            alert('注册成功！欢迎使用我们的服务')
+      
+            registerForm.reset()
+      
+            // 重置倒计时
+      
+            if (countdownTimer) {
+              clearInterval(countdownTimer)
+      
+              sendCodeBtn.disabled = false
+      
+              sendCodeBtn.textContent = '获取验证码'
+      
+              countdown.style.display = 'none'
+      
+              seconds = 60
+            }
+          }
+        })
+      
+        // 手机号输入时隐藏错误信息
+      
+        phoneInput.addEventListener('input', function () {
+          phoneError.style.display = 'none'
+        })
+      
+        // 验证码输入时隐藏错误信息
+      
+        codeInput.addEventListener('input', function () {
+          codeError.style.display = 'none'
+        })
+      
+        // 条款勾选时隐藏错误信息
+      
+        termsCheckbox.addEventListener('change', function () {
+          termsError.style.display = 'none'
+        })
+      })
+    </script>
+  </body>
+</html>

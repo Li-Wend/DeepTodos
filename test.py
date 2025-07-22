@@ -8,7 +8,7 @@ c = conn.cursor()
 #     DROP TABLE tasks_copy
 # ''')
 
-# # 创建新表tasks_copy
+# # 创建新表 tasks_copy
 # c.execute('''
 #     CREATE TABLE IF NOT EXISTS tasks_copy (
 #         task_uuid TEXT(36) PRIMARY KEY NOT NULL,
@@ -20,9 +20,21 @@ c = conn.cursor()
 #     )    
 # ''')
 
+# # 创建新表 users_copy
+# c.execute('''
+#     CREATE TABLE IF NOT EXISTS users_copy (
+#         user_uuid TEXT(36) PRIMARY KEY NOT NULL,
+#         user TEXT NOT NULL UNIQUE,
+#         password_hash TEXT NOT NULL,
+#         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+#         changed_on TIMESTAMP
+#     )
+# ''')
+
+
 # # 复制表 table1 内容到新表 table2
 # c.execute('''
-#     INSERT INTO tasks_copy SELECT * FROM tasks;
+#     INSERT INTO users_copy SELECT * FROM users;
 # ''')
 
 # # 删除已存在的同名触发器（如果存在）
@@ -41,9 +53,9 @@ c = conn.cursor()
 # ''')
 
 # # 删除表 tasks 所有数据
-c.execute('''
-    DELETE FROM tasks_priority;
-''')
+# c.execute('''
+#     DELETE FROM tasks_priority;
+# ''')
 
 # # 复制表 table1 内容到另外一个表 table2 中 (仅复制指定字段)
 # c.execute('''

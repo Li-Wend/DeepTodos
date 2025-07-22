@@ -8,7 +8,7 @@ def initialize_table_users():
     c.execute('''
         CREATE TABLE IF NOT EXISTS users (
             user_uuid TEXT(36) PRIMARY KEY NOT NULL,
-            user TEXT NOT NULL UNIQUE,
+            user TEXT NOT NULL,
             password_hash TEXT NOT NULL,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             changed_on TIMESTAMP

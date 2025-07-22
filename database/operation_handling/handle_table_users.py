@@ -31,7 +31,7 @@ def add_user():
     conn = sqlite3.connect('deeptodo.db')
     c = conn.cursor()
     c.execute("INSERT INTO users (user_uuid, user, password_hash) VALUES (?, ?, ?)",
-             (user_uuid, data['user'], password_hash))
+             (user_uuid, data[-'user'], password_hash))
     conn.commit()
     conn.close()
     session["user_uuid"] = user_uuid
@@ -63,10 +63,6 @@ def verifyPassword():
     user = request.args.get('user')
     safePasswordValue = request.args.get('password')
     input_password = unquote(safePasswordValue)
-
-    print('验证密码')
-    print(input_password)
-
     conn = sqlite3.connect('deeptodo.db')
     c = conn.cursor()
     c.execute('''
