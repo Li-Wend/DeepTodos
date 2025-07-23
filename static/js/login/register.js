@@ -64,9 +64,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         // 验证用户是否已存在
-        const userExists = await fetch(`/api/userExist?user=${mobile_number}`);
+        const userExists = await fetch(`/api/userExist?mobile_number=${mobile_number}`);
         if (userExists.ok) {
-            showMessage("该用户已存在！", true);
+            showMessage("该用户已存在！", 'error');
             return;
         }
 
@@ -116,4 +116,135 @@ document.addEventListener('DOMContentLoaded', function () {
             input.parentElement.querySelector('i').style.color = '#6a11cb';
         });
     });
+
+    // 安全校验 -----------------------------------------------------------
+    const modal = document.getElementById('captchaModal');
+    const showBtn = document.getElementById('verCodeBtn');
+    const closeBtn = document.getElementById('closeModal');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const refreshBtn = document.getElementById('refreshCaptcha');
+    const submitBtn = document.getElementById('submitBtn');
+    const captchaCode = document.getElementById('captchaCode');
+    const captchaInput = document.getElementById('captchaInput');
+    const errorMessage = document.getElementById('errorMessage');
+
+    // 生成随机验证码
+    function generateCaptcha() {
+        const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+        let result = '';
+        for (let i = 0; i < 4; i++) {
+            result += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        return result;
+    }
+
+    // 显示验证码弹窗
+    async function showModal() {
+        // 校验手机号是否正确
+        const mobile_number = document.getElementById('mobile_number').value;
+        if (!mobile_number || !/^1[3-9]\d{9}$/.test(mobile_number)) {
+            showMessage("请输入正确的手机号码！", 'error');
+            return;
+        }
+
+        // 验证用户是否已存在
+        const userExists = await fetch(`/api/userExist?mobile_number=${mobile_number}`);
+        if (userExists.ok) {
+            showMessage("该用户已存在！", 'error');
+            return;
+        }
+
+
+        modal.classList.add('active');
+        captchaCode.textContent = generateCaptcha();
+        captchaInput.value = '';
+        errorMessage.textContent = '';
+        errorMessage.classList.remove('show');
+        document.body.style.overflow = 'hidden';
+    }
+
+    // 关闭验证码弹窗
+    function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+
+    // 刷新验证码
+    function refreshCaptcha() {
+        captchaCode.textContent = generateCaptcha();
+        captchaInput.value = '';
+        errorMessage.textContent = '';
+        errorMessage.classList.remove('show');
+    }
+
+    // 提交验证
+    function submitCaptcha() {
+        const userInput = captchaInput.value.trim().toUpperCase();
+        const actualCaptcha = captchaCode.textContent;
+
+        if (!userInput) {
+            errorMessage.textContent = '请输入验证码';
+            errorMessage.classList.add('show');
+            return;
+        }
+
+        if (userInput !== actualCaptcha) {
+            errorMessage.textContent = '验证码错误，请重新输入';
+            errorMessage.classList.add('show');
+            // 刷新验证码
+            refreshCaptcha();
+            return;
+        }
+
+        // 验证成功
+        closeModal();
+
+        setTime(verCodeBtn);
+    }
+
+    // 验证码按钮倒计时
+    function setTime(btn) {
+        let time = 60;
+        btn.disabled = true;
+        btn.classList.add('disabled');
+        btn.textContent = `60秒后重发`;
+
+        const timer = setInterval(() => {
+            time--;
+            btn.textContent = `${time}秒后重发`;
+
+            if (time <= 0) {
+                clearInterval(timer);
+                btn.disabled = false;
+                btn.classList.remove('disabled');
+                btn.textContent = '获取验证码';
+            }
+        }, 1000);
+    }
+
+    // 事件监听
+    showBtn.addEventListener('click', showModal);
+    closeBtn.addEventListener('click', closeModal);
+    cancelBtn.addEventListener('click', closeModal);
+    refreshBtn.addEventListener('click', refreshCaptcha);
+    submitBtn.addEventListener('click', submitCaptcha);
+
+    // 点击遮罩层关闭弹窗
+    modal.addEventListener('click', function (e) {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+
+    // 按回车键提交
+    captchaInput.addEventListener('keyup', function (e) {
+        if (e.key === 'Enter') {
+            submitCaptcha();
+        }
+    });
+
+    // 初始化验证码
+    refreshCaptcha();
+
 });
+
