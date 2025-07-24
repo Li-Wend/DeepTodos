@@ -126,7 +126,7 @@ def changePassword():
 # 发送手机验证码
 redis_client = redis.Redis(
     host='localhost',
-    port=5000,
+    port=6379,
     db=0,
     decode_responses=True # 自动解码返回字符串
 )

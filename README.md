@@ -27,3 +27,4 @@
 #### - git add . 
 #### - git commit -m "message"
 #### - git push origin dev
+#### - merge dev to main branch
