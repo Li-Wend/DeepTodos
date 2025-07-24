@@ -284,10 +284,6 @@ function renderCharts() {
     const dayTasks = document.querySelectorAll('#dayView .task-item');
     const completedDayTasks = document.querySelectorAll('#dayView .task-item.completed').length;
 
-    // 总体统计
-    const allTasks = document.querySelectorAll('.task-item');
-    const completedTasks = document.querySelectorAll('.task-item.completed').length;
-
     // 日视图图表
     const dailyCtx = document.getElementById('dailyStatsChart').getContext('2d');
     if (window.dailyChart) window.dailyChart.destroy();

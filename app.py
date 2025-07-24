@@ -1,11 +1,11 @@
 from flask import Flask
 from datetime import timedelta
-from session.handle_login_session import handle_login_session_api
-from database.initialization import initialize_table_users
-from database.initialization import initialize_table_tasks
-from database.operation_handling.handle_table_users import handle_users_api
-from database.operation_handling.handle_table_tasks import handle_tasks_api
-from navigation.route_navigation import route_navigation
+from bin.tools.session.handle_login_session import handle_login_session_api
+from bin.database.initialization import initialize_table_users
+from bin.database.initialization import initialize_table_tasks
+from bin.database.operation_handling.handle_table_users import handle_users_api
+from bin.database.operation_handling.handle_table_tasks import handle_tasks_api
+from bin.navigation.route_navigation import route_navigation
 
 app = Flask(__name__)
 
