@@ -1,13 +1,9 @@
-import random
 import re
-import string
 from urllib.parse import unquote
 import uuid
 import bcrypt
 from flask import Blueprint, jsonify, request, session
 import sqlite3
-
-import redis
 
 handle_users_api = Blueprint('handle_users_api', __name__)
 
@@ -28,7 +24,7 @@ def verify_password_strength():
 @handle_users_api.route('/api/user', methods=['POST'])
 def add_user():
     # 生成标准格式UUID（带连字符的36字符版本）
-    user_uuid = str(uuid.uuid4())    
+    user_uuid = str(uuid.uuid4())
     data = request.get_json()
     mobile_number = data.get('mobile_number')
     password = data.get('password')
@@ -121,46 +117,3 @@ def changePassword():
     conn.commit()
     conn.close()
     return jsonify({"success": True})
-
-
-# 发送手机验证码
-redis_client = redis.Redis(
-    host='localhost',
-    port=6379,
-    db=0,
-    decode_responses=True # 自动解码返回字符串
-)
-def generate_verification_code(length=6):
-    return ''.join(random.choices(string.digits, k=length))
-@handle_users_api.route('/api/send_sms_code', methods=['POST'])
-def send_sms_code():
-    data = request.get_json()
-    mobile_number = data.get('mobile_number')
-    # 1. 验证手机号码是否输入 (由于前端已经校验手机号码正确性，这里只需验证手机号码是否存在)
-    if not mobile_number:
-        return jsonify(error="请输入正确的手机号码！"), 400
-    # 2. 生成 6 位验证码
-    verification_code = generate_verification_code()
-    # 3. 存储手机号码、验证码到 Redis, 有效期 5 分钟
-    try:
-        redis_client.setex(f'verification_code:{mobile_number}', 300, verification_code)
-        # 4. 调用短信服务发送验证码 - 暂时模拟 !!!!
-        print(f"Generated code for {mobile_number}: {verification_code}") # 调试用
-        return jsonify({"success": True})
-    except redis.RedisError as e:
-        return jsonify({'error': f'Redis error:{str(e)}'}), 500
-    
-# 验证手机验证码
-@handle_users_api.route('/api/verify_sms_code', methods=['POST'])
-def verify_sms_code():
-    data = request.get_json()
-    mobile_number = data.get('mobile_number')
-    verification_code = data.get('verification_code')
-    # 从redis获取存储的 verification_code
-    stored_verification_code = redis_client.get(f'verification_code:{mobile_number}')
-    if not stored_verification_code:
-        return jsonify({'vaild':False, 'message':'验证码已过期或未发送！'})
-    if stored_verification_code == verification_code:
-        redis_client.delete(f'verification_code:{mobile_number}')
-        return jsonify({'vaild', True})
-    return jsonify({'vaild':False, 'message':'验证码错误'})

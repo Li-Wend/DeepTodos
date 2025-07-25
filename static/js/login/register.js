@@ -125,6 +125,27 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
+        // 5. 验证短信验证码是否正确
+        const smsCode = document.getElementById('verCode');
+        const verifySmsCodeResponse = await fetch(`/api/verify_sms_code?mobile_number=${mobile_number}?sms_code=${smsCode}`);
+        if (verifySmsCodeResponse.status == 400) {
+            showMessage("验证码失效，请重新发送！", 'error');
+            return;
+        }
+        if (verifySmsCodeResponse.status == 401) {
+            showMessage("请输入正确的验证码！", 'error');
+            return;
+        }
+
+        // 6. 从数据库中删除已验证通过的短信验证码
+        await fetch(`/api/delete_sms_code`, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                mobile_number: mobile_number
+            })
+        });
+
         // 验证密码规则并保存到数据库
         const addUserResponse = await fetch(`/api/user`, {
             method: 'POST',
@@ -258,16 +279,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 mobile_number: mobile_number
             })
         });
-        if (sendVerCodeResponse.status == 400) {
-            showMessage("请输入正确的手机号码！", 'error');
-            return;
-        } 
-        if (sendVerCodeResponse.status == 500) {
-            showMessage("Redis error!", 'error');
-            return;
-        }
         if (sendVerCodeResponse.ok) {
             showMessage("手机验证码发送成功！", 'success');
+        } else {
+            showMessage("手机验证码发送失败！", 'error');
+            return;
         }
 
         // 获取验证码按钮倒计时60s
