@@ -71,7 +71,7 @@ c = conn.cursor()
 
 # # 删除表 tasks 所有数据
 # c.execute('''
-#     DELETE FROM users;
+#     DELETE FROM users where mobile_number = '13504809661';
 # ''')
 
 # # 复制表 table1 内容到另外一个表 table2 中 (仅复制指定字段)

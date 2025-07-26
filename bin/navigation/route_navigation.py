@@ -12,6 +12,8 @@ def index():
 # 用户登录页面 login
 @route_navigation.route('/login')
 def login():
+    if session.get('logged_in'):
+        return render_template('tasks/tasks.html')
     return render_template('login/login.html')
 
 # 数据隐私保护界面 DataPrivacyProtection

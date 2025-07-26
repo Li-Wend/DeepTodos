@@ -27,11 +27,33 @@ def send_sms_code():
     # 4. 添加 sms_code 信息到数据库
     conn = sqlite3.connect('deeptodo.db')
     c = conn.cursor()
+    # 4.1 获取已经发送成功的 sms_code
+    c.execute('''
+        SELECT sms_code, expire_at
+        FROM sms_codes
+        WHERE mobile_number = ?
+          AND used = 0
+    ''', (mobile_number,))
+    conn.commit()
+    stored_sms_code_result = c.fetchone()
+    if stored_sms_code_result is not None:
+        # 4.2 计算已经发送多久，限制60s后才可重新发送
+        stored_expire_at = stored_sms_code_result[1]
+        stored_expire_at = datetime.strptime(stored_expire_at, "%Y-%m-%d %H:%M:%S.%f")
+        allow_send_datetime = stored_expire_at + timedelta(minutes=-4)
+        current_datetime = datetime.now()
+        if allow_send_datetime > current_datetime:
+            return jsonify(error="验证码已发送，请60s后重试"), 401
+        # 4.3 删除现有的 sms_code
+        c.execute("DELETE FROM sms_codes WHERE mobile_number = ?", (mobile_number,))
+        conn.commit()
+    # 4.4 添加 sms_code 到数据库
     c.execute("INSERT INTO sms_codes (sms_code_uuid, mobile_number, sms_code, expire_at) VALUES (?, ?, ?, ?)",
              (sms_code_uuid, mobile_number, sms_code, expire_at))
     conn.commit()
     conn.close()
     # 5. 调用短信服务发送验证码 - 暂时模拟 !!!!
+    #   !!! 短信服务在国内需要企业认证，个人实现起来有点麻烦，所以暂时选择替代方案，微信登录
     print(f"Generated code for {mobile_number}: {sms_code}") # 调试用
     return jsonify({"success": True})
     
@@ -49,8 +71,8 @@ def verify_sms_code():
         SELECT sms_code
         FROM sms_codes
         WHERE mobile_number = ?
-              expire_at > ?
-              used = 0
+          AND expire_at > ?
+          AND used = 0
     ''', (mobile_number, currentDatetime,))
     result = c.fetchone()
     if result is None:
