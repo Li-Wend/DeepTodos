@@ -1,95 +1,57 @@
-import argparse
-import json
-import os
 import requests
-from typing import List, Dict, Any
 
-class DeepSeekChatAPI:
-    """DeepSeek AI 对话 API 客户端"""
+def ask_deepseek(api_key, message):
+    """
+    向 DeepSeek API 发送请求并获取回复
+    :param api_key: 你的 DeepSeek API 密钥
+    :param message: 用户输入的消息
+    :return: AI 生成的回复
+    """
+    # API 端点 (请替换为实际 DeepSeek API 地址)
+    url = "https://api.deepseek.com/v1/chat/completions"
+    #url = "https://api.deepseek.com/v1"
     
-    def __init__(self, api_key: str, model: str = "deepseek-chat", 
-                 temperature: float = 0.7, max_tokens: int = 1000):
-        """初始化 API 客户端"""
-        self.api_key = api_key
-        self.model = model
-        self.temperature = temperature
-        self.max_tokens = max_tokens
-        self.headers = {
-            "Content-Type": "application/json",
-            "Authorization": f"Bearer {api_key}"
-        }
-        self.base_url = "https://api.deepseek.com/v1/chat/completions"
-        self.messages = []  # 存储对话历史
+    # 请求头
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json"
+    }
     
-    def add_user_message(self, content: str) -> None:
-        """添加用户消息到对话历史"""
-        self.messages.append({"role": "user", "content": content})
+    # 请求数据
+    payload = {
+        "model": "deepseek-chat",  # 模型名称 (根据实际可用模型调整)
+        "messages": [
+            {"role": "user", "content": message}
+        ],
+        "temperature": 0.7,  # 控制生成文本的随机性 (0-2)
+        "max_tokens": 200     # 限制回复的最大长度
+    }
     
-    def get_response(self) -> str:
-        """发送请求并获取 AI 回复"""
-        payload = {
-            "model": self.model,
-            "messages": self.messages,
-            "temperature": self.temperature,
-            "max_tokens": self.max_tokens
-        }
+    try:
+        # 发送 POST 请求
+        response = requests.post(url, json=payload, headers=headers)
+        response.raise_for_status()  # 检查错误
         
-        try:
-            response = requests.post(self.base_url, headers=self.headers, data=json.dumps(payload))
-            response.raise_for_status()
-            response_data = response.json()
-            ai_message = response_data["choices"][0]["message"]["content"]
-            self.messages.append({"role": "assistant", "content": ai_message})
-            return ai_message
-        except requests.exceptions.RequestException as e:
-            print(f"请求错误: {e}")
-            return "抱歉，请求过程中出现错误。"
-        except (KeyError, json.JSONDecodeError) as e:
-            print(f"响应解析错误: {e}")
-            return "抱歉，解析响应时出现错误。"
+        # 解析回复
+        ai_reply = response.json()["choices"][0]["message"]["content"]
+        return ai_reply.strip()
+    
+    except requests.exceptions.RequestException as e:
+        return f"请求出错: {str(e)}"
+    except (KeyError, IndexError) as e:
+        return "解析响应时出错，请检查API格式"
 
-def main():
-    """主函数：处理命令行参数并启动对话"""
-    parser = argparse.ArgumentParser(description="DeepSeek AI 对话客户端")
-    parser.add_argument("--api-key", help="DeepSeek API 密钥")
-    parser.add_argument("--model", default="deepseek-chat", help="使用的模型名称")
-    parser.add_argument("--temperature", type=float, default=0.7, help="温度参数，控制随机性")
-    parser.add_argument("--max-tokens", type=int, default=1000, help="最大生成长度")
-    
-    args = parser.parse_args()
-    
-    # 优先使用命令行参数中的 API 密钥，否则尝试从环境变量获取
-    api_key = args.api_key or os.environ.get("DEEPSEEK_API_KEY")
-    
-    if not api_key:
-        print("错误: 请提供 DeepSeek API 密钥 (通过 --api-key 参数或 DEEPSEEK_API_KEY 环境变量)")
-        return
-    
-    # 初始化 API 客户端
-    client = DeepSeekChatAPI(
-        api_key=api_key,
-        model=args.model,
-        temperature=args.temperature,
-        max_tokens=args.max_tokens
-    )
-    
-    print("=== DeepSeek AI 对话系统 ===")
-    print("输入 'exit' 结束对话，输入 'clear' 清空对话历史")
+
+# 使用示例
+if __name__ == "__main__":
+    # 替换为你的实际 API 密钥 (从 DeepSeek 控制台中获取，并且需要支付费用才可以使用)
+    API_KEY = "sk-62d52788e82f465bb0a3e3e77bff4655"  
     
     while True:
         user_input = input("\n你: ")
-        
-        if user_input.lower() == "exit":
+        if user_input.lower() in ["exit", "quit"]:
             break
-        
-        if user_input.lower() == "clear":
-            client.messages = []
-            print("对话历史已清空")
-            continue
-        
-        client.add_user_message(user_input)
-        response = client.get_response()
-        print(f"DeepSeek AI: {response}")
-
-if __name__ == "__main__":
-    main()    
+            
+        # 获取 AI 回复
+        reply = ask_deepseek(API_KEY, user_input)
+        print(f"\nAI: {reply}")
