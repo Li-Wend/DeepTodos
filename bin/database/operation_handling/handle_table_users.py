@@ -20,6 +20,23 @@ def verify_password_strength():
         return jsonify(error="密码需含大写字母、特殊字符且长度≥8"), 400
     return jsonify(success=True)
 
+# 获取用户是否存在
+@handle_users_api.route('/api/userExist', methods=['GET'])
+def userExist():
+    mobile_number = request.args.get('mobile_number')
+    conn = sqlite3.connect('deeptodo.db')
+    c = conn.cursor()
+    c.execute('''
+        SELECT *
+        FROM users
+        WHERE mobile_number = ?
+    ''', (mobile_number,))
+    result = c.fetchone()
+    conn.close()
+    if result is None:
+        return jsonify(error="用户不存在！"), 400
+    return jsonify(success=True)
+
 # 添加用户
 @handle_users_api.route('/api/user', methods=['POST'])
 def add_user():
@@ -47,23 +64,6 @@ def add_user():
     session["mobile_number"] = mobile_number
     session["logged_in"] = True
     session.permanent = True
-    return jsonify(success=True)
-
-# 获取用户是否存在
-@handle_users_api.route('/api/userExist', methods=['GET'])
-def userExist():
-    mobile_number = request.args.get('mobile_number')
-    conn = sqlite3.connect('deeptodo.db')
-    c = conn.cursor()
-    c.execute('''
-        SELECT *
-        FROM users
-        WHERE mobile_number = ?
-    ''', (mobile_number,))
-    result = c.fetchone()
-    conn.close()
-    if result is None:
-        return jsonify(error="用户不存在！"), 400
     return jsonify(success=True)
 
 # 验证密码
@@ -114,6 +114,18 @@ def changePassword():
     conn = sqlite3.connect('deeptodo.db')
     c = conn.cursor()
     c.execute("UPDATE users SET password_hash = ? WHERE mobile_number = ?", (password_hash, mobile_number))
+    conn.commit()
+    conn.close()
+    return jsonify({"success": True})
+
+# 删除用户
+@handle_users_api.route('/api/delete_user', methods=['DELETE'])
+def delete_user():
+    user_uuid = session.get('user_uuid')
+    mobile_number = session.get('mobile_number')
+    conn = sqlite3.connect('deeptodo.db')
+    c = conn.cursor()
+    c.execute("DELETE FROM users WHERE user_uuid = ? AND mobile_number = ?", (user_uuid, mobile_number))
     conn.commit()
     conn.close()
     return jsonify({"success": True})

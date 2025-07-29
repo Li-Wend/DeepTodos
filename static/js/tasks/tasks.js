@@ -75,10 +75,10 @@ async function changePassword() {
     window.location.href = 'changePassword';
 }
 
-// 注销登陆 (删除 session) 并重定向到 login 页面
+// 退出登陆 (删除 session) 并重定向到 login 页面
 async function logout() {
-    const response = await fetch(`/api/logout`);
-    if (response.ok) {
+    const logoutResponse = await fetch(`/api/logout`);
+    if (logoutResponse.ok) {
         // 跳转到 login 页面
         window.location.href = 'login';
     }
@@ -364,8 +364,4 @@ function renderCharts() {
             }
         }
     });
-}
-
-function removeAccount() {
-    alert("删除账号？");
 }
