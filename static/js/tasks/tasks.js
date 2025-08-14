@@ -104,6 +104,8 @@ function renderTaskList(tasks, elementId) {
         // 获取类别图标
         const categoryIcons = {
             work: 'briefcase',
+            deepverve: 'briefcase',
+            deeptodos: 'briefcase',
             personal: 'user',
             shopping: 'shopping-cart',
             health: 'heartbeat',
@@ -112,6 +114,8 @@ function renderTaskList(tasks, elementId) {
 
         const categoryNames = {
             work: '工作',
+            deepverve: 'DeepVerve',
+            deeptodos: 'DppeTodos',
             personal: '个人',
             shopping: '购物',
             health: '健康',
@@ -275,93 +279,5 @@ function deleteTask(task_uuid) {
     }).then(() => {
         if (currentView === 'day') loadCurrentDayTasks();
         if (currentView === 'myTasks') initMyTasksView();
-    });
-}
-
-// 渲染统计图表
-function renderCharts() {
-    // 日视图统计
-    const dayTasks = document.querySelectorAll('#dayView .task-item');
-    const completedDayTasks = document.querySelectorAll('#dayView .task-item.completed').length;
-
-    // 日视图图表
-    const dailyCtx = document.getElementById('dailyStatsChart').getContext('2d');
-    if (window.dailyChart) window.dailyChart.destroy();
-    window.dailyChart = new Chart(dailyCtx, {
-        type: 'doughnut',
-        data: {
-            labels: ['已完成', '未完成'],
-            datasets: [{
-                data: [completedDayTasks, dayTasks.length - completedDayTasks],
-                backgroundColor: ['#0be881', '#4bcffa'],
-                borderColor: ['rgba(255, 255, 255, 0.1)'],
-                borderWidth: 2
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    position: 'bottom',
-                    labels: {
-                        color: '#fff',
-                        font: {
-                            size: 14
-                        }
-                    }
-                },
-                tooltip: {
-                    backgroundColor: 'rgba(30, 50, 110, 0.9)',
-                    titleColor: '#fff',
-                    bodyColor: '#e0e0ff',
-                    titleFont: {
-                        size: 16
-                    },
-                    bodyFont: {
-                        size: 14
-                    },
-                    padding: 12
-                }
-            }
-        }
-    });
-
-    // 总体任务统计图表
-    const overallCtx = document.getElementById('overallStatsChart').getContext('2d');
-    new Chart(overallCtx, {
-        type: 'bar',
-        data: {
-            labels: ['工作', '学习', '健康', '购物', '个人'],
-            datasets: [{
-                label: '任务数量',
-                data: [12, 8, 5, 7, 9],
-                backgroundColor: '#4a6ee0',
-                borderRadius: 6,
-                borderSkipped: false
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    grid: {
-                        drawBorder: false
-                    }
-                },
-                x: {
-                    grid: {
-                        display: false
-                    }
-                }
-            },
-            plugins: {
-                legend: {
-                    display: false
-                }
-            }
-        }
     });
 }

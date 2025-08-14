@@ -68,6 +68,8 @@
           <label for="taskCategory">任务类别</label>
           <select id="taskCategory">
             <option value="work">工作</option>
+            <option value="deepverve">DeepVerve</option>
+            <option value="deeptodos">DeepTodos</option>
             <option value="personal">个人</option>
             <option value="shopping">购物</option>
             <option value="health">健康</option>
@@ -88,15 +90,6 @@
         </div>
 
         <ul id="currentDayTaskList"></ul>
-
-        <div class="stats-container">
-          <div class="stats-title">
-            <i class="fas fa-chart-pie"></i> 今日任务统计
-          </div>
-          <div class="chart-container">
-            <canvas id="dailyStatsChart"></canvas>
-          </div>
-        </div>
       </div>
 
       <!-- 我的任务视图 -->
@@ -105,6 +98,8 @@
           <label for="taskCategory">任务类别</label>
           <select id="taskCategory">
             <option value="work">工作</option>
+            <option value="deepverve">DeepVerve</option>
+            <option value="deeptodos">DeepTodos</option>
             <option value="personal">个人</option>
             <option value="shopping">购物</option>
             <option value="health">健康</option>
@@ -136,15 +131,6 @@
             <i class="fas fa-check-circle"></i> 已完成任务
           </div>
           <ul id="allFinishedTasksList"></ul>
-        </div>
-
-        <div class="stats-container">
-          <div class="stats-title">
-            <i class="fas fa-chart-bar"></i> 总体任务统计
-          </div>
-          <div class="chart-container">
-            <canvas id="overallStatsChart"></canvas>
-          </div>
         </div>
       </div>
 
