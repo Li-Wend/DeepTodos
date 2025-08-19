@@ -1,2 +1,12 @@
-#忽略所有 .db 结尾的文件
-# *.db
+# ----------------- Backend -----------------
+# 禁止上传敏感文件到 GitHub Repositories
+
+# SQLite 数据库文件 - 忽略所有 .db 结尾的文件
+#.db
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# ...
