@@ -20,6 +20,14 @@ export default defineConfig({
       resolvers: [ElementPlusResolver()],
     }),
   ],
+  css: {
+    preprocessorOptions: {
+      scss: {
+        // 此处配置后，项目中的所有 .vue 文件都可以直接使用这些变量，无需再次导入
+        additionalData: '@use "@/style/main.scss" as *;'
+      }
+    }
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
