@@ -1,0 +1,6 @@
+// 全局盒模型设置
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
