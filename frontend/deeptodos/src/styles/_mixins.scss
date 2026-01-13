@@ -1,0 +1,85 @@
+// 全局字体样式 混入
+// 说明文字 深色  思源黑体 CN  24
+@mixin global-font-descriptionDark() {
+    color: $Black;
+    font-family: $font-family-primary;
+    font-style: Regular;
+    font-size: $font-size-description;
+    font-weight: 400;
+    line-height: $line-height-description;
+    letter-spacing: $letter-spacing-base;
+    text-align: left;
+}
+
+// 说明文字 浅色  思源黑体 CN  24
+@mixin global-font-descriptionLight() {
+    color: $LightGray;
+    font-family: $font-family-primary;
+    font-style: Regular;
+    font-size: $font-size-description;
+    font-weight: 400;
+    line-height: $line-height-description;
+    letter-spacing: $letter-spacing-base;
+    text-align: left;
+}
+
+// 正文  思源黑体 CN  20
+@mixin global-font-mainBody() {
+    color: $Black;
+    font-family: $font-family-primary;
+    font-style: Regular;
+    font-size: $font-size-body;
+    font-weight: 400;
+    line-height: $line-height-body;
+    letter-spacing: $letter-spacing-base;
+    text-align: left;
+}
+
+// 正文加粗  思源黑体 CN  20
+@mixin global-font-mainBodyBold() {
+    color: $Black;
+    font-family: $font-family-primary;
+    font-style: Bold;
+    font-size: $font-size-body;
+    font-weight: 700;
+    line-height: $line-height-body;
+    letter-spacing: $letter-spacing-base;
+    text-align: left;
+}
+
+// 已完成 思源黑体 CN  20
+@mixin global-font-done() {
+    color: $LightGray;
+    font-family: $font-family-primary;
+    font-style: Regular;
+    font-size: $font-size-body;
+    font-weight: 400;
+    line-height: $line-height-body;
+    letter-spacing: $letter-spacing-base;
+    text-align: left;
+    text-decoration-line: line-through;
+}
+
+
+// 全局按钮样式 混入
+// 按钮外侧阴影 - 左侧
+@mixin global-box-shadow-selection-box-left() {
+    border: $border-base;
+    /* Outer shadow - on the left side of the selection b */
+    box-shadow: -4px 4px 0px 0px $Black;
+}
+
+// 按钮外侧阴影 - 右侧
+@mixin global-box-shadow-selection-box-right() {
+    border: $border-base;
+    /* Outer shadow - on the right side of the selection b */
+    box-shadow: 4px 4px 0px 0px $Black;
+}
+
+// 全局边框样式 混入
+// 边框外侧阴影 - 右侧边框
+@mixin global-box-shadow-border-right() {
+    border: $border-base;
+    /* Outer shadow - Right side of the border */
+    box-shadow: 6px 8px 0px 0px $Black;
+}
