@@ -11,8 +11,31 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    ButtonSelect: typeof import('./src/components/ButtonSelect.vue')['default']
+    CircularButtonFrame: typeof import('./src/components/CircularButtonFrame.vue')['default']
+    Component3460: typeof import('./src/components/Component3460.vue')['default']
+    Component3462: typeof import('./src/components/Component3462.vue')['default']
+    Component36199: typeof import('./src/components/Component36199.vue')['default']
+    Component36232: typeof import('./src/components/Component36232.vue')['default']
+    Component36245: typeof import('./src/components/Component36245.vue')['default']
+    Component43102: typeof import('./src/components/Component43102.vue')['default']
+    Component43107: typeof import('./src/components/Component43107.vue')['default']
+    Component43131: typeof import('./src/components/Component43131.vue')['default']
+    Component43150: typeof import('./src/components/Component43150.vue')['default']
+    Component43332: typeof import('./src/components/Component43332.vue')['default']
+    Component44110: typeof import('./src/components/Component44110.vue')['default']
+    Component44553: typeof import('./src/components/Component44553.vue')['default']
+    Component53169: typeof import('./src/components/Component53169.vue')['default']
+    Component53382: typeof import('./src/components/Component53382.vue')['default']
+    copy: typeof import('./src/components/Component36245 copy.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SelectionBox: typeof import('./src/components/SelectionBox.vue')['default']
+    SelectionBoxDefault: typeof import('./src/components/SelectionBoxDefault.vue')['default']
+    SelectionBoxSelect: typeof import('./src/components/SelectionBoxSelect.vue')['default']
     Test: typeof import('./src/components/test.vue')['default']
+    VectorDefault: typeof import('./src/components/VectorDefault.vue')['default']
+    VectorDelete: typeof import('./src/components/VectorDelete.vue')['default']
+    VectorSelect: typeof import('./src/components/VectorSelect.vue')['default']
   }
 }

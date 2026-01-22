@@ -1,6 +1,11 @@
-// 全局盒模型设置
+/* 全局重置和基础设置 */
+html {
+  font-size: 62.5%; /* 1rem = 10px */
+  box-sizing: border-box;
+}
+
 *,
 *::before,
 *::after {
-    box-sizing: border-box;
+  box-sizing: inherit;
 }
