@@ -30,6 +30,20 @@ declare module 'vue-router/auto-routes' {
       { all: ParamValue<false> },
       | never
     >,
+    '/Frame92142': RouteRecordInfo<
+      '/Frame92142',
+      '/Frame92142',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    '/Frame94222': RouteRecordInfo<
+      '/Frame94222',
+      '/Frame94222',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
     '/Todo': RouteRecordInfo<
       '/Todo',
       '/Todo',
@@ -53,6 +67,18 @@ declare module 'vue-router/auto-routes' {
     'src/pages/[...all].vue': {
       routes:
         | '/[...all]'
+      views:
+        | never
+    }
+    'src/pages/Frame92142.vue': {
+      routes:
+        | '/Frame92142'
+      views:
+        | never
+    }
+    'src/pages/Frame94222.vue': {
+      routes:
+        | '/Frame94222'
       views:
         | never
     }
