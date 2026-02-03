@@ -152,7 +152,7 @@ pnpm install
 
 ## ✊ 技术栈
 - **Python**
-- **Django**
+- **FastAPI**
 - **Vue**
 - **HTML**
 - **CSS**

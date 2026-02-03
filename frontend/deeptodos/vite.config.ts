@@ -39,7 +39,13 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         // 此处配置后，项目中的所有 .vue 文件都可以直接使用这些变量，无需再次导入
-        additionalData: '@use "@/style/main.scss" as *;'
+        additionalData: `
+          @use "@/assets/styles/_fonts.scss" as *;
+          @use "@/assets/styles/_base.scss" as *;
+          @use "@/assets/styles/_variables.scss" as *;
+          @use "@/assets/styles/_utilities.scss" as *;
+          @use "@/assets/styles/_mixins.scss" as *;
+        `
       }
     }
   },
