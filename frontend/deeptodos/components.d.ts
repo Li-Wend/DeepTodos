@@ -12,6 +12,11 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     Button: typeof import('./src/components/Button.vue')['default']
+    ButtonMenuAbove: typeof import('./src/components/ButtonMenuAbove.vue')['default']
+    ButtonMenuBelow: typeof import('./src/components/ButtonMenuBelow.vue')['default']
+    ButtonMenuMedium: typeof import('./src/components/ButtonMenuMedium.vue')['default']
+    ButtonMenuUnder: typeof import('./src/components/ButtonMenuUnder.vue')['default']
+    ButtonSwitch: typeof import('./src/components/ButtonSwitch.vue')['default']
     Component69263: typeof import('./src/components/Component69263.vue')['default']
     Component70193: typeof import('./src/components/Component70193.vue')['default']
     Component70197: typeof import('./src/components/Component70197.vue')['default']
@@ -23,9 +28,15 @@ declare module 'vue' {
     Component86223: typeof import('./src/components/Component86223.vue')['default']
     Component86629: typeof import('./src/components/Component86629.vue')['default']
     Component86665: typeof import('./src/components/Component86665.vue')['default']
+    copy: typeof import('./src/components/Component86223 copy.vue')['default']
+    Icon_rhombus: typeof import('./src/components/icon_rhombus.vue')['default']
     IconDeeptodos: typeof import('./src/components/IconDeeptodos.vue')['default']
+    IconRhombus: typeof import('./src/components/IconRhombus.vue')['default']
+    InputTask: typeof import('./src/components/InputTask.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    TaskItem: typeof import('./src/components/TaskItem.vue')['default']
+    TaskList: typeof import('./src/components/TaskList.vue')['default']
     Vector: typeof import('./src/components/Vector.vue')['default']
   }
 }

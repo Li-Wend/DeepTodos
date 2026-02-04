@@ -13,21 +13,38 @@
     <!-- <Button :Style="'ConfirmClick'"/> -->
 
     <!-- <IconDeeptodos /> -->
+    <!-- <IconRhombus /> -->
 
-    <Component742 :Status="'Pending'"/>
-    <Component742 :Status="'Completed'"/>
+    <!-- <TaskItem :Status="'Pending'"/> -->
+    <!-- <TaskItem :Status="'Completed'"/> -->
 
+    <!-- <TaskList /> -->
+
+    <!-- <ButtonMenuAbove :Switch="'Off'" /> -->
+    <!-- <ButtonMenuAbove :Switch="'On'" /> -->
+
+    <!-- <ButtonMenuBelow :Switch="'Off'" /> -->
+    <!-- <ButtonMenuBelow :Switch="'ClearAll'" /> -->
+    <!-- <ButtonMenuBelow :Switch="'ClearAllHover'" /> -->
+
+    <!-- <InputTask /> -->
+
+    <!-- <ButtonMenuMedium :text="'全部'" :color="'bright-pink'" /> -->
+    <!-- <ButtonMenuMedium :text="'进行中'" :color="'pure-white'" /> -->
+    <!-- <ButtonMenuMedium :text="'进行中'" :color="'jade-green'" /> -->
+    <!-- <ButtonMenuMedium :text="'已完成'" :color="'pure-white'" /> -->
+    <!-- <ButtonMenuMedium :text="'已完成'" :color="'jade-green'" /> -->
+    <!-- <ButtonMenuMedium :text="'全部标为完成'" :color="'pure-white'" /> -->
+    <!-- <ButtonMenuMedium :text="'全部标为完成'" :color="'luminous-yellow'" /> -->
+    <!-- <ButtonMenuMedium :text="'清除已完成'" :color="'pure-white'" /> -->
+    <!-- <ButtonMenuMedium :text="'清除已完成'" :color="'luminous-yellow'" /> -->
+
+
+    
 </template>
 
 <script setup lang="ts">
 
-import { IconComponentMap } from 'element-plus';
-import { B } from 'vue-router/dist/router-CWoNjPRp.mjs';
-
-
-
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
