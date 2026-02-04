@@ -1,9 +1,9 @@
 // 所选颜色
 $pure-white: rgba(255, 255, 255, 1);
-$jade-green: rgba(160, 193, 152, 0.4);
+$jade-green: rgba(160, 193, 152, 0.4000000059604645);
 $bright-green: rgba(160, 193, 152, 1);
 $orange: rgba(255, 71, 0, 0.550000011920929);
-$bright-pink: rgba(248, 152, 152, 0.85);
+$bright-pink: rgba(248, 152, 152, 0.8500000238418579);
 $light-gray: rgba(153, 153, 153, 1);
 $pale-yellow: rgba(255, 251, 240, 1);
 $luminous-yellow: rgba(246, 230, 22, 0.8500000238418579);
@@ -13,12 +13,48 @@ $black: rgba(0, 0, 0, 1);
 $font-family-regular: 'Source Han Sans CN-Regular';
 $font-family-bold: 'Source Han Sans CN-Bold';
 $font-size-description: 2.4rem;
-$font-size-body: 2rem;
+$font-size-body: 20px;
 $line-height-description: 3.6rem;
 $line-height-body: 3rem;
-$letter-spacing-base: .004rem;
+$letter-spacing-base: 0.03999999910593033px;
 
 // 边框基础样式
 $border-width-base: 2px;
 $border-style-base: solid;
-$border-base: var($border-width-base) var($border-style-base) var($black);
+$border-base: $border-width-base $border-style-base $black;
+
+.fill-pure-white {
+    background-color: $pure-white;
+}
+
+.fill-jade-green {
+    background-color: $jade-green;
+}
+
+.fill-bright-green {
+    background-color: $bright-green;
+}
+
+.fill-orange {
+    background-color: $orange;
+}
+
+.fill-bright-pink {
+    background-color: $bright-pink;
+}
+
+.fill-light-gray {
+    background-color: $light-gray;
+}
+
+.fill-pale-yellow {
+    background-color: $pale-yellow;
+}
+
+.fill-luminous-yellow {
+    background-color: $luminous-yellow;
+}
+
+.stroke-black {
+    border-color: $black;
+}

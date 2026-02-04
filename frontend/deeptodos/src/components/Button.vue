@@ -67,9 +67,6 @@ const props = defineProps({
 .Pixso-symbol-button_select_default {
     width: 40px;
     height: 40px;
-    /* position: absolute;
-    left: 21px;
-    top: 21px; */
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -89,9 +86,6 @@ const props = defineProps({
 .Pixso-symbol-button_select_hover {
     width: 40px;
     height: 40px;
-    /* position: absolute;
-    left: 21px;
-    top: 80.25px; */
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -135,9 +129,6 @@ const props = defineProps({
 .Pixso-symbol-button_delete_default {
     width: 40px;
     height: 40px;
-    /* position: absolute;
-    left: 80px;
-    top: 21px; */
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -152,9 +143,6 @@ const props = defineProps({
 .Pixso-symbol-button_delete_click {
     width: 40px;
     height: 40px;
-    /* position: absolute;
-    left: 80px;
-    top: 80.25px; */
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -174,9 +162,6 @@ const props = defineProps({
 .Pixso-symbol-button_delete_hover {
     width: 40px;
     height: 40px;
-    /* position: absolute;
-    left: 80px;
-    top: 139.5px; */
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -196,9 +181,6 @@ const props = defineProps({
 .Pixso-symbol-button_back_default {
     width: 40px;
     height: 40px;
-    /* position: absolute;
-    left: 139px;
-    top: 21px; */
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -213,9 +195,6 @@ const props = defineProps({
 .Pixso-symbol-button_back_click {
     width: 40px;
     height: 40px;
-    /* position: absolute;
-    left: 139px;
-    top: 80.25px; */
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -235,9 +214,6 @@ const props = defineProps({
 .Pixso-symbol-button_back_hover {
     width: 40px;
     height: 40px;
-    /* position: absolute;
-    left: 139px;
-    top: 139.5px; */
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -257,9 +233,6 @@ const props = defineProps({
 .Pixso-symbol-button_confirm_default {
     width: 40px;
     height: 40px;
-    /* position: absolute;
-    left: 198px;
-    top: 21px; */
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -274,9 +247,6 @@ const props = defineProps({
 .Pixso-symbol-button_confirm_click {
     width: 40px;
     height: 40px;
-    /* position: absolute;
-    left: 198px;
-    top: 80.25px; */
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -296,9 +266,6 @@ const props = defineProps({
 .Pixso-symbol-button_confirm_hover {
     width: 40px;
     height: 40px;
-    /* position: absolute;
-    left: 198px;
-    top: 139.5px; */
     display: flex;
     flex-direction: row;
     justify-content: center;

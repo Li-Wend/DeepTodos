@@ -1,50 +1,38 @@
+@use 'variables' as *;
+
 // 全局字体样式 混入
 // 说明文字 深色  思源黑体 CN  24
 @mixin global-font-descriptionDark() {
-    color: $black;
-    font-family: $font-family-regular;
-    font-style: Regular;
     font-size: $font-size-description;
-    font-weight: 400;
-    line-height: $line-height-description;
+    font-family: $font-family-regular;
+    font-weight: Regular;
     letter-spacing: $letter-spacing-base;
-    text-align: left;
+    color: $black;
 }
 
 // 说明文字 浅色  思源黑体 CN  24
 @mixin global-font-descriptionLight() {
-    color: $light-gray;
-    font-family: $font-family-regular;
-    font-style: Regular;
     font-size: $font-size-description;
-    font-weight: 400;
-    line-height: $line-height-description;
+    font-family: $font-family-regular;
+    font-weight: Regular;
     letter-spacing: $letter-spacing-base;
-    text-align: left;
+    color: $light-gray;
 }
 
 // 正文  思源黑体 CN  20
 @mixin global-font-main_body() {
-    color: $black;
-    font-family: $font-family-regular;
-    font-style: Regular;
     font-size: $font-size-body;
-    font-weight: 400;
-    line-height: $line-height-body;
+    font-family: $font-family-regular;
+    font-weight: Regular;
     letter-spacing: $letter-spacing-base;
-    text-align: left;
 }
 
 // 正文加粗  思源黑体 CN  20
 @mixin global-font-mainBodyBold() {
-    color: $black;
-    font-family: $font-family-bold;
-    font-style: Bold;
     font-size: $font-size-body;
-    font-weight: 700;
-    line-height: $line-height-body;
+    font-family: $font-family-bold;
+    font-weight: Bold;
     letter-spacing: $letter-spacing-base;
-    text-align: left;
 }
 
 // 已完成 思源黑体 CN  20
@@ -79,7 +67,7 @@
 // 全局边框样式 混入
 // 边框外侧阴影 - 右侧边框
 @mixin global-box-shadow-border-right() {
-    border: $border-base;
+    border-radius: 10px 10px 10px 10px;
     /* Outer shadow - Right side of the border */
     box-shadow: 6px 8px 0px 0px $black;
 }
