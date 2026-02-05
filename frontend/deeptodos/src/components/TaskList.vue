@@ -55,7 +55,11 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    @include global-box-shadow-border-right();
+    @include global-box-shadow-border-right(true);
+
+    &:hover {
+        @include global-box-shadow-border-right(false);
+    }
 
 }
 

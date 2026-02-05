@@ -66,8 +66,17 @@
 
 // 全局边框样式 混入
 // 边框外侧阴影 - 右侧边框
-@mixin global-box-shadow-border-right() {
+@mixin global-box-shadow-border-right($has-shadow: true) {
     border-radius: 10px 10px 10px 10px;
-    /* Outer shadow - Right side of the border */
-    box-shadow: 6px 8px 0px 0px $black;
+
+    @if $has-shadow {
+        /* Outer shadow - Right side of the border */
+        box-shadow: 6px 8px 0px 0px $black;
+    }
+
+    @else {
+        box-shadow: none;
+    }
+
+    transition: box-shadow 0.5s ease;
 }

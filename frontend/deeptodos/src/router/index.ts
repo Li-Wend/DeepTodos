@@ -19,7 +19,7 @@ if (import.meta.hot) {
 router.beforeEach((to, from, next) => {
   // 如果用户访问根路径 '/'，重定向
   if (to.path === '/') {
-    next('/Todo');
+    next('/Deeptodos');
   } else {
     next();
   }

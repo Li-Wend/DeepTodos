@@ -6,7 +6,7 @@
             <p id="paragraph" class="Pixso-paragraph">
                 {{ "任务描述" }}
             </p>
-            <Button id="button_delete_click" class="Pixso-instance-button_delete_click" :Style="'DeleteClick'"></Button>
+            <Button id="button_delete_default" class="Pixso-instance-button_delete_default" :Style="'DeleteDefault'"></Button>
         </div>
     </div>
     <div id="task_item_completed" class="Pixso-symbol-task_item_completed" v-if="Status === 'Completed'">
@@ -15,7 +15,7 @@
             <p id="paragraph" class="Pixso-paragraph">
                 {{ "任务描述" }}
             </p>
-            <Button id="button_delete_click" class="Pixso-instance-button_delete_click" :Style="'DeleteClick'"></Button>
+            <Button id="button_delete_default" class="Pixso-instance-button_delete_default" :Style="'DeleteDefault'"></Button>
         </div>
     </div>
 </template>
@@ -36,7 +36,11 @@ const props = defineProps({
     align-items: center;
     background-color: $pale-yellow;
     border: $border-base;
-    @include global-box-shadow-border-right();
+    @include global-box-shadow-border-right(true);
+
+    &:hover {
+        @include global-box-shadow-border-right(false);
+    }
 }
 
 .Pixso-frame-task_item_container {
@@ -67,7 +71,7 @@ const props = defineProps({
     @include global-font-main_body();
 }
 
-.Pixso-instance-button_delete_click {
+.Pixso-instance-button_delete_default {
     width: 40px;
     height: 40px;
 }
@@ -81,6 +85,10 @@ const props = defineProps({
     align-items: center;
     background-color: $jade-green;
     border: $border-base;
-    @include global-box-shadow-border-right();
+    @include global-box-shadow-border-right(true);
+
+    &:hover {
+        @include global-box-shadow-border-right(false);
+    }
 }
 </style>

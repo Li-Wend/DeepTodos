@@ -22,39 +22,3 @@ $letter-spacing-base: 0.03999999910593033px;
 $border-width-base: 2px;
 $border-style-base: solid;
 $border-base: $border-width-base $border-style-base $black;
-
-.fill-pure-white {
-    background-color: $pure-white;
-}
-
-.fill-jade-green {
-    background-color: $jade-green;
-}
-
-.fill-bright-green {
-    background-color: $bright-green;
-}
-
-.fill-orange {
-    background-color: $orange;
-}
-
-.fill-bright-pink {
-    background-color: $bright-pink;
-}
-
-.fill-light-gray {
-    background-color: $light-gray;
-}
-
-.fill-pale-yellow {
-    background-color: $pale-yellow;
-}
-
-.fill-luminous-yellow {
-    background-color: $luminous-yellow;
-}
-
-.stroke-black {
-    border-color: $black;
-}
