@@ -26,15 +26,6 @@
         </div>
         <div class="stroke-button_clear_all"></div>
     </div>
-    <div id="button_clear_all_hover" class="stroke-wrapper-button_clear_all_hover" v-if="Switch === 'ClearAllHover'">
-        <div class="Pixso-symbol-button_clear_all_hover">
-            <p id="paragraph" class="Pixso-paragraph">
-                {{ "清除全部" }}
-            </p>
-        </div>
-        <div class="stroke-button_clear_all_hover"></div>
-    </div>
-
 </template>
 
 <script lang="ts" setup>
@@ -108,8 +99,12 @@ const props = defineProps({
     align-items: center;
     padding: 24px 15px 24px 15px;
     border-radius: 0px 0px 10px 10px;
-    background-color: $pure-white;
     border: $border-base;
+    background-color: $pure-white;
+
+    &:hover {
+        background-color: $orange;
+    }
 }
 
 .stroke-wrapper-button_clear_all {
@@ -140,35 +135,5 @@ const props = defineProps({
     bottom: 20%;
     color: $black;
     @include global-font-main_body();
-}
-
-.Pixso-symbol-button_clear_all_hover {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 24px 15px 24px 15px;
-    border-radius: 0px 0px 10px 10px;
-    border: $border-base;
-    background-color: $orange;
-}
-
-.stroke-wrapper-button_clear_all_hover {
-    width: 172px;
-    height: 50px;
-    display: flex;
-}
-
-.stroke-button_clear_all_hover {
-    position: absolute;
-    inset: 0px;
-    border-radius: 0px 0px 10px 10px;
-    border-width: 1px 2px 2px 2px;
-    border-style: solid;
-    pointer-events: none;
-    border: $border-base;
 }
 </style>

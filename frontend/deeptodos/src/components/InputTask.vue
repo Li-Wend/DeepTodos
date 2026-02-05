@@ -30,7 +30,11 @@
     align-items: flex-start;
     border-radius: 10px 10px 10px 10px;
     background-color: $pure-white;
-    @include global-box-shadow-border-right();
+    @include global-box-shadow-border-right(true);
+
+    &:hover {
+        @include global-box-shadow-border-right(false);
+    }
 }
 
 .Pixso-frame-input {

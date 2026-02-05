@@ -34,16 +34,15 @@
 
 .Pixso-paragraph {
     font-size: 48px;
-    font-family: "Source Han Sans CN-Bold";
+    font-family: $font-family-bold;
     font-weight: 700;
     text-align: center;
     letter-spacing: 0.5px;
-    line-height: 16px;
+    line-height: 1px;
     width: 363.85784912109375px;
     height: 32px;
     position: absolute;
     left: 50%;
-    top: 50%;
     transform: translateX(calc(-50% + 0px)) translateY(calc(-50% + 7.5px));
     color: $black;
 }
