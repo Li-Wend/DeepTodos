@@ -43,14 +43,13 @@ const props = defineProps({
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 24px 15px 24px 15px;
     border-radius: 0px 0px 10px 10px;
     border: $border-base;
     background-color: $pure-white;
 }
 
 .stroke-wrapper-button_off {
-    width: 51px;
+    width: 61px;
     height: 136px;
     display: flex;
 }
@@ -59,8 +58,6 @@ const props = defineProps({
     position: absolute;
     inset: 0px;
     border-radius: 0px 0px 10px 10px;
-    border-width: 1px 2px 2px 2px;
-    border-style: solid;
     pointer-events: none;
     border: $border-base;
 }

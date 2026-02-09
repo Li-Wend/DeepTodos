@@ -25,7 +25,7 @@
             <TaskList />
         </div>
         <div id="button_menu_container" class="Pixso-frame-button_menu_container">
-            <ButtonSwitchOff :Status="'Default'"></ButtonSwitchOff>
+            <ButtonSwitch />
         </div>
     </div>
 </template>

@@ -7,10 +7,10 @@
         </div>
         <div class="stroke-button_switch_off"></div>
     </div>
-    <div id="button_switch_on" class="stroke-wrapper-button_switch_on" v-if="Switch === 'On'">
+    <div id="button_switch_on" class="stroke-wrapper-button_switch_on" v-if="Switch === 'On'" @click="$emit('switch')">
         <div class="Pixso-symbol-button_switch_on">
             <p id="paragraph" class="Pixso-paragraph">
-                {{ "开" }}
+                {{ "开 🔆" }}
             </p>
         </div>
         <div class="stroke-button_switch_on"></div>
@@ -21,6 +21,9 @@
 const props = defineProps({
     Switch: { type: String }
 });
+
+// 定义组件触发的事件
+defineEmits(['switch']);
 </script>
 
 <style lang="scss" scoped>
@@ -32,14 +35,12 @@ const props = defineProps({
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 10px 15px 10px 15px;
     border-radius: 10px 10px 0px 0px;
-    border-color: $black;
     background-color: $orange;
 }
 
 .stroke-wrapper-button_switch_off {
-    width: 51px;
+    width: 61px;
     height: 50px;
     display: flex;
     border-radius: 10px 10px 0px 0px;
@@ -50,20 +51,13 @@ const props = defineProps({
     position: absolute;
     inset: 0px;
     border-radius: 10px 10px 0px 0px;
-    border-width: 2px 2px 1px 2px;
-    border-style: solid;
     pointer-events: none;
-    border-color: $black;
 }
 
 .Pixso-paragraph {
     text-align: center;
-    width: auto;
-    height: auto;
     position: relative;
     flex-shrink: 0;
-    white-space: pre;
-    flex-grow: 0;
     color: $black;
     @include global-font-mainBodyBold();
 }
@@ -100,5 +94,4 @@ const props = defineProps({
     box-sizing: border-box;
     border-color: $black;
 }
-
 </style>

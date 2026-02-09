@@ -4,7 +4,7 @@
             <Button id="button_select_default" class="Pixso-instance-button_select_default"
                 :Style="'SelectDefault'"></Button>
             <p id="paragraph" class="Pixso-paragraph">
-                {{ "任务描述" }}
+                {{ taskDescription }}
             </p>
             <Button id="button_delete_default" class="Pixso-instance-button_delete_default" :Style="'DeleteDefault'"></Button>
         </div>
@@ -13,7 +13,7 @@
         <div id="task_item_container" class="Pixso-frame-task_item_container">
             <Button id="button_select_click" class="Pixso-instance-button_select_click" :Style="'SelectClick'"></Button>
             <p id="paragraph" class="Pixso-paragraph">
-                {{ "任务描述" }}
+                {{ taskDescription }}
             </p>
             <Button id="button_delete_default" class="Pixso-instance-button_delete_default" :Style="'DeleteDefault'"></Button>
         </div>
@@ -22,7 +22,8 @@
 
 <script lang="ts" setup>
 const props = defineProps({
-    Status: { type: String }
+    Status: { type: String },
+    taskDescription: { type: String }
 });
 </script>
 
@@ -53,7 +54,7 @@ const props = defineProps({
     gap: 21px;
     justify-content: center;
     align-items: center;
-    padding: 21px 21px 21px 21px;
+    padding: 0px 21px 0px 21px;
     border-radius: 10px 10px 10px 10px;
 }
 
