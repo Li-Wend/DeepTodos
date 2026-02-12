@@ -1,24 +1,33 @@
 <template>
     <div id="input_submit" class="Pixso-symbol-input_submit">
         <div id="input" class="Pixso-frame-input">
-            <p id="p_input"
-                class="Pixso-paragraph-p_input">
-                {{ "新增待办事项。。。" }}
-            </p>
+            <input id="p_input" class="Pixso-paragraph-p_input" type="text" v-model="todoText"
+                placeholder="新增待办事项..." />
         </div>
-        <div id="button_submit" class="stroke-wrapper-button_submit">
+        <button id="button_submit" class="stroke-wrapper-button_submit" @click="handleClick">
             <div class="Pixso-frame-button_submit">
-                <p id="p_submit"
-                    class="Pixso-paragraph-p_submit">
+                <p id="p_submit" class="Pixso-paragraph-p_submit">
                     {{ "提交" }}
                 </p>
             </div>
             <div class="stroke-button_submit"></div>
-        </div>
+        </button>
     </div>
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue';
+
+// 使用ref声明响应式数据，并指定类型为string
+const todoText = ref<string>('') // 初始值可以是空字符串，也可以是其他字符串
+
+// TBD: 处理提交逻辑的函数...
+function handleClick() {
+    // 在这里处理提交逻辑，例如将todoText的值发送到服务器或添加到待办事项列表中
+    console.log('提交的待办事项:', todoText.value);
+    // 提交后可以清空输入框
+    todoText.value = '';
+}
 </script>
 
 <style lang="scss" scoped>
@@ -57,23 +66,27 @@
     height: auto;
     position: relative;
     flex-shrink: 0;
-    @include global-font-descriptionLight();
+    border: none;
+    /* 移除输入框的主要边框 */
+    outline: none;
+    /* 移除输入框在获得焦点时显示的轮廓 */
+    @include global-font-descriptionDark();
+
+    &::placeholder {
+        @include global-font-descriptionLight();
+    }
 }
 
 .Pixso-frame-button_submit {
     width: 100%;
     height: 100%;
-    position: relative;
+    // position: relative;
     flex-shrink: 0;
     display: flex;
     flex-direction: row;
     gap: 10px;
     justify-content: center;
     align-items: center;
-    padding: 18px 54px 18px 54px;
-    border-radius: 0px 10px 10px 0px;
-    border: $border-base;
-    background-color: $bright-pink;
 }
 
 .stroke-wrapper-button_submit {
@@ -82,15 +95,16 @@
     height: 72px;
     display: flex;
     flex-shrink: 0;
+    border-radius: 0px 10px 10px 0px;
+    background-color: $bright-pink;
+    padding: 18px 54px 18px 54px;
 }
 
 .stroke-button_submit {
     position: absolute;
     inset: 0px;
     border-radius: 0px 10px 10px 0px;
-    border-width: 2px 2px 2px 2px;
     pointer-events: none;
-    border: $border-base;
 }
 
 .Pixso-paragraph-p_submit {

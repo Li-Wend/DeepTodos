@@ -11,11 +11,23 @@
             </div>
         </template>
     </HoverToggle>
-    <div id="button_select_click" class="Pixso-symbol-button_select_click" v-if="Style === 'SelectClick'">
-        <div id="select_click" class="Pixso-vector-select_click">
-            <Vector id="vector_select" class="Pixso-instance-vector_select" :Shape="'Select'"></Vector>
-        </div>
-    </div>
+
+    <HoverToggle v-if="Style === 'SelectClick'">
+        <template v-slot:trigger>
+            <div id="button_select_click" class="Pixso-symbol-button_select_click">
+                <div id="select_click" class="Pixso-vector-select_click">
+                    <Vector id="vector_select" class="Pixso-instance-vector_select" :Shape="'Select'"></Vector>
+                </div>
+            </div>
+        </template>
+        <template v-slot:content>
+            <div id="button_select_click_hover" class="Pixso-symbol-button_select_click_hover">
+                <div id="select_hover" class="Pixso-vector-select_hover">
+                    <Vector id="vector_select_hover" class="Pixso-instance-vector_select_hover" :Shape="'SelectHover'"></Vector>
+                </div>
+            </div>
+        </template>
+    </HoverToggle>
 
     <HoverToggle v-if="Style === 'DeleteDefault'">
         <template v-slot:trigger>
@@ -85,14 +97,25 @@
 </template>
 
 <script lang="ts" setup>
-import Vector from "@/components/Vector.vue";
 const props = defineProps({
     Style: { type: String }
 });
 </script>
 
 <style lang="scss" scoped>
-.Pixso-symbol-button_select_default {
+.Pixso-symbol-button_select_default 
+.Pixso-symbol-button_select_hover
+.Pixso-symbol-button_select_click
+.Pixso-symbol-button_select_click_hover
+.Pixso-symbol-button_delete_default
+.Pixso-symbol-button_delete_click
+.Pixso-symbol-button_delete_hover
+.Pixso-symbol-button_back_default
+.Pixso-symbol-button_back_click
+.Pixso-symbol-button_back_hover
+.Pixso-symbol-button_confirm_default
+.Pixso-symbol-button_confirm_click
+.Pixso-symbol-button_confirm_hover {
     width: 40px;
     height: 40px;
     display: flex;
@@ -111,15 +134,6 @@ const props = defineProps({
     flex-shrink: 0;
 }
 
-.Pixso-symbol-button_select_hover {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-
 .Pixso-vector-select_hover {
     width: 44px;
     height: 44px;
@@ -128,15 +142,6 @@ const props = defineProps({
     background-repeat: no-repeat;
     position: relative;
     flex-shrink: 0;
-}
-
-.Pixso-symbol-button_select_click {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
 }
 
 .Pixso-vector-select_click {
@@ -149,24 +154,6 @@ const props = defineProps({
     flex-shrink: 0;
 }
 
-.Pixso-symbol-button_delete_default {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-
-.Pixso-symbol-button_delete_click {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-
 .Pixso-vector-delete_click {
     width: 40px;
     height: 40px;
@@ -175,15 +162,6 @@ const props = defineProps({
     background-repeat: no-repeat;
     position: relative;
     flex-shrink: 0;
-}
-
-.Pixso-symbol-button_delete_hover {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
 }
 
 .Pixso-vector-delete_hover {
@@ -196,24 +174,6 @@ const props = defineProps({
     flex-shrink: 0;
 }
 
-.Pixso-symbol-button_back_default {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-
-.Pixso-symbol-button_back_click {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-
 .Pixso-vector-back_click {
     width: 40px;
     height: 40px;
@@ -222,15 +182,6 @@ const props = defineProps({
     background-repeat: no-repeat;
     position: relative;
     flex-shrink: 0;
-}
-
-.Pixso-symbol-button_back_hover {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
 }
 
 .Pixso-vector-back_hover {
@@ -243,24 +194,6 @@ const props = defineProps({
     flex-shrink: 0;
 }
 
-.Pixso-symbol-button_confirm_default {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-
-.Pixso-symbol-button_confirm_click {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-
 .Pixso-vector-confirm_click {
     width: 40px;
     height: 40px;
@@ -269,15 +202,6 @@ const props = defineProps({
     background-repeat: no-repeat;
     position: relative;
     flex-shrink: 0;
-}
-
-.Pixso-symbol-button_confirm_hover {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
 }
 
 .Pixso-vector-confirm_hover {

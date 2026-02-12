@@ -1,6 +1,6 @@
 <template>
     <div id="button_on_default" class="Pixso-symbol-button_on_default">
-        <ButtonMenuAbove :Switch="'On'" />
+        <ButtonMenuAbove :Switch="'On'" @switch="$emit('switch')" />
         <ButtonMenuMedium :Function="'AllTasks'" />
         <ButtonMenuMedium :Function="'InprogressTasks'" />
         <ButtonMenuMedium :Function="'CompletedTasks'" />
@@ -11,9 +11,8 @@
 </template>
 
 <script lang="ts" setup>
-const props = defineProps({
-    Status: { type: String }
-});
+// 定义组件触发的事件
+defineEmits(['switch']);
 </script>
 
 <style lang="scss" scoped>

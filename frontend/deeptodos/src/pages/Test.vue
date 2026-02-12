@@ -21,7 +21,7 @@
     <!-- <ButtonMenuAbove :Switch="'On'" /> -->
 
     <!-- <ButtonMenuBelow :Switch="'Off'" /> -->
-    <!-- <ButtonMenuBelow :Switch="'ClearAll'" /> -->
+    <ButtonMenuBelow :Switch="'ClearAll'" />
 
     <!-- <InputTask /> -->
 

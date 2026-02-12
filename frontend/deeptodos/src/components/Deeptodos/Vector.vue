@@ -2,6 +2,9 @@
     <div id="vector_select" class="Pixso-symbol-vector_select" v-if="Shape === 'Select'">
         <div id="select" class="Pixso-vector-select"></div>
     </div>
+    <div id="vector_select_hover" class="Pixso-symbol-vector_select_hover" v-if="Shape === 'SelectHover'">
+        <div id="select" class="Pixso-vector-select"></div>
+    </div>
     <div id="vector_back" class="Pixso-symbol-vector_back" v-if="Shape === 'Back'">
         <div id="back" class="Pixso-vector-back"></div>
     </div>
@@ -26,6 +29,19 @@ const props = defineProps({
     position: absolute;
     left: 6px;
     top: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+}
+
+.Pixso-symbol-vector_select_hover {
+    width: 46px;
+    height: 28px;
+    position: absolute;
+    left: 9px;
+    top: 4px;
     display: flex;
     flex-direction: row;
     justify-content: center;
