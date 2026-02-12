@@ -17,11 +17,11 @@
 
     <!-- <TaskList /> -->
 
-    <ButtonMenuAbove :Switch="'Off'" />
+    <!-- <ButtonMenuAbove :Switch="'Off'" /> -->
     <!-- <ButtonMenuAbove :Switch="'On'" /> -->
 
-    <ButtonMenuBelow :Switch="'Off'" />
-    <!-- <ButtonMenuBelow :Switch="'ClearAll'" /> -->
+    <!-- <ButtonMenuBelow :Switch="'Off'" /> -->
+    <ButtonMenuBelow :Switch="'ClearAll'" />
 
     <!-- <InputTask /> -->
 
@@ -31,7 +31,7 @@
     <!-- <ButtonMenuMedium :Function="'MarkAllCompleted'" /> -->
     <!-- <ButtonMenuMedium :Function="'ClearCompleted'" /> -->
 
-    <ButtonSwitchOff />
+    <!-- <ButtonSwitchOff /> -->
 
     <!-- <ButtonSwitchOn /> -->
 
