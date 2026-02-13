@@ -1,0 +1,65 @@
+name: CI for Full-Stack Deeptodos App
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  backend-test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      
+      # 添加缓存
+      - name: Cache uv packages
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/uv
+            ~/.local/share/uv
+            __pypackages__/
+          key: ${{ runner.os }}-uv-${{ hashFiles('backend/deeptodos/uv.lock', 'backend/deeptodos/pyproject.toml') }}
+          restore-keys: |
+            ${{ runner.os }}-uv-
+      
+      - name: Install dependencies with uv
+        run: |
+            # 检查是否有 uv.lock
+            if [ -f "uv.lock" ]; then
+              echo "Found uv.lock, using frozen sync"
+              uv sync --frozen
+            elif [ -f "pyproject.toml" ]; then
+              echo "Found pyproject.toml, installing in development mode"
+              uv pip install -e .
+            elif [ -f "requirements.txt" ]; then
+              echo "Found requirements.txt"
+              uv pip install -r requirements.txt
+            else
+              echo "No dependency file found"
+              exit 1
+            fi
+      
+      - name: Run tests with pytest
+        run: |
+            # 如果有可执行脚本，通过 uv run 执行
+            uv run pytest --cov=./ --cov-report=xml
+      
+      # 可选：上传测试覆盖率报告
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          file: ./backend/deeptodos/coverage.xml
