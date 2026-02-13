@@ -1,6 +1,7 @@
 # DeepTodos 📝
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![GitHub release](https://img.shields.io/github/v/release/Jarod-father/DeepTodos)](https://github.com/Jarod-father/DeepTodos/releases)
+[![CI for Full-Stack Deeptodos App](https://github.com/Li-Wend/DeepTodos/actions/workflows/ci.yml/badge.svg?event=push)](https://github.com/Li-Wend/DeepTodos/actions/workflows/ci.yml)
 
 DeepTodos是一个现代化的个人生产力工具，旨在通过系统化的任务管理和安全保障，帮助用户提升效率。
 
