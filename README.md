@@ -54,6 +54,14 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 uv sync  # 这会根据 uv.lock 安装所有依赖
 ```
 
+* 安装并激活 venv 虚拟环境
+
+```bash
+uv venv
+
+.venv\Scripts\activate #在虚拟环境中运行！重要！
+```
+
 * 运行应用
 
 ```bash
@@ -62,20 +70,15 @@ uv run main.py
 
 * 同步依赖变化的流程：
 
-> 1. 开发者A添加新依赖：
-
 ```bash
+# 1. 开发者A添加新依赖：
 uv add <new package>
-```
 
-> 2. 提交 pyproject.toml和 uv.lock
+# 2. 提交 pyproject.toml和 uv.lock
 
-> 3. 开发者B拉取更新后：
-
-```bash
+# 3. 开发者B拉取更新后：
 uv sync
 ```
-
 
 ### 前端
 
@@ -152,12 +155,26 @@ pnpm install
 ![alt text](image/tasksPage.png)<br>
 
 ## ✊ 技术栈
-- **Python**
-- **FastAPI**
-- **Vue**
-- **HTML**
-- **CSS**
-- **SQLite**
+### 后端核心框架
+- **uv - 项目管理**
+- **venv - 虚拟环境**
+- **Python 3.13+​ - 编程语言**
+- **SQLAlchemy 2.0+ - 同步异步 ORM**
+- **FastAPI​ - 现代、快速（高性能）的 Web 框架**
+- **FastAPI-Users​ - 用户认证管理库**
+
+### 前端核心框架
+- **nvm - 管理 Node 版本**
+- **pnpm - 项目搭建与依赖管理**
+- **Vite - 脚手架搭建**
+- **Vue3 + Composition API - 现代、轻量、性能好**
+- **Vue Router - 处理前端路由**
+- **unplugin-vue-router - 基于文件的自动路由**
+- **vite-plugin-vue-layouts - 全局布局设置**
+- **Pinia - 状态管理**
+- **Pixso - UI 设计与管理 - 自定义 UI 组件**
+- **Typescript**
+- **SCSS**
 
 ## 🚧 项目结构
 
