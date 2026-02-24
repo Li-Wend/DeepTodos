@@ -184,7 +184,7 @@ Pixso 设计文件只有被指定的协作者才有访问权限。
 
 ## 🚧 项目结构
 <!-- PROJECT_STRUCTURE_START -->
-<!-- TODO: 自动更新项目结构 - 这里的内容可以被 GitHub Action 自动更新，不要手动修改 -->
+<!-- TODO: 自动更新项目结构 - 这里的内容可以被 GitHub Action 自动更新，不要手动修改! -->
 <!-- PROJECT_STRUCTURE_END -->
 
 
