@@ -1,10 +1,13 @@
 name: CI for Full-Stack Deeptodos App
 
 on:
-  push:
-    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+    paths: [
+      "backend/deeptodos/**",
+      "frontend/deeptodos/**",
+      ".github/workflows/ci.yml"
+    ]
 
 jobs:
   backend-test:
