@@ -1,5 +1,5 @@
 """
-Pytest configuration for authentication tests.
+Pytest configuration for tests.
 
 Provides shared fixtures and configurations for all tests.
 """

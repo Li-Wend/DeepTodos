@@ -3,7 +3,7 @@ from typing import AsyncGenerator
 
 from fastapi import Depends, FastAPI
 
-from src.db import User, create_db_and_tables
+from src.authentication.db import User, create_db_and_tables
 from src.authentication.schemas import UserCreate, UserRead, UserUpdate
 from src.authentication.users import auth_backend, current_active_user, fastapi_users
 

@@ -16,7 +16,7 @@ from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sess
 from sqlalchemy.pool import StaticPool
 
 from src.app import app
-from src.db import Base, User, get_async_session, get_user_db
+from src.authentication.db import Base, User, get_async_session, get_user_db
 from fastapi_users.db import SQLAlchemyUserDatabase
 
 
