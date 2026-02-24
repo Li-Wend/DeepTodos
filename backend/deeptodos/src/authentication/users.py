@@ -6,7 +6,7 @@ from fastapi_users import BaseUserManager, FastAPIUsers, UUIDIDMixin
 from fastapi_users.authentication import AuthenticationBackend, BearerTransport, JWTStrategy
 from fastapi_users.db import SQLAlchemyUserDatabase
 
-from src.db import User, get_user_db
+from src.authentication.db import User, get_user_db
 
 SECRET = "SECRET"  # 生产环境需要使用强密码从环境变量中加载
 

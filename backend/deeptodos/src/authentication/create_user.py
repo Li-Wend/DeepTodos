@@ -1,7 +1,7 @@
 import contextlib
 from typing import Optional
 
-from src.db import get_async_session, get_user_db
+from src.authentication.db import get_async_session, get_user_db
 from src.authentication.schemas import UserCreate
 from src.authentication.users import get_user_manager
 from fastapi_users.exceptions import UserAlreadyExists
