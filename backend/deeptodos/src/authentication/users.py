@@ -2,11 +2,23 @@ import uuid
 from collections.abc import AsyncGenerator
 
 from fastapi import Depends, Request
+from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi_users import BaseUserManager, FastAPIUsers, UUIDIDMixin
 from fastapi_users.authentication import AuthenticationBackend, BearerTransport, JWTStrategy
-from fastapi_users.db import SQLAlchemyUserDatabase
+from fastapi_users.db import SQLAlchemyUserDatabase, SQLAlchemyBaseUserTableUUID
 
-from src.authentication.db import User, get_user_db
+from src.core.database import Base, get_async_session
+
+# user model and helper moved here for clearer separation
+class User(SQLAlchemyBaseUserTableUUID, Base):
+    """User model extending FastAPI-Users' UUID base table."""
+
+async def get_user_db(session: AsyncSession = Depends(get_async_session)) -> AsyncGenerator[SQLAlchemyUserDatabase, None]:
+    """Yield a `SQLAlchemyUserDatabase` for FastAPI-Users integration."""
+    yield SQLAlchemyUserDatabase(session, User)
+
+# user model and helper moved here for clearer separation
+
 
 SECRET = "SECRET"  # 生产环境需要使用强密码从环境变量中加载
 
