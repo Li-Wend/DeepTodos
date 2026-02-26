@@ -12,7 +12,7 @@ from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sess
 from sqlalchemy.pool import StaticPool
 
 from src.app import app
-from src.authentication.db import Base, get_async_session
+from src.core.database import Base, get_async_session
 
 
 TEST_DATABASE_URL = "sqlite+aiosqlite:///:memory:"

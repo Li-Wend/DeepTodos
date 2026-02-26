@@ -1,8 +1,5 @@
 from collections.abc import AsyncGenerator
-from typing import AsyncIterator
 
-from fastapi import Depends
-from fastapi_users.db import SQLAlchemyBaseUserTableUUID, SQLAlchemyUserDatabase
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase
 
@@ -11,10 +8,6 @@ DATABASE_URL = "sqlite+aiosqlite:///./deeptodos.sqlite3"
 
 class Base(DeclarativeBase):
     """Base declarative class for SQLAlchemy models."""
-
-
-class User(SQLAlchemyBaseUserTableUUID, Base):
-    """User model extending FastAPI-Users' UUID base table."""
 
 
 # Engine and session factory
@@ -35,8 +28,3 @@ async def get_async_session() -> AsyncGenerator[AsyncSession, None]:
     """
     async with async_session_factory() as session:
         yield session
-
-
-async def get_user_db(session: AsyncSession = Depends(get_async_session)) -> AsyncGenerator[SQLAlchemyUserDatabase, None]:
-    """Yield a `SQLAlchemyUserDatabase` for FastAPI-Users integration."""
-    yield SQLAlchemyUserDatabase(session, User)
