@@ -3,7 +3,7 @@
 [![GitHub release](https://img.shields.io/github/v/release/Jarod-father/DeepTodos)](https://github.com/Jarod-father/DeepTodos/releases)
 [![CI for Full-Stack Deeptodos App](https://github.com/Li-Wend/DeepTodos/actions/workflows/ci.yml/badge.svg?event=push)](https://github.com/Li-Wend/DeepTodos/actions/workflows/ci.yml)
 
-[DeepTodos Wiki 文档](https://github.com/Li-Wend/DeepTodos/wiki)
+[DeepTodos Wiki 文档](https://github.com/Li-Wend/DeepTodos/wiki/DeepTodos-Wiki-Home)
 
 轻量的待办事项（Todo）应用，包含前后端示例与完整开发流程文档，便于快速上手与二次开发。
 
@@ -130,7 +130,7 @@ pnpm install
 - backend/deeptodos/ — 后端代码（FastAPI/服务/模型/路由）
 - frontend/deeptodos/ — 前端代码（Vue 3 + Vite）
 - frontend/deeptodos/src/pages/ — 页面路由（配合 unplugin-vue-router）
-- README_backup.md — 备份文档与补充说明
+- README.md — 文档与补充说明
 
 ---
 
