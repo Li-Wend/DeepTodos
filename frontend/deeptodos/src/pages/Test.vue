@@ -1,12 +1,12 @@
 <template>
-    <!-- <Button :Style="'SelectDefault'" /> -->
-    <!-- <Button :Style="'SelectClick'" /> -->
-    <!-- <Button :Style="'DeleteDefault'" /> -->
-    <!-- <Button :Style="'DeleteClick'" /> -->
-    <!-- <Button :Style="'BackDefault'" /> -->
-    <!-- <Button :Style="'BackClick'" /> -->
-    <!-- <Button :Style="'ConfirmDefault'" /> -->
-    <!-- <Button :Style="'ConfirmClick'" /> -->
+    <Button :Style="'SelectDefault'" />
+    <Button :Style="'SelectClick'" />
+    <Button :Style="'DeleteDefault'" />
+    <Button :Style="'DeleteClick'" />
+    <Button :Style="'BackDefault'" />
+    <Button :Style="'BackClick'" />
+    <Button :Style="'ConfirmDefault'" />
+    <Button :Style="'ConfirmClick'" />
 
 
     <!-- <IconDeeptodos /> -->
@@ -21,7 +21,7 @@
     <!-- <ButtonMenuAbove :Switch="'On'" /> -->
 
     <!-- <ButtonMenuBelow :Switch="'Off'" /> -->
-    <ButtonMenuBelow :Switch="'ClearAll'" />
+    <!-- <ButtonMenuBelow :Switch="'ClearAll'" /> -->
 
     <!-- <InputTask /> -->
 
