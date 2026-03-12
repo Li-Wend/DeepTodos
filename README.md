@@ -3,7 +3,7 @@
 [![GitHub release](https://img.shields.io/github/v/release/Jarod-father/DeepTodos)](https://github.com/Jarod-father/DeepTodos/releases)
 [![CI for Full-Stack Deeptodos App](https://github.com/Li-Wend/DeepTodos/actions/workflows/ci.yml/badge.svg?event=push)](https://github.com/Li-Wend/DeepTodos/actions/workflows/ci.yml)
 
-[DeepTodos Wiki 文档](https://github.com/Li-Wend/DeepTodos/wiki/DeepTodos-Wiki-Home)
+[DeepTodos Wiki 文档](https://github.com/Li-Wend/DeepTodos/wiki)
 
 轻量的待办事项（Todo）应用，包含前后端示例与完整开发流程文档，便于快速上手与二次开发。
 
