@@ -18,6 +18,11 @@
     },
     "types": [
       "unplugin-vue-router/client"
-    ] // 启用插件类型提示
+    ],
+    "lib": [
+      "ES2017",
+      "DOM",
+      "DOM.Iterable"
+    ]
   }
 }
