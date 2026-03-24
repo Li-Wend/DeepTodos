@@ -61,4 +61,14 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
   },
+  test: {
+    // 启用类似 Jest 的全局 API
+    globals: true,
+    // 使用 happy-dom 模拟 DOM
+    environment: 'happy-dom',
+    // 支持 TypeScript
+    typecheck: {
+      enabled: true
+    }
+  },
 })
