@@ -21,7 +21,9 @@ async def setup_test_db():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
 
-    async_session_maker = async_sessionmaker(engine, expire_on_commit=False, class_=AsyncSession)
+    async_session_maker = async_sessionmaker(
+        engine, expire_on_commit=False, class_=AsyncSession
+    )
 
     async def override_get_async_session():
         async with async_session_maker() as session:

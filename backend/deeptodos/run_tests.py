@@ -30,7 +30,7 @@ def run_tests(
 ) -> int:
     """
     Run pytest with specified options.
-    
+
     Args:
         test_path: Path to test directory or specific test file
         verbose: Show detailed test output
@@ -39,48 +39,52 @@ def run_tests(
         markers: Run tests matching specific markers
         stop_on_first_failure: Stop on first failure (-x flag)
         show_output: Show print statements and logging
-    
+
     Returns:
         Exit code from pytest
     """
     cmd = ["uv", "run", "pytest"]
-    
+
     # Add test path
     if specific:
         cmd.append(f"tests/{specific}")
     else:
         cmd.append(test_path)
-    
+
     # Add flags
     if verbose:
         cmd.append("-v")
-    
+
     if show_output:
         cmd.append("-s")
-    
+
     if stop_on_first_failure:
         cmd.append("-x")
-    
+
     if coverage:
-        cmd.extend([
-            "--cov=src.authentication",
-            "--cov-report=html",
-            "--cov-report=term-missing",
-        ])
-    
+        cmd.extend(
+            [
+                "--cov=src.authentication",
+                "--cov-report=html",
+                "--cov-report=term-missing",
+            ]
+        )
+
     if markers:
         cmd.extend(["-m", markers])
-    
+
     print(f"Running: {' '.join(cmd)}")
     print("-" * 80)
-    
+
     # Use call for better cross-platform compatibility
     try:
         exit_code = subprocess.call(cmd)
     except FileNotFoundError:
-        print(f"Error: pytest not found. Make sure to install it with: uv pip install pytest")
+        print(
+            f"Error: pytest not found. Make sure to install it with: uv pip install pytest"
+        )
         return 1
-    
+
     return exit_code
 
 
@@ -99,7 +103,7 @@ Examples:
   python run_tests.py --fast -x                 # Stop on first failure
         """,
     )
-    
+
     parser.add_argument(
         "--verbose",
         "-v",
@@ -141,14 +145,14 @@ Examples:
         action="store_true",
         help="Run tests in fast mode (equivalent to -x)",
     )
-    
+
     args = parser.parse_args()
-    
+
     # Check if tests directory exists
     if not Path("tests").exists():
         print("Error: tests/ directory not found. Please run from project root.")
         return 1
-    
+
     # Run tests
     exit_code = run_tests(
         verbose=args.verbose,
@@ -158,7 +162,7 @@ Examples:
         stop_on_first_failure=args.stop_on_failure or args.fast,
         show_output=args.show_output,
     )
-    
+
     if exit_code == 0:
         print("\n" + "=" * 80)
         print("[PASS] All tests passed!")
@@ -167,7 +171,7 @@ Examples:
         print("\n" + "=" * 80)
         print("[FAIL] Some tests failed!")
         print("=" * 80)
-    
+
     return exit_code
 
 

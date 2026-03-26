@@ -33,25 +33,25 @@ async def setup_test_db():
         connect_args={"check_same_thread": False},
         poolclass=StaticPool,
     )
-    
+
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
-    
+
     async_session_maker = async_sessionmaker(
         engine, expire_on_commit=False, class_=AsyncSession
     )
-    
+
     async def override_get_async_session():
         async with async_session_maker() as session:
             yield session
-    
+
     app.dependency_overrides[get_async_session] = override_get_async_session
-    
+
     yield engine
-    
+
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.drop_all)
-    
+
     app.dependency_overrides.clear()
 
 
@@ -65,7 +65,7 @@ async def client(setup_test_db):
 
 class TestUserRegistration:
     """Test user registration endpoints."""
-    
+
     @pytest.mark.asyncio
     async def test_register_new_user(self, client):
         """Test successful user registration."""
@@ -82,7 +82,7 @@ class TestUserRegistration:
         assert "id" in data
         assert "is_active" in data
         assert data["is_active"] is True
-    
+
     @pytest.mark.asyncio
     async def test_register_duplicate_user(self, client):
         """Test registering a user that already exists."""
@@ -94,7 +94,7 @@ class TestUserRegistration:
                 "password": "test_password_123",
             },
         )
-        
+
         # Try to register the same email again
         response = await client.post(
             "/auth/register",
@@ -106,8 +106,11 @@ class TestUserRegistration:
         assert response.status_code == 400
         # FastAPI-Users returns REGISTER_USER_ALREADY_EXISTS error code
         error = response.json()
-        assert "REGISTER_USER_ALREADY_EXISTS" in str(error) or "already exists" in str(error).lower()
-    
+        assert (
+            "REGISTER_USER_ALREADY_EXISTS" in str(error)
+            or "already exists" in str(error).lower()
+        )
+
     @pytest.mark.asyncio
     async def test_register_invalid_email(self, client):
         """Test registering with invalid email format."""
@@ -119,7 +122,7 @@ class TestUserRegistration:
             },
         )
         assert response.status_code == 422
-    
+
     @pytest.mark.asyncio
     async def test_register_weak_password(self, client):
         """Test registering with weak password (if validation is enabled)."""
@@ -138,7 +141,7 @@ class TestUserRegistration:
 
 class TestUserLogin:
     """Test user login and JWT token handling."""
-    
+
     @pytest_asyncio.fixture
     async def registered_user(self, client):
         """Create a registered user for login tests."""
@@ -154,7 +157,7 @@ class TestUserLogin:
             "email": "logintest@example.com",
             "password": "test_password_123",
         }
-    
+
     @pytest.mark.asyncio
     async def test_login_success(self, client, registered_user):
         """Test successful login with valid credentials."""
@@ -169,7 +172,7 @@ class TestUserLogin:
         data = response.json()
         assert "access_token" in data
         assert data["token_type"] == "bearer"
-    
+
     @pytest.mark.asyncio
     async def test_login_wrong_password(self, client, registered_user):
         """Test login with wrong password."""
@@ -181,7 +184,7 @@ class TestUserLogin:
             },
         )
         assert response.status_code == 400
-    
+
     @pytest.mark.asyncio
     async def test_login_nonexistent_user(self, client):
         """Test login with non-existent user."""
@@ -197,7 +200,7 @@ class TestUserLogin:
 
 class TestAuthenticatedRoutes:
     """Test authenticated routes."""
-    
+
     @pytest_asyncio.fixture
     async def authenticated_client(self, client):
         """Create an authenticated client with JWT token."""
@@ -210,7 +213,7 @@ class TestAuthenticatedRoutes:
             },
         )
         assert register_response.status_code == 201
-        
+
         # Login and get token
         login_response = await client.post(
             "/auth/jwt/login",
@@ -220,13 +223,13 @@ class TestAuthenticatedRoutes:
             },
         )
         assert login_response.status_code == 200
-        
+
         token = login_response.json()["access_token"]
-        
+
         # Add token to client headers
         client.headers["Authorization"] = f"Bearer {token}"
         return client
-    
+
     @pytest.mark.asyncio
     async def test_access_authenticated_route(self, authenticated_client):
         """Test accessing an authenticated route with valid token."""
@@ -235,14 +238,14 @@ class TestAuthenticatedRoutes:
         data = response.json()
         assert "message" in data
         assert "authtest@example.com" in data["message"]
-    
+
     @pytest.mark.asyncio
     async def test_access_authenticated_route_without_token(self, client):
         """Test accessing authenticated route without token."""
         response = await client.get("/authenticated-route")
         # FastAPI-Users returns 401 Unauthorized instead of 403 Forbidden
         assert response.status_code == 401
-    
+
     @pytest.mark.asyncio
     async def test_access_authenticated_route_with_invalid_token(self, client):
         """Test accessing authenticated route with invalid token."""
@@ -254,7 +257,7 @@ class TestAuthenticatedRoutes:
 
 class TestUserManagement:
     """Test user management endpoints."""
-    
+
     @pytest_asyncio.fixture
     async def authenticated_user(self, client):
         """Create and authenticate a user."""
@@ -267,7 +270,7 @@ class TestUserManagement:
             },
         )
         user_data = register_response.json()
-        
+
         # Login
         login_response = await client.post(
             "/auth/jwt/login",
@@ -277,22 +280,24 @@ class TestUserManagement:
             },
         )
         token = login_response.json()["access_token"]
-        
+
         client.headers["Authorization"] = f"Bearer {token}"
-        
+
         return {
             "user_id": user_data["id"],
             "email": user_data["email"],
             "client": client,
         }
-    
+
     @pytest.mark.asyncio
     async def test_get_current_user(self, authenticated_user):
         """Test getting current user info."""
-        response = await authenticated_user["client"].get(f"/users/{authenticated_user['user_id']}")
+        response = await authenticated_user["client"].get(
+            f"/users/{authenticated_user['user_id']}"
+        )
         # User endpoint may return 200, 403 (forbidden), or 404 (not implemented)
         assert response.status_code in [200, 403, 404]
-    
+
     @pytest.mark.asyncio
     async def test_update_user(self, authenticated_user):
         """Test updating user information."""
@@ -304,7 +309,7 @@ class TestUserManagement:
         )
         # User endpoint may return 200, 403 (forbidden), or 404 (not implemented)
         assert response.status_code in [200, 403, 404]
-    
+
     @pytest.mark.asyncio
     async def test_list_users(self, authenticated_user):
         """Test listing all users."""
@@ -319,7 +324,7 @@ class TestUserManagement:
 
 class TestPasswordReset:
     """Test password reset functionality."""
-    
+
     @pytest_asyncio.fixture
     async def user_for_reset(self, client):
         """Create a user for password reset tests."""
@@ -332,7 +337,7 @@ class TestPasswordReset:
         )
         assert response.status_code == 201
         return "resettest@example.com"
-    
+
     @pytest.mark.asyncio
     async def test_forgot_password_request(self, client, user_for_reset):
         """Test requesting password reset."""
@@ -348,7 +353,7 @@ class TestPasswordReset:
 
 class TestUserVerification:
     """Test email verification functionality."""
-    
+
     @pytest_asyncio.fixture
     async def user_for_verification(self, client):
         """Create a user for verification tests."""
@@ -361,7 +366,7 @@ class TestUserVerification:
         )
         assert response.status_code == 201
         return "verifytest@example.com"
-    
+
     @pytest.mark.asyncio
     async def test_request_verify_email(self, client, user_for_verification):
         """Test requesting email verification."""
@@ -377,7 +382,7 @@ class TestUserVerification:
 
 class TestErrorHandling:
     """Test error handling and edge cases."""
-    
+
     @pytest.mark.asyncio
     async def test_missing_required_fields(self, client):
         """Test registration with missing required fields."""
@@ -389,7 +394,7 @@ class TestErrorHandling:
             },
         )
         assert response.status_code == 422
-    
+
     @pytest.mark.asyncio
     async def test_malformed_json(self, client):
         """Test with malformed JSON."""

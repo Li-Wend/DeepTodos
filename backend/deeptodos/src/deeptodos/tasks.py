@@ -8,14 +8,10 @@ class Task(Base):
     """
     任务数据模型
     """
+
     __tablename__ = "tasks"
 
-    id = Column(
-        Uuid(as_uuid=True),
-        primary_key=True,
-        default=uuid.uuid4,
-        index=True
-    )
+    id = Column(Uuid(as_uuid=True), primary_key=True, default=uuid.uuid4, index=True)
     title = Column(String(200), nullable=False, index=True)
     description = Column(String(2000))
     is_completed = Column(Boolean, default=False, index=True)
@@ -23,10 +19,7 @@ class Task(Base):
     category = Column(String(100), default="未分类", index=True)
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
     updated_at = Column(
-        DateTime,
-        default=datetime.utcnow,
-        onupdate=datetime.utcnow,
-        nullable=False
+        DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False
     )
 
     def __repr__(self):

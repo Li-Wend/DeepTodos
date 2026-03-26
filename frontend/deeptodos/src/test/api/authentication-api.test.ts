@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { createApiClient, ApiError } from '../openapi';
+import { createApiClient, ApiError } from '../../openapi';
 
 interface MockCapture {
   url: string;
