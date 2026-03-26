@@ -12,7 +12,9 @@ get_user_db_cm = contextlib.asynccontextmanager(get_user_db)
 get_user_manager_cm = contextlib.asynccontextmanager(get_user_manager)
 
 
-async def create_user(email: str, password: str, is_superuser: bool = False) -> Optional[object]:
+async def create_user(
+    email: str, password: str, is_superuser: bool = False
+) -> Optional[object]:
     """Create a user using the FastAPI-Users manager.
 
     Returns the created user object or None if the user already exists.
@@ -22,7 +24,9 @@ async def create_user(email: str, password: str, is_superuser: bool = False) -> 
             async with get_user_db_cm(session) as user_db:
                 async with get_user_manager_cm(user_db) as user_manager:
                     user = await user_manager.create(
-                        UserCreate(email=email, password=password, is_superuser=is_superuser)
+                        UserCreate(
+                            email=email, password=password, is_superuser=is_superuser
+                        )
                     )
                     print(f"User created {user.email}")
                     return user

@@ -14,3 +14,15 @@ dependencies = [
     "pytest-cov>=7.0.0",
     "uvicorn[standard]>=0.38.0",
 ]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.15.7",
+]
+
+[tool.ruff.format]
+docstring-code-line-length = 120
+
+[tool.ruff.lint]
+# 选择规则集
+select = ["E", "F", "I"]

@@ -20,7 +20,7 @@ class TaskCreate(TaskBase):
 
 # 更新任务模型
 class TaskUpdate(BaseModel):
-    model_config = ConfigDict(extra='ignore')  # 忽略未定义的字段
+    model_config = ConfigDict(extra="ignore")  # 忽略未定义的字段
 
     title: Optional[str] = Field(None, min_length=1, max_length=200)
     description: Optional[str] = Field(None, max_length=2000)
@@ -28,10 +28,11 @@ class TaskUpdate(BaseModel):
     priority: Optional[int] = Field(None, ge=1, le=3)
     category: Optional[str] = Field(None, max_length=100)
 
+
 # 返回任务模型
 class Task(TaskBase):
     model_config = ConfigDict(from_attributes=True)
-    
+
     id: uuid.UUID
     created_at: datetime
     updated_at: datetime
@@ -40,7 +41,7 @@ class Task(TaskBase):
 # 简要任务模型（用于列表）
 class TaskSummary(BaseModel):
     model_config = ConfigDict(from_attributes=True)
-    
+
     id: uuid.UUID
     title: str
     is_completed: bool
