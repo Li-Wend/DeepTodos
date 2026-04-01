@@ -7,9 +7,9 @@
 </template>
 
 <script setup lang="ts">
-  definePage({
-    meta: {
-      layout: false // 该页面不使用任何布局
-    }
-  })
+definePage({
+  meta: {
+    layout: false, // 该页面不使用任何布局
+  },
+});
 </script>
