@@ -11,39 +11,39 @@
 </template> -->
 
 <template>
-    <div class="hover-wrapper">
-        <div @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
-            <!-- 插槽用于放置触发元素 -->
-            <slot v-if="!isVisible" name="trigger"></slot>
-            <div v-show="isVisible" class="content-wrapper">
-                <!-- 插槽用于放置悬停时显示的内容 -->
-                <slot name="content"></slot>
-            </div>
-        </div>
+  <div class="hover-wrapper">
+    <div @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
+      <!-- 插槽用于放置触发元素 -->
+      <slot v-if="!isVisible" name="trigger"></slot>
+      <div v-show="isVisible" class="content-wrapper">
+        <!-- 插槽用于放置悬停时显示的内容 -->
+        <slot name="content"></slot>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
 export default {
-    data() {
-        return {
-            isVisible: false
-        }
+  data() {
+    return {
+      isVisible: false,
+    };
+  },
+  methods: {
+    handleMouseEnter() {
+      this.isVisible = true;
     },
-    methods: {
-        handleMouseEnter() {
-            this.isVisible = true;
-        },
-        handleMouseLeave() {
-            this.isVisible = false;
-        }
-    }
-}
+    handleMouseLeave() {
+      this.isVisible = false;
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
 .hover-wrapper {
-    position: relative;
-    display: inline-block;
+  position: relative;
+  display: inline-block;
 }
 </style>
