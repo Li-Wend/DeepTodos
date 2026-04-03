@@ -30,6 +30,13 @@ declare module 'vue-router/auto-routes' {
       { all: ParamValue<false> },
       | never
     >,
+    '/ApiTest': RouteRecordInfo<
+      '/ApiTest',
+      '/ApiTest',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
     '/Deeptodos': RouteRecordInfo<
       '/Deeptodos',
       '/Deeptodos',
@@ -60,6 +67,12 @@ declare module 'vue-router/auto-routes' {
     'src/pages/[...all].vue': {
       routes:
         | '/[...all]'
+      views:
+        | never
+    }
+    'src/pages/ApiTest.vue': {
+      routes:
+        | '/ApiTest'
       views:
         | never
     }
