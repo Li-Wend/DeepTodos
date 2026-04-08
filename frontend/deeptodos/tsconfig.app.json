@@ -8,6 +8,7 @@
       "@/*": ["./src/*"]
     },
     "types": ["unplugin-vue-router/client"],
-    "lib": ["ES2017", "DOM", "DOM.Iterable"]
+    "lib": ["ES2020", "DOM", "DOM.Iterable", "WebWorker", "ES2021.String"],
+    "target": "ES2020"
   }
 }

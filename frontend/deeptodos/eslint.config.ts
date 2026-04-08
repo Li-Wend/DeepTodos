@@ -10,8 +10,6 @@ export default defineConfig([
     plugins: { js },
     extends: [
       'js/recommended',
-
-      // manual added
       'eslint:recommended',
       'plugin:prettier/recommended', // 必须放在最后
     ],

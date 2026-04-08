@@ -52,4 +52,17 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
+  build: {
+    outDir: 'dist',           // 输出目录
+    sourcemap: false,         // 生产环境关闭 sourcemap
+    minify: 'terser',         // 代码压缩
+    rollupOptions: {
+      // 分包配置
+      output: {
+        manualChunks: {
+          'vue': ['vue', 'vue-router', 'pinia']
+        }
+      }
+    }
+  }
 });
