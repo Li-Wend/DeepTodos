@@ -24,26 +24,26 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      isVisible: false,
-    };
-  },
-  methods: {
-    handleMouseEnter() {
-      this.isVisible = true;
+  export default {
+    data() {
+      return {
+        isVisible: false,
+      }
     },
-    handleMouseLeave() {
-      this.isVisible = false;
+    methods: {
+      handleMouseEnter() {
+        this.isVisible = true
+      },
+      handleMouseLeave() {
+        this.isVisible = false
+      },
     },
-  },
-};
+  }
 </script>
 
 <style lang="scss" scoped>
-.hover-wrapper {
-  position: relative;
-  display: inline-block;
-}
+  .hover-wrapper {
+    position: relative;
+    display: inline-block;
+  }
 </style>

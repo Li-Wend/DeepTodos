@@ -1,12 +1,12 @@
 <template>
-  <Button :Style="'SelectDefault'" />
-  <Button :Style="'SelectClick'" />
-  <Button :Style="'DeleteDefault'" />
-  <Button :Style="'DeleteClick'" />
-  <Button :Style="'BackDefault'" />
-  <Button :Style="'BackClick'" />
-  <Button :Style="'ConfirmDefault'" />
-  <Button :Style="'ConfirmClick'" />
+  <ActionButton :Style="'SelectDefault'" />
+  <ActionButton :Style="'SelectClick'" />
+  <ActionButton :Style="'DeleteDefault'" />
+  <ActionButton :Style="'DeleteClick'" />
+  <ActionButton :Style="'BackDefault'" />
+  <ActionButton :Style="'BackClick'" />
+  <ActionButton :Style="'ConfirmDefault'" />
+  <ActionButton :Style="'ConfirmClick'" />
 
   <!-- <IconDeeptodos /> -->
   <!-- <IconRhombus /> -->

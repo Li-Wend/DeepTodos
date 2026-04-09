@@ -611,10 +611,7 @@
             "in": "query",
             "required": false,
             "schema": {
-              "anyOf": [
-                { "type": "integer", "maximum": 3, "minimum": 1 },
-                { "type": "null" }
-              ],
+              "anyOf": [{ "type": "integer", "maximum": 3, "minimum": 1 }, { "type": "null" }],
               "description": "按优先级过滤",
               "title": "Priority"
             },
@@ -896,10 +893,7 @@
       "Body_auth_jwt_login_auth_jwt_login_post": {
         "properties": {
           "grant_type": {
-            "anyOf": [
-              { "type": "string", "pattern": "^password$" },
-              { "type": "null" }
-            ],
+            "anyOf": [{ "type": "string", "pattern": "^password$" }, { "type": "null" }],
             "title": "Grant Type"
           },
           "username": { "type": "string", "title": "Username" },
@@ -989,10 +983,7 @@
             "description": "任务标题"
           },
           "description": {
-            "anyOf": [
-              { "type": "string", "maxLength": 2000 },
-              { "type": "null" }
-            ],
+            "anyOf": [{ "type": "string", "maxLength": 2000 }, { "type": "null" }],
             "title": "Description",
             "description": "任务描述"
           },
@@ -1043,10 +1034,7 @@
             "description": "任务标题"
           },
           "description": {
-            "anyOf": [
-              { "type": "string", "maxLength": 2000 },
-              { "type": "null" }
-            ],
+            "anyOf": [{ "type": "string", "maxLength": 2000 }, { "type": "null" }],
             "title": "Description",
             "description": "任务描述"
           },
@@ -1090,30 +1078,17 @@
           }
         },
         "type": "object",
-        "required": [
-          "id",
-          "title",
-          "is_completed",
-          "priority",
-          "category",
-          "created_at"
-        ],
+        "required": ["id", "title", "is_completed", "priority", "category", "created_at"],
         "title": "TaskSummary"
       },
       "TaskUpdate": {
         "properties": {
           "title": {
-            "anyOf": [
-              { "type": "string", "maxLength": 200, "minLength": 1 },
-              { "type": "null" }
-            ],
+            "anyOf": [{ "type": "string", "maxLength": 200, "minLength": 1 }, { "type": "null" }],
             "title": "Title"
           },
           "description": {
-            "anyOf": [
-              { "type": "string", "maxLength": 2000 },
-              { "type": "null" }
-            ],
+            "anyOf": [{ "type": "string", "maxLength": 2000 }, { "type": "null" }],
             "title": "Description"
           },
           "is_completed": {
@@ -1121,17 +1096,11 @@
             "title": "Is Completed"
           },
           "priority": {
-            "anyOf": [
-              { "type": "integer", "maximum": 3.0, "minimum": 1.0 },
-              { "type": "null" }
-            ],
+            "anyOf": [{ "type": "integer", "maximum": 3.0, "minimum": 1.0 }, { "type": "null" }],
             "title": "Priority"
           },
           "category": {
-            "anyOf": [
-              { "type": "string", "maxLength": 100 },
-              { "type": "null" }
-            ],
+            "anyOf": [{ "type": "string", "maxLength": 100 }, { "type": "null" }],
             "title": "Category"
           }
         },
@@ -1195,10 +1164,7 @@
             "title": "Password"
           },
           "email": {
-            "anyOf": [
-              { "type": "string", "format": "email" },
-              { "type": "null" }
-            ],
+            "anyOf": [{ "type": "string", "format": "email" }, { "type": "null" }],
             "title": "Email"
           },
           "is_active": {

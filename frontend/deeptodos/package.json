@@ -15,7 +15,8 @@
     "openapi-ts": "openapi-ts",
     "lint": "eslint src --ext .js,.vue,.ts",
     "lint:fix": "eslint src --ext .js,.vue,.ts --fix",
-    "format": "prettier --write \"src/**/*.{js,vue,ts,css,json}\"",
+    "format": "prettier --write \"src/**/*.{js,vue,ts,tsx,css,scss,json}\"",
+    "format:check": "prettier --check \"src/**/*.{js,vue,ts,tsx,css,scss,json}\"",
     "prepare": "husky"
   },
   "dependencies": {
@@ -58,12 +59,11 @@
     "vue-tsc": "^3.1.5"
   },
   "lint-staged": {
-    "*.{js,ts,vue}": [
-      "eslint --fix",
+    "src/**/*.{js,vue,ts,tsx,css,scss,json}": [
       "prettier --write"
     ],
-    "*.{json,css,md}": [
-      "prettier --write"
+    "src/**/*.{js,vue,ts,tsx}": [
+      "eslint --fix"
     ]
   }
 }

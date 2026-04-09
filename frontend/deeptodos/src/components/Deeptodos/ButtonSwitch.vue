@@ -4,13 +4,13 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+  import { ref } from 'vue'
 
-const isActive = ref(false);
+  const isActive = ref(false)
 
-function toggleSwitch() {
-  isActive.value = !isActive.value;
-}
+  function toggleSwitch() {
+    isActive.value = !isActive.value
+  }
 </script>
 
 <style lang="scss" scoped></style>

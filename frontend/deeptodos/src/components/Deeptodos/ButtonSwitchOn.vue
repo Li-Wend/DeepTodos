@@ -11,22 +11,22 @@
 </template>
 
 <script lang="ts" setup>
-// 定义组件触发的事件
-defineEmits(['switch']);
+  // 定义组件触发的事件
+  defineEmits(['switch'])
 </script>
 
 <style lang="scss" scoped>
-.Pixso-symbol-button_on_default {
-  width: 172px;
-  height: 350px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  @include global-box-shadow-border-right(true);
+  .Pixso-symbol-button_on_default {
+    width: 172px;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    @include global-box-shadow-border-right(true);
 
-  &:hover {
-    @include global-box-shadow-border-right(false);
+    &:hover {
+      @include global-box-shadow-border-right(false);
+    }
   }
-}
 </style>

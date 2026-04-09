@@ -11,6 +11,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    ActionButton: typeof import('./src/components/Deeptodos/ActionButton.vue')['default']
     Button: typeof import('./src/components/Deeptodos/Button.vue')['default']
     ButtonMarkDone: typeof import('./src/components/Deeptodos/ButtonMarkDone.vue')['default']
     ButtonMenuAbove: typeof import('./src/components/Deeptodos/ButtonMenuAbove.vue')['default']
