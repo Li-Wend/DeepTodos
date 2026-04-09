@@ -1,7 +1,30 @@
 {
-  "semi": true,
+  "semi": false,
   "singleQuote": true,
   "tabWidth": 2,
-  "printWidth": 80,
-  "trailingComma": "es5"
+  "printWidth": 100,
+  "trailingComma": "es5",
+  "vueIndentScriptAndStyle": true,
+  "htmlWhitespaceSensitivity": "ignore",
+  "endOfLine": "auto",
+  "overrides": [
+    {
+      "files": "*.vue",
+      "options": {
+        "parser": "vue"
+      }
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "options": {
+        "parser": "typescript"
+      }
+    },
+    {
+      "files": ["*.scss", "*.css"],
+      "options": {
+        "singleQuote": false
+      }
+    }
+  ]
 }

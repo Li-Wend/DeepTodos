@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div class="not-found-container">
     <h1>页面未找到 (404)</h1>
@@ -7,9 +8,11 @@
 </template>
 
 <script setup lang="ts">
-definePage({
-  meta: {
-    layout: false, // 该页面不使用任何布局
-  },
-});
+  import { definePage } from 'unplugin-vue-router/runtime'
+
+  definePage({
+    meta: {
+      layout: false, // 该页面不使用任何布局
+    },
+  })
 </script>
