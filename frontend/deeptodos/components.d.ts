@@ -12,7 +12,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     ActionButton: typeof import('./src/components/Deeptodos/ActionButton.vue')['default']
-    Button: typeof import('./src/components/Deeptodos/Button.vue')['default']
+    ActionVector: typeof import('./src/components/Deeptodos/ActionVector.vue')['default']
     ButtonMarkDone: typeof import('./src/components/Deeptodos/ButtonMarkDone.vue')['default']
     ButtonMenuAbove: typeof import('./src/components/Deeptodos/ButtonMenuAbove.vue')['default']
     ButtonMenuBelow: typeof import('./src/components/Deeptodos/ButtonMenuBelow.vue')['default']
@@ -30,6 +30,5 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     TaskItem: typeof import('./src/components/Deeptodos/TaskItem.vue')['default']
     TaskList: typeof import('./src/components/Deeptodos/TaskList.vue')['default']
-    Vector: typeof import('./src/components/Deeptodos/Vector.vue')['default']
   }
 }

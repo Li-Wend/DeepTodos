@@ -28,29 +28,29 @@ declare module 'vue-router/auto-routes' {
       '/:all(.*)',
       { all: ParamValue<true> },
       { all: ParamValue<false> },
-      never
-    >
-    '/ApiTest': RouteRecordInfo<
-      '/ApiTest',
-      '/ApiTest',
-      Record<never, never>,
-      Record<never, never>,
-      never
-    >
+      | never
+    >,
     '/ComponentsTest': RouteRecordInfo<
       '/ComponentsTest',
       '/ComponentsTest',
       Record<never, never>,
       Record<never, never>,
-      never
-    >
+      | never
+    >,
     '/Deeptodos': RouteRecordInfo<
       '/Deeptodos',
       '/Deeptodos',
       Record<never, never>,
       Record<never, never>,
-      never
-    >
+      | never
+    >,
+    '/DeeptodosApiTest': RouteRecordInfo<
+      '/DeeptodosApiTest',
+      '/DeeptodosApiTest',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
   }
 
   /**
@@ -65,20 +65,28 @@ declare module 'vue-router/auto-routes' {
    */
   export interface _RouteFileInfoMap {
     'src/pages/[...all].vue': {
-      routes: '/[...all]'
-      views: never
-    }
-    'src/pages/ApiTest.vue': {
-      routes: '/ApiTest'
-      views: never
+      routes:
+        | '/[...all]'
+      views:
+        | never
     }
     'src/pages/ComponentsTest.vue': {
-      routes: '/ComponentsTest'
-      views: never
+      routes:
+        | '/ComponentsTest'
+      views:
+        | never
     }
     'src/pages/Deeptodos.vue': {
-      routes: '/Deeptodos'
-      views: never
+      routes:
+        | '/Deeptodos'
+      views:
+        | never
+    }
+    'src/pages/DeeptodosApiTest.vue': {
+      routes:
+        | '/DeeptodosApiTest'
+      views:
+        | never
     }
   }
 
@@ -89,5 +97,7 @@ declare module 'vue-router/auto-routes' {
    * @internal
    */
   export type _RouteNamesForFilePath<FilePath extends string> =
-    _RouteFileInfoMap extends Record<FilePath, infer Info> ? Info['routes'] : keyof RouteNamedMap
+    _RouteFileInfoMap extends Record<FilePath, infer Info>
+      ? Info['routes']
+      : keyof RouteNamedMap
 }
