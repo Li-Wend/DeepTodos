@@ -1,5 +1,5 @@
 <template>
-  <HoverToggle v-if="Style === 'SelectDefault'">
+  <HoverToggle v-if="Style === 'SelectDefault'" @click="$emit('click', Style)">
     <template v-slot:trigger>
       <div id="button_select_default" class="Pixso-symbol-button_select_default">
         <div id="select_default" class="Pixso-vector-select_default"></div>
@@ -12,66 +12,44 @@
     </template>
   </HoverToggle>
 
-  <HoverToggle v-if="Style === 'SelectClick'">
+  <HoverToggle v-if="Style === 'SelectClick'" @click="$emit('click', Style)">
     <template v-slot:trigger>
       <div id="button_select_click" class="Pixso-symbol-button_select_click">
         <div id="select_click" class="Pixso-vector-select_click">
-          <ActionVector
-            id="vector_select"
-            class="Pixso-instance-vector_select"
-            :Shape="'Select'"
-          ></ActionVector>
+          <ActionVector id="vector_select" class="Pixso-instance-vector_select" :Shape="'Select'"></ActionVector>
         </div>
       </div>
     </template>
     <template v-slot:content>
       <div id="button_select_click_hover" class="Pixso-symbol-button_select_click_hover">
         <div id="select_hover" class="Pixso-vector-select_hover">
-          <ActionVector
-            id="vector_select_hover"
-            class="Pixso-instance-vector_select_hover"
-            :Shape="'SelectHover'"
-          ></ActionVector>
+          <ActionVector id="vector_select_hover" class="Pixso-instance-vector_select_hover" :Shape="'SelectHover'">
+          </ActionVector>
         </div>
       </div>
     </template>
   </HoverToggle>
 
-  <HoverToggle v-if="Style === 'DeleteDefault'">
+  <HoverToggle v-if="Style === 'DeleteDefault'" @click="$emit('click', Style)">
     <template v-slot:trigger>
       <div id="button_delete_default" class="Pixso-symbol-button_delete_default">
         <div id="select_default" class="Pixso-vector-select_default">
-          <ActionVector
-            id="vector_delete"
-            class="Pixso-instance-vector_delete"
-            :Shape="'Delete'"
-          ></ActionVector>
+          <ActionVector id="vector_delete" class="Pixso-instance-vector_delete" :Shape="'Delete'"></ActionVector>
         </div>
       </div>
     </template>
     <template v-slot:content>
       <div id="button_delete_hover" class="Pixso-symbol-button_delete_hover">
         <div id="delete_hover" class="Pixso-vector-delete_hover">
-          <ActionVector
-            id="vector_delete"
-            class="Pixso-instance-vector_delete"
-            :Shape="'Delete'"
-          ></ActionVector>
+          <ActionVector id="vector_delete" class="Pixso-instance-vector_delete" :Shape="'Delete'"></ActionVector>
         </div>
       </div>
     </template>
   </HoverToggle>
-  <div
-    id="button_delete_click"
-    class="Pixso-symbol-button_delete_click"
-    v-if="Style === 'DeleteClick'"
-  >
+  <div id="button_delete_click" class="Pixso-symbol-button_delete_click" v-if="Style === 'DeleteClick'"
+    @click="$emit('click', Style)">
     <div id="delete_click" class="Pixso-vector-delete_click">
-      <ActionVector
-        id="vector_delete"
-        class="Pixso-instance-vector_delete"
-        :Shape="'Delete'"
-      ></ActionVector>
+      <ActionVector id="vector_delete" class="Pixso-instance-vector_delete" :Shape="'Delete'"></ActionVector>
     </div>
   </div>
 
@@ -79,33 +57,21 @@
     <template v-slot:trigger>
       <div id="button_back_default" class="Pixso-symbol-button_back_default">
         <div id="select_default" class="Pixso-vector-select_default">
-          <ActionVector
-            id="vector_back"
-            class="Pixso-instance-vector_back"
-            :Shape="'Back'"
-          ></ActionVector>
+          <ActionVector id="vector_back" class="Pixso-instance-vector_back" :Shape="'Back'"></ActionVector>
         </div>
       </div>
     </template>
     <template v-slot:content>
       <div id="button_back_hover" class="Pixso-symbol-button_back_hover">
         <div id="back_hover" class="Pixso-vector-back_hover">
-          <ActionVector
-            id="vector_back"
-            class="Pixso-instance-vector_back"
-            :Shape="'Back'"
-          ></ActionVector>
+          <ActionVector id="vector_back" class="Pixso-instance-vector_back" :Shape="'Back'"></ActionVector>
         </div>
       </div>
     </template>
   </HoverToggle>
   <div id="button_back_click" class="Pixso-symbol-button_back_click" v-if="Style === 'BackClick'">
     <div id="back_click" class="Pixso-vector-back_click">
-      <ActionVector
-        id="vector_back"
-        class="Pixso-instance-vector_back"
-        :Shape="'Back'"
-      ></ActionVector>
+      <ActionVector id="vector_back" class="Pixso-instance-vector_back" :Shape="'Back'"></ActionVector>
     </div>
   </div>
 
@@ -113,156 +79,133 @@
     <template v-slot:trigger>
       <div id="button_confirm_default" class="Pixso-symbol-button_confirm_default">
         <div id="select_default" class="Pixso-vector-select_default">
-          <ActionVector
-            id="vector_confirm"
-            class="Pixso-instance-vector_confirm"
-            :Shape="'Confirm'"
-          ></ActionVector>
+          <ActionVector id="vector_confirm" class="Pixso-instance-vector_confirm" :Shape="'Confirm'"></ActionVector>
         </div>
       </div>
     </template>
     <template v-slot:content>
       <div id="button_confirm_hover" class="Pixso-symbol-button_confirm_hover">
         <div id="confirm_hover" class="Pixso-vector-confirm_hover">
-          <ActionVector
-            id="vector_confirm"
-            class="Pixso-instance-vector_confirm"
-            :Shape="'Confirm'"
-          ></ActionVector>
+          <ActionVector id="vector_confirm" class="Pixso-instance-vector_confirm" :Shape="'Confirm'"></ActionVector>
         </div>
       </div>
     </template>
   </HoverToggle>
-  <div
-    id="button_confirm_click"
-    class="Pixso-symbol-button_confirm_click"
-    v-if="Style === 'ConfirmClick'"
-  >
+  <div id="button_confirm_click" class="Pixso-symbol-button_confirm_click" v-if="Style === 'ConfirmClick'"
+    @click="$emit('click', Style)">
     <div id="confirm_click" class="Pixso-vector-confirm_click">
-      <ActionVector
-        id="vector_confirm"
-        class="Pixso-instance-vector_confirm"
-        :Shape="'Confirm'"
-      ></ActionVector>
+      <ActionVector id="vector_confirm" class="Pixso-instance-vector_confirm" :Shape="'Confirm'"></ActionVector>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-  defineProps<{
-    Style?: string
-  }>()
+defineProps<{
+  Style?: string
+}>()
+
+defineEmits<{
+  click: [style: string]
+}>()
 </script>
 
 <style lang="scss" scoped>
-  .Pixso-symbol-button_select_default
-    .Pixso-symbol-button_select_hover
-    .Pixso-symbol-button_select_click
-    .Pixso-symbol-button_select_click_hover
-    .Pixso-symbol-button_delete_default
-    .Pixso-symbol-button_delete_click
-    .Pixso-symbol-button_delete_hover
-    .Pixso-symbol-button_back_default
-    .Pixso-symbol-button_back_click
-    .Pixso-symbol-button_back_hover
-    .Pixso-symbol-button_confirm_default
-    .Pixso-symbol-button_confirm_click
-    .Pixso-symbol-button_confirm_hover {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-  }
+.Pixso-symbol-button_select_default .Pixso-symbol-button_select_hover .Pixso-symbol-button_select_click .Pixso-symbol-button_select_click_hover .Pixso-symbol-button_delete_default .Pixso-symbol-button_delete_click .Pixso-symbol-button_delete_hover .Pixso-symbol-button_back_default .Pixso-symbol-button_back_click .Pixso-symbol-button_back_hover .Pixso-symbol-button_confirm_default .Pixso-symbol-button_confirm_click .Pixso-symbol-button_confirm_hover {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
 
-  .Pixso-vector-select_default {
-    width: 40px;
-    height: 40px;
-    background-image: url(@/assets/images/Ellipse_select_default.png);
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    position: relative;
-    flex-shrink: 0;
-  }
+.Pixso-vector-select_default {
+  width: 40px;
+  height: 40px;
+  background-image: url(@/assets/images/Ellipse_select_default.png);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  position: relative;
+  flex-shrink: 0;
+}
 
-  .Pixso-vector-select_hover {
-    width: 44px;
-    height: 44px;
-    background-image: url(@/assets/images/Ellipse_select_hover.png);
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    position: relative;
-    flex-shrink: 0;
-  }
+.Pixso-vector-select_hover {
+  width: 44px;
+  height: 44px;
+  background-image: url(@/assets/images/Ellipse_select_hover.png);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  position: relative;
+  flex-shrink: 0;
+}
 
-  .Pixso-vector-select_click {
-    width: 40px;
-    height: 40px;
-    background-image: url(@/assets/images/Ellipse_select_click.png);
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    position: relative;
-    flex-shrink: 0;
-  }
+.Pixso-vector-select_click {
+  width: 40px;
+  height: 40px;
+  background-image: url(@/assets/images/Ellipse_select_click.png);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  position: relative;
+  flex-shrink: 0;
+}
 
-  .Pixso-vector-delete_click {
-    width: 40px;
-    height: 40px;
-    background-image: url(@/assets/images/Ellipse_delete_click.png);
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    position: relative;
-    flex-shrink: 0;
-  }
+.Pixso-vector-delete_click {
+  width: 40px;
+  height: 40px;
+  background-image: url(@/assets/images/Ellipse_delete_click.png);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  position: relative;
+  flex-shrink: 0;
+}
 
-  .Pixso-vector-delete_hover {
-    width: 44px;
-    height: 44px;
-    background-image: url(@/assets/images/Ellipse_delete_hover.png);
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    position: relative;
-    flex-shrink: 0;
-  }
+.Pixso-vector-delete_hover {
+  width: 44px;
+  height: 44px;
+  background-image: url(@/assets/images/Ellipse_delete_hover.png);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  position: relative;
+  flex-shrink: 0;
+}
 
-  .Pixso-vector-back_click {
-    width: 40px;
-    height: 40px;
-    background-image: url(@/assets/images/Ellipse_back_click.png);
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    position: relative;
-    flex-shrink: 0;
-  }
+.Pixso-vector-back_click {
+  width: 40px;
+  height: 40px;
+  background-image: url(@/assets/images/Ellipse_back_click.png);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  position: relative;
+  flex-shrink: 0;
+}
 
-  .Pixso-vector-back_hover {
-    width: 44px;
-    height: 44px;
-    background-image: url(@/assets/images/Ellipse_back_hover.png);
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    position: relative;
-    flex-shrink: 0;
-  }
+.Pixso-vector-back_hover {
+  width: 44px;
+  height: 44px;
+  background-image: url(@/assets/images/Ellipse_back_hover.png);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  position: relative;
+  flex-shrink: 0;
+}
 
-  .Pixso-vector-confirm_click {
-    width: 40px;
-    height: 40px;
-    background-image: url(@/assets/images/Ellipse_confirm_click.png);
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    position: relative;
-    flex-shrink: 0;
-  }
+.Pixso-vector-confirm_click {
+  width: 40px;
+  height: 40px;
+  background-image: url(@/assets/images/Ellipse_confirm_click.png);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  position: relative;
+  flex-shrink: 0;
+}
 
-  .Pixso-vector-confirm_hover {
-    width: 44px;
-    height: 44px;
-    background-image: url(@/assets/images/Ellipse_confirm_hover.png);
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    position: relative;
-    flex-shrink: 0;
-  }
+.Pixso-vector-confirm_hover {
+  width: 44px;
+  height: 44px;
+  background-image: url(@/assets/images/Ellipse_confirm_hover.png);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  position: relative;
+  flex-shrink: 0;
+}
 </style>
